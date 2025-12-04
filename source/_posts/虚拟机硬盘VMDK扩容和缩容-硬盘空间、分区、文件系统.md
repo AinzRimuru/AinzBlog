@@ -15,7 +15,7 @@ vmdk文件可以直接在虚拟机内修改大小进行扩容。VMWare Workstati
 
 ![ESXi修改硬盘大小](ESXi修改硬盘大小.png)
 
-![Workstation Pro修改硬盘大小](Workstation Pro修改硬盘大小.png)
+![Workstation Pro修改硬盘大小](Workstation%20Pro修改硬盘大小.png)
 
 此时使用lsblk可以看到硬盘被扩容。
 
