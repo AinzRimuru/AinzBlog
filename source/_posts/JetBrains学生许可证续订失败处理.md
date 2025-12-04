@@ -1,7 +1,8 @@
 ---
 title: JetBrains学生许可证续订失败处理
 date: 2025-12-04 15:29:57
-tags:
+categories:
+  - 疑难杂症
 ---
 链接到新的教育邮箱账户即可。
 

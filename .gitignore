@@ -15,6 +15,6 @@ source/lib/*
 !source/lib/velocity/
 
 # Ignore Hexo generated public files
-public/
-.deploy_git/
+public
+.deploy_git
 db.json

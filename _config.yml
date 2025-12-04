@@ -72,6 +72,9 @@ index_generator:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  疑难杂症: tech
+  虚拟机: virtualization
+  Hexo: hexo
 tag_map:
 
 # Metadata elements
