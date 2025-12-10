@@ -65,6 +65,15 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.uk/2025/12/10/Wallpaper-Engine%E6%90%9C%E7%B4%A2%E4%BD%9C%E8%80%85/</loc>
+    
+    <lastmod>2025-12-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.uk/2025/12/04/JetBrains%E5%AD%A6%E7%94%9F%E8%AE%B8%E5%8F%AF%E8%AF%81%E7%BB%AD%E8%AE%A2%E5%A4%B1%E8%B4%A5%E5%A4%84%E7%90%86/</loc>
     
     <lastmod>2025-12-10</lastmod>
@@ -83,7 +92,35 @@
 
   
   <url>
+    <loc>https://blog.rimuru.uk/tags/wallpaper-engine/</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/steam/</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/tutorial/</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.uk/tags/cities-skylines-2/</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/virtualization/</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -92,14 +129,14 @@
 
   
   <url>
-    <loc>https://blog.rimuru.uk/categories/tech/</loc>
+    <loc>https://blog.rimuru.uk/categories/troubleshooting/</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/categories/gaming/</loc>
+    <loc>https://blog.rimuru.uk/categories/tech/</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -113,7 +150,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/categories/virtualization/</loc>
+    <loc>https://blog.rimuru.uk/categories/gaming/</loc>
     <lastmod>2025-12-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

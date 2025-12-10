@@ -5,10 +5,15 @@ https://blog.rimuru.uk/2025/12/04/%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A1%AC%E7%9B%98V
 https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/
 https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%9F%8E%E5%B8%82%E8%A7%84%E5%88%92%E6%8A%80%E5%B7%A7%E6%8C%87%E5%8D%97/
 https://blog.rimuru.uk/2025/12/04/%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/
+https://blog.rimuru.uk/2025/12/10/Wallpaper-Engine%E6%90%9C%E7%B4%A2%E4%BD%9C%E8%80%85/
 https://blog.rimuru.uk/2025/12/04/JetBrains%E5%AD%A6%E7%94%9F%E8%AE%B8%E5%8F%AF%E8%AF%81%E7%BB%AD%E8%AE%A2%E5%A4%B1%E8%B4%A5%E5%A4%84%E7%90%86/
 https://blog.rimuru.uk/
+https://blog.rimuru.uk/tags/wallpaper-engine/
+https://blog.rimuru.uk/tags/steam/
+https://blog.rimuru.uk/tags/tutorial/
 https://blog.rimuru.uk/tags/cities-skylines-2/
+https://blog.rimuru.uk/tags/virtualization/
+https://blog.rimuru.uk/categories/troubleshooting/
 https://blog.rimuru.uk/categories/tech/
-https://blog.rimuru.uk/categories/gaming/
 https://blog.rimuru.uk/categories/hexo/
-https://blog.rimuru.uk/categories/virtualization/
+https://blog.rimuru.uk/categories/gaming/
