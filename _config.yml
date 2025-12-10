@@ -107,7 +107,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: hexo-theme-dimension
-theme: next
+theme: hexo-theme-shoka
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
