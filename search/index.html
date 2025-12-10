@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   
   
-  <title>分类 | Rimuru&#39;s Blog</title>
-  <link rel="canonical" href="https://blog.rimuru.uk/categories/">
+  <title>搜索 | Rimuru&#39;s Blog</title>
+  <link rel="canonical" href="https://blog.rimuru.uk/search/">
   <meta name="author" content="Rimuru" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -19,8 +19,8 @@
   
   <meta name="description" content="A tech blog about Hexo, Virtualization, and Programming.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="https://blog.rimuru.uk/categories/">
+<meta property="og:title" content="搜索">
+<meta property="og:url" content="https://blog.rimuru.uk/search/">
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
 <meta property="og:description" content="A tech blog about Hexo, Virtualization, and Programming.">
 <meta property="og:locale" content="zh_CN">
@@ -135,78 +135,137 @@
         
 
             <style>
-  .categories ul {
-    list-style: none;
+  #kr-search-notice.alert {
+    transition: 0.3s;
   }
 
-  .categories .category-list-item {
-    position: relative;
-    padding-top: 20px;
+  #kr-search-results {
+    margin-top: 20px;
   }
 
-  .categories .category-list-item .category-list-link::before {
-    content: " ";
-    position: absolute;
-    left: -30px;
-    top: 50%;
-    margin-left: -4px;
-    margin-top: -4px;
-    width: 8px;
-    height: 8px;
-    background: #bbb;
-    border-radius: 50%;
-    transition: all 0.3s ease-in-out;
+  .kr-search-result {
+    margin: 20px;
   }
 
-  .categories .category-list-item .category-list-link:hover::before {
-    background: #222;
+  .kratos-entry-content m {
+    color: #333;
+    background-color: yellow;
   }
 
-  a {
-    color: #666;
+  #search-input {
+    appearance: none;
+    -webkit-appearance: none;
+    border-color: #dbdbdb;
+    border-radius: 4px 0 0 4px;
+
+    &:hover {
+      border-color: #b5b5b5;
+    }
+
+    &:focus {
+      outline: 0;
+    }
   }
 
-  .categories .category-list-item .category-list-link {
-    position: relative;
-    margin-left: 24px;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: inherit;
+  .input-group .form-input.input-lg {
+    display: inline-flex;
+    box-shadow: none;
+    flex: auto;
+    justify-content: flex-start;
+    padding: 0 8px;
+    font-size: 15px;
+    max-width: 100%;
+    border: 1px solid transparent;
   }
 
-  .categories .category-list-item .category-list-link::after {
-    opacity: 0;
-    font-family: fontawesome;
-    content: "\f138";
-    margin-left: 12px;
-    color: #00a7e0;
-    transition: opacity 0.3s ease-in-out;
+  .btn.btn-primary {
+    border: transparent;
+    border-radius: 0 4px 4px 0;
   }
 
-  .categories .category-list-item .category-list-link:hover::after {
-    opacity: 100%;
+  .search-demo-tags a {
+    margin: 5px 10px;
+  }
+
+  #search-input {
+    color: var(--kr-theme-text);
+    background-color: var(--kr-theme-card-bg);
+
+    &:active,
+    &:focus {
+      border-color: var(--kr-theme-link-hover);
+      box-shadow: 0 0 0 0.125em rga(var(--kr-theme-link-hover), 0.25);
+    }
   }
 </style>
 
-<article>
-  <div class="kratos-hentry kratos-page-inner clearfix">
+<div class="kratos-hentry kratos-page-inner clearfix">
     <header class="kratos-page-header">
-      <h1 class="kratos-page-title text-center" itemprop="name headline">分类列表</h1>
+        <h1 class="kratos-page-title text-center" itemprop="name headline">搜索</h1>
     </header>
-    <div class="kratos-page-content kr-categories">
-      <div style="margin-left: 2em;">
-        <h3 class="archive-page-counter">
-          当前共有 4 种分类 (゜-゜)つロ 干杯~
-        </h3>
-        <div class="categories">
-          
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">Hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">疑难杂症</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/virtualization/">虚拟机</a></li></ul>
-          
-        </div>
-      </div>
+    <div class="kratos-page-content kr-search-input">
+        <form class="input-group" onsubmit="return inpSearch();">
+            <input class="form-input input-lg" id="search-input" maxlength="80" name="s" placeholder="有什么想找找看的呢o(*￣▽￣*)ブ" required type="search">
+            <button class="btn btn-primary" type="submit">找一找~</button>
+        </form>
     </div>
-  </div>
+</div>
+
+<div class="alert alert-info" id="kr-search-notice">
+    这里是 Rimuru's Blog 的搜索引擎~
+</div>
+
+<div id="kr-search-results">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <div class="kratos-page-content kr-search-result">
+            <p>搜索多个关键词时请用空格分割，例如「天际线2」这样；</p>
+            <p>您也可以使用这些标签碰碰运气哦~</p>
+            <p class="search-demo-tags">
+                <a href="/tags/cities-skylines-2/" style="font-size: 18px; color: #b2b7be">天际线2</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<template id="kr-search-result-template">
+  <article class="kratos-hentry clearfix">
+    <div class="kratos-entry-border clearfix">
+        <div class="kratos-entry-post-inner kr-search-result">
+            <header class="kratos-entry-header">
+                $CATEGORY
+                <h2 class="kratos-entry-title"><a href="$LINK">$TITLE</a></h2>
+            </header>
+            <div class="kratos-entry-content">
+                <p>...$CONTENT...</p>
+            </div>
+        </div>
+        <div class="kratos-entry-post-meta">
+            <span class="pull-left">
+                <a><i class="fa fa-calendar"></i></a><a>$DATE</a>
+                $TAGS
+            </span>
+        </div>
+    </div>
 </article>
+</template>
+
+<template id="kr-search-tag-begin-template">
+  <a><i class="fa fa-tags"></i></a>
+</template>
+
+<template id="kr-search-tag-template">
+  <a class="tag-link" href="$LINK" rel="tag">$TAG</a>
+</template>
+
+<template id="kr-search-category-template">
+  <a class="label-link" href="$LINK">$CATEGORY</a>
+</template>
+
+
+  <script>window.searchDataFile = "/search-index.json";</script>
+  <script defer src="/js/kr-search.min.js"></script>
+
+
 
         
 
