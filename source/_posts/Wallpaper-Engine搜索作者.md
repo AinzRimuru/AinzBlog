@@ -7,7 +7,7 @@ tags:
   - Wallpaper Engine
   - Steam
   - 教程
-cover: cover.png
+cover: cover.jpg
 ---
 
 ## 前言
