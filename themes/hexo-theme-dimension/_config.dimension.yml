@@ -51,8 +51,8 @@ post_double_row:
 # 首页板块
 hometop: 
   enable: true # true或false
-  creativities: # 滚动图标
-    enable: true
+  # creativities: # 滚动图标
+  #   enable: true
   featured_article: # 推荐文章
     enable: true
   show_tag_categroy: # 分类标签
