@@ -4,8 +4,9 @@ extends includes/layout.pug
 block content
   include ./includes/mixins/post-ui.pug
   #recent-posts.recent-posts
-    if theme.hometop.enable
-      if theme.hometop.creativities.enable
+    - const hometop = theme.hometop || {}
+    if hometop.enable
+      if hometop.creativities && hometop.creativities.enable
         .hometoptext3
           i.fas.fa-hand.shake-hand-icon
           .text #[=config.subtitle]
@@ -25,13 +26,13 @@ block content
                           img.no-lightbox(title=evenNum[index].name, src=evenNum[index].icon)
                         .tags-group-icon(style=`background: ${oddNum[index].color}`)
                           img.no-lightbox(title=oddNum[index].name, src=oddNum[index].icon)
-      if theme.hometop.featured_article.enable
+      if hometop.featured_article && hometop.featured_article.enable
         .hometoptext
           .text 
             i.fas.fa-star.icon
             | 站长推荐
           include includes/hometop.pug
-      if theme.hometop.show_tag_categroy.enable
+      if hometop.show_tag_categroy && hometop.show_tag_categroy.enable
         .hometoptext
           .text 
             i.fas.fa-tags.icon
