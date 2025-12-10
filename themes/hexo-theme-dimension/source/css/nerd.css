@@ -1,12 +1,12 @@
 @font-face{
-    font-family:'main' ;  /* 字体名自定义即可 */
-    src:url('/fonts/font.woff2'); /* 字体文件路径 */
-    font-display : swap;
+    font-family:'main';
+    src:local('Segoe UI'), local('PingFang SC'), local('Microsoft YaHei'), local('Heiti SC');
+    font-display: swap;
 }
 @font-face{
-  font-family:'title' ;  /* 字体名自定义即可 */
-  src:url('/fonts/title.woff2'); /* 字体文件路径 */
-  font-display : swap;
+  font-family:'title';
+  src:local('Segoe UI Semibold'), local('PingFang SC Semibold'), local('Microsoft YaHei Bold'), local('Heiti SC');
+  font-display: swap;
 }
 /* 修改valine评论标签颜色 */
 /* 主人 */

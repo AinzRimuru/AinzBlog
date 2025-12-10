@@ -452,15 +452,13 @@ div.relatedPosts-list {
 }
 
 
-/* 鼠标 */
+/* 鼠标：使用系统光标以避免缺失资源报错 */
 body {
-    cursor: url(/img/cursor/miku1.png),
-        default;
+  cursor: auto;
 }
 a,
 img {
-    cursor: url(/img/cursor/miku2.png),
-        default;
+  cursor: pointer;
 }
 
 /* 滚动条 */
