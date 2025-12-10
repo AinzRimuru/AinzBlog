@@ -664,6 +664,98 @@ var heo = {
   }
 }
 
+// Right-click menu functions
+var rm = {
+  downloadimging: false,
+  
+  hideRightMenu: function() {
+    if (document.querySelector('#rightmenu')) {
+      document.querySelector('#rightmenu').style.display = 'none';
+    }
+  },
+  
+  switchDarkMode: function() {
+    if (typeof rightSideFn !== 'undefined' && rightSideFn.switchDarkMode) {
+      rightSideFn.switchDarkMode();
+    }
+  },
+  
+  copyPageUrl: function() {
+    var url = window.location.href;
+    var textarea = document.createElement('textarea');
+    textarea.value = url;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    btf.snackbarShow('已复制页面链接');
+    rm.hideRightMenu();
+  },
+  
+  pasteText: function() {
+    rm.hideRightMenu();
+    navigator.clipboard.readText().then(text => {
+      var textarea = document.querySelector('#post-comment textarea');
+      if (textarea) {
+        textarea.value += text;
+      }
+    }).catch(err => {
+      btf.snackbarShow('粘贴失败，请手动粘贴');
+    });
+  },
+  
+  rightmenuCopyText: function(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  },
+  
+  rightMenuCommentText: function(text) {
+    rm.hideRightMenu();
+    var textarea = document.querySelector('#post-comment textarea');
+    if (textarea) {
+      textarea.value += '\n> ' + text.split('\n').join('\n> ') + '\n';
+      textarea.focus();
+    }
+  },
+  
+  copyLink: function() {
+    var url = document.querySelector('a[href*="http"]') || window.location;
+    var textarea = document.createElement('textarea');
+    textarea.value = url.href || url;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    btf.snackbarShow('已复制链接');
+    rm.hideRightMenu();
+  },
+  
+  writeClipImg: function(src) {
+    fetch(src).then(res => res.blob()).then(blob => {
+      navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+        .then(() => {
+          btf.snackbarShow('已复制图片');
+        })
+        .catch(err => {
+          btf.snackbarShow('复制失败');
+        });
+    });
+    rm.hideRightMenu();
+  },
+  
+  searchBaidu: function() {
+    var selectedText = window.getSelection().toString();
+    if (selectedText) {
+      window.open('https://www.baidu.com/s?wd=' + encodeURIComponent(selectedText), '_blank');
+    }
+    rm.hideRightMenu();
+  }
+}
+
   // 右键菜单添加点击事件
   $('#menu-backward').on('click',function(){window.history.back();rm.hideRightMenu();});
   $('#menu-forward').on('click',function(){window.history.forward();rm.hideRightMenu();});
