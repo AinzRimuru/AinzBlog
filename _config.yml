@@ -4,7 +4,7 @@
 
 # Site
 title: Rimuru's Blog
-subtitle: ''
+subtitle: '又是CUDA Out of Memory的一天'
 description: 'A tech blog about Hexo, Virtualization, and Programming.'
 keywords: hexo, blog, tech, virtualization, programming, linux, windows
 author: Rimuru
@@ -107,7 +107,7 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 # theme: hexo-theme-dimension
-theme: hexo-theme-butterfly
+theme: Kratos-Rebirth
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
