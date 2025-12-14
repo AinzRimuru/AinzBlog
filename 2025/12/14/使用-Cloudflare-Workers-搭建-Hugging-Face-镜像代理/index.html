@@ -7,8 +7,8 @@
     <link rel="icon" href="/images/favicon.png">
   
   
-  <title>天际线2 常见BUG解决方法汇总 | Rimuru&#39;s Blog</title>
-  <link rel="canonical" href="https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/">
+  <title>使用 Cloudflare Workers 搭建 Hugging Face 镜像代理 | Rimuru&#39;s Blog</title>
+  <link rel="canonical" href="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/">
   <meta name="author" content="Rimuru" />
   <meta http-equiv="Cache-Control" content="no-transform" />
   <meta http-equiv="Cache-Control" content="no-siteapp" />
@@ -17,22 +17,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="天际线2" />
+    <meta name="keywords" content="Cloudflare, Hugging Face" />
   
-  <meta name="description" content="邮局不出车现象部分区块的邮局不出车，其他地方的邮局正常。邮局内有一些信件未被处理。 解决方法在邮局所属区块附近建立分拣中心，然后等待一段时间，邮局会开始出车处理信件。 补充该方法在测试后仅在一段时间内有效，之后问题可能会再次出现。">
+  <meta name="description" content="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理在进行 AI 模型开发和下载时，Hugging Face 是我们绕不开的宝库。然而，由于网络环境的复杂性，直接访问 huggingface.co 及其 CDN 资源（如模型权重文件的下载）有时会遇到速度缓慢甚至连接失败的问题。 为了解决这个问题，我开发了一个基于 Cloudflare Workers (或 Clou">
 <meta property="og:type" content="article">
-<meta property="og:title" content="天际线2 常见BUG解决方法汇总">
-<meta property="og:url" content="https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/">
+<meta property="og:title" content="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理">
+<meta property="og:url" content="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/">
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
-<meta property="og:description" content="邮局不出车现象部分区块的邮局不出车，其他地方的邮局正常。邮局内有一些信件未被处理。 解决方法在邮局所属区块附近建立分拣中心，然后等待一段时间，邮局会开始出车处理信件。 补充该方法在测试后仅在一段时间内有效，之后问题可能会再次出现。">
+<meta property="og:description" content="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理在进行 AI 模型开发和下载时，Hugging Face 是我们绕不开的宝库。然而，由于网络环境的复杂性，直接访问 huggingface.co 及其 CDN 资源（如模型权重文件的下载）有时会遇到速度缓慢甚至连接失败的问题。 为了解决这个问题，我开发了一个基于 Cloudflare Workers (或 Clou">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/cover.png">
-<meta property="article:published_time" content="2025-12-09T09:55:14.000Z">
-<meta property="article:modified_time" content="2025-12-14T13:08:11.772Z">
+<meta property="article:published_time" content="2025-12-14T21:04:21.000Z">
+<meta property="article:modified_time" content="2025-12-14T13:08:11.746Z">
 <meta property="article:author" content="Rimuru">
-<meta property="article:tag" content="天际线2">
+<meta property="article:tag" content="Cloudflare">
+<meta property="article:tag" content="Hugging Face">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/cover.png">
   
     <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
   
@@ -141,14 +140,14 @@
         
 
             <article itemscope itemtype="https://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/">
+    <link itemprop="mainEntityOfPage" href="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/">
     <div class="kratos-hentry kratos-page-inner clearfix">
         <header class="kratos-page-header">
             
-                <h1 class="kratos-page-title text-center" itemprop="name headline">天际线2 常见BUG解决方法汇总</h1>
+                <h1 class="kratos-page-title text-center" itemprop="name headline">使用 Cloudflare Workers 搭建 Hugging Face 镜像代理</h1>
             
             <ul class="kratos-page-meta text-center">
-                <li><time datetime="2025-12-09T09:55:14.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-12-09</time></li>
+                <li><time datetime="2025-12-14T21:04:21.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-12-14</time></li>
                 <li itemprop="author" itemscope itemtype="https://schema.org/Person">
                     <i class="fa fa-user"></i> 作者 <span itemprop="name">Rimuru</span>
                 </li>
@@ -157,7 +156,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            116
+                            ~2.25K
                         
                         字
                     </li>
@@ -171,9 +170,64 @@
             
             
             <hr />
-            <div itemprop="articleBody"><h2 id="邮局不出车"><a href="#邮局不出车" class="headerlink" title="邮局不出车"></a>邮局不出车</h2><h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>部分区块的邮局不出车，其他地方的邮局正常。邮局内有一些信件未被处理。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>在邮局所属区块附近建立分拣中心，然后等待一段时间，邮局会开始出车处理信件。</p>
-<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>该方法在测试后仅在一段时间内有效，之后问题可能会再次出现。</p>
+            <div itemprop="articleBody"><h1 id="使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理"><a href="#使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理" class="headerlink" title="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理"></a>使用 Cloudflare Workers 搭建 Hugging Face 镜像代理</h1><p>在进行 AI 模型开发和下载时，Hugging Face 是我们绕不开的宝库。然而，由于网络环境的复杂性，直接访问 <code>huggingface.co</code> 及其 CDN 资源（如模型权重文件的下载）有时会遇到速度缓慢甚至连接失败的问题。</p>
+<p>为了解决这个问题，我开发了一个基于 Cloudflare Workers (或 Cloudflare Pages Functions) 的轻量级反向代理项目 —— <strong>HuggingfaceProxy</strong>。</p>
+<h2 id="🌟-项目介绍"><a href="#🌟-项目介绍" class="headerlink" title="🌟 项目介绍"></a>🌟 项目介绍</h2><p><strong>HuggingfaceProxy</strong> 是一个开源项目，旨在利用 Cloudflare 强大的全球边缘网络，为 Hugging Face 提供快速、稳定的访问代理。</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">https://github.com/AinzRimuru/HuggingfaceProxy</a></p>
+<h3 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h3><ol>
+<li><p><strong>主站无缝代理</strong>：<br>通过配置的主子域名（默认为 <code>hf</code>），可以直接访问 <code>huggingface.co</code> 的完整功能。</p>
+</li>
+<li><p><strong>智能 CDN 资源映射</strong>：<br>Hugging Face 的模型文件通常存储在 <code>*.hf.co</code> 等 CDN 域名上。本项目通过特殊的子域名映射机制（例如将 <code>cas-bridge.xethub.hf.co</code> 映射为 <code>cas-bridge---xethub.yourdomain.com</code>），实现了对这些动态 CDN 资源的完美代理。</p>
+</li>
+<li><p><strong>重定向自动重写</strong>：<br>下载模型时经常会遇到 301&#x2F;302 重定向。本代理会自动拦截这些重定向响应，修改其中的 <code>Location</code> 头，确保后续请求依然走你的代理域名，而不是跳回原始的 Hugging Face 域名。</p>
+</li>
+<li><p><strong>零配置动态域名</strong>：<br>代码能够自动识别当前部署的根域名，无需在代码中硬编码域名，部署即用，非常方便。</p>
+</li>
+</ol>
+<h2 id="🛠️-原理简析"><a href="#🛠️-原理简析" class="headerlink" title="🛠️ 原理简析"></a>🛠️ 原理简析</h2><p>这个项目的核心逻辑非常简单，主要在 <code>_worker.js</code> 中实现。</p>
+<p>当请求到达 Cloudflare Worker 时，脚本会解析请求的子域名：</p>
+<ul>
+<li>如果是主子域名（如 <code>hf</code>），则将请求转发给 <code>huggingface.co</code>。</li>
+<li>如果是其他子域名，脚本会将子域名中的 <code>---</code> 替换回 <code>.</code>，并补全 <code>.hf.co</code> 后缀，从而构造出原始的 CDN 域名进行请求转发。</li>
+</ul>
+<p>这种设计巧妙地解决了多级域名代理的问题，同时利用了 Cloudflare 免费且高速的线路。</p>
+<h2 id="🚀-如何部署"><a href="#🚀-如何部署" class="headerlink" title="🚀 如何部署"></a>🚀 如何部署</h2><p>最推荐的方式是使用 <strong>Cloudflare Pages</strong> 进行部署，因为配置最简单且免费额度充裕。</p>
+<h3 id="方法一：Fork-Deploy-推荐"><a href="#方法一：Fork-Deploy-推荐" class="headerlink" title="方法一：Fork &amp; Deploy (推荐)"></a>方法一：Fork &amp; Deploy (推荐)</h3><ol>
+<li><p><strong>Fork 项目</strong>：<br>首先访问 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">GitHub 仓库</a>，点击右上角的 <code>Fork</code> 按钮，将其复制到你自己的账号下。</p>
+</li>
+<li><p><strong>创建 Cloudflare Pages</strong>：<br>登录 Cloudflare Dashboard，进入 <code>Workers &amp; Pages</code> -&gt; <code>Create Application</code> -&gt; <code>Pages</code> -&gt; <code>Connect to Git</code>。</p>
+</li>
+<li><p><strong>选择仓库</strong>：<br>选择你刚刚 Fork 的仓库，点击 <code>Begin setup</code>。</p>
+</li>
+<li><p><strong>构建设置</strong>：</p>
+<ul>
+<li><strong>Framework preset</strong>: 选择 <code>None</code>。</li>
+<li><strong>Build command</strong>: 留空。</li>
+<li><strong>Build output directory</strong>: 留空。</li>
+<li>点击 <code>Save and Deploy</code>。</li>
+</ul>
+</li>
+<li><p><strong>绑定域名 (关键)</strong>：<br>部署完成后，进入项目的 <code>Custom Domains</code> 设置，绑定你的自定义域名（例如 <code>yourdomain.com</code>）。</p>
+<ul>
+<li><strong>注意</strong>：为了支持 CDN 代理，建议添加一个 <strong>泛域名解析 (Wildcard DNS)</strong>。即在 DNS 记录中添加一条 <code>*.yourdomain.com</code> CNAME 指向你的 Pages 项目地址。</li>
+</ul>
+</li>
+</ol>
+<h3 id="方法二：使用-Wrangler-CLI"><a href="#方法二：使用-Wrangler-CLI" class="headerlink" title="方法二：使用 Wrangler CLI"></a>方法二：使用 Wrangler CLI</h3><p>如果你习惯本地开发，也可以使用 Wrangler 命令行工具直接部署到 Cloudflare Workers。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署</span></span><br><span class="line">npx wrangler deploy</span><br></pre></td></tr></table></figure>
+
+<h2 id="📖-如何使用"><a href="#📖-如何使用" class="headerlink" title="📖 如何使用"></a>📖 如何使用</h2><p>假设你绑定的域名是 <code>example.com</code>，并且你保留了默认的 <code>hf</code> 前缀。</p>
+<ol>
+<li><p><strong>访问主站</strong>：<br>在浏览器中访问 <code>https://hf.example.com</code>，你应该能看到 Hugging Face 的首页。</p>
+</li>
+<li><p><strong>下载模型</strong>：<br>在使用 <code>huggingface-cli</code> 或 Python 代码下载模型时，可以通过设置环境变量来使用你的代理：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HF_ENDPOINT=https://hf.example.com</span><br></pre></td></tr></table></figure>
+
+<p>或者在 Python 代码中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&quot;HF_ENDPOINT&quot;</span>] = <span class="string">&quot;https://hf.example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> huggingface_hub <span class="keyword">import</span> snapshot_download</span><br><span class="line">snapshot_download(repo_id=<span class="string">&quot;gpt2&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个简单的 Cloudflare Worker 脚本，我们可以轻松搭建一个属于自己的 Hugging Face 加速通道。既解决了访问难题，又利用了 Serverless 架构的低成本优势。</p>
+<p>如果你觉得这个项目对你有帮助，欢迎在 GitHub 上点个 Star！🌟</p>
 </div>
         </div>
         
@@ -191,10 +245,10 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/cities-skylines-2/" rel="tag">天际线2</a>
+                    <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/hugging-face/" rel="tag">Hugging Face</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-12-14T13:08:11.772Z" itemprop="dateModified">最后编辑：2025-12-14</time>
+                    <time datetime="2025-12-14T13:08:11.746Z" itemprop="dateModified">最后编辑：2025-12-14</time>
                 </div>
             </div>
         </footer>
@@ -203,13 +257,9 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" 虚拟机硬盘VMDK扩容和缩容(硬盘空间、分区、文件系统)" href="/2025/12/04/虚拟机硬盘VMDK扩容和缩容-硬盘空间、分区、文件系统/"><i class="fa fa-angle-left"></i> 上一篇</a>
+                <a title=" Wallpaper Engine 搜索作者教程" href="/2025/12/10/Wallpaper-Engine搜索作者/"><i class="fa fa-angle-left"></i> 上一篇</a>
             </div>
             
-            
-            <div class="nav-next clearfix">
-                <a title=" 天际线2 城市规划技巧指南" href="/2025/12/09/天际线2-城市规划技巧指南/">下一篇 <i class="fa fa-angle-right"></i></a>
-            </div>
             
         </nav>
     
