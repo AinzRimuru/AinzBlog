@@ -82,6 +82,9 @@ tag_map:
   Wallpaper Engine: wallpaper-engine
   Steam: steam
   教程: tutorial
+  Cloudflare: cloudflare
+  Hugging Face: hugging-face
+
 
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
