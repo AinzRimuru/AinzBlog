@@ -20,9 +20,26 @@
   <%- js_theme_cdn('js/kr-pjax.min.js', {defer: true}) %>
 <% } %>
 
-<script defer src="https://webviso.yestool.org/js/index.min.js"></script>
+<script defer src="https://cdn.rimuru.uk/analytics_with_cloudflare/index.min.js" data-base-url="https://cdn.rimuru.uk"></script>
 
 <!-- 额外的追加注入项 -->
 <% if (theme.additional_injections.after_footer) { %>
   <%- theme.additional_injections.after_footer %>
+<% } %>
+
+<% if (theme.pjax) { %>
+    <script>
+        window.addEventListener('pjax:complete', function() {
+            const scriptUrl = 'https://cdn.rimuru.uk/analytics_with_cloudflare/index.min.js';
+            const oldScript = document.querySelector(`script[src="${scriptUrl}"]`);
+            if (oldScript) {
+                oldScript.remove();
+            }
+            const newScript = document.createElement('script');
+            newScript.src = scriptUrl;
+            newScript.defer = true;
+            newScript.setAttribute('data-base-url', 'https://cdn.rimuru.uk');
+            document.body.appendChild(newScript);
+        });
+    </script>
 <% } %>
