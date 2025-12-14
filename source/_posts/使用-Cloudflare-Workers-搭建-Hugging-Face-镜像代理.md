@@ -6,6 +6,7 @@ tags:
   - Hugging Face
 categories:
   - 技术分享
+cover: cover.png
 ---
 
 # 使用 Cloudflare Workers 搭建 Hugging Face 镜像代理
