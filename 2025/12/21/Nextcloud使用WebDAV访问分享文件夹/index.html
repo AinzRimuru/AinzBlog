@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PKP8Z0FC73');
+  </script>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+  <title>Nextcloud使用WebDAV访问分享文件夹 | Rimuru&#39;s Blog</title>
+  <link rel="canonical" href="https://blog.rimuru.uk/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/">
+  <meta name="author" content="Rimuru" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="Nextcloud, WebDAV" />
+  
+  <meta name="description" content="1. 新建分享链接在 Nextcloud 网页端，选择需要分享的文件夹，创建共享链接可以以生成一个形如https:&#x2F;&#x2F;*****&#x2F;s&#x2F;AaaAABbbBBCccCCC的链接。其中*****为你的 Nextcloud 服务器地址，AaaAABbbBBCccCCC为分享链接的唯一标识符。 2. 配置访问密码（可选）在分享链接的设置中，可以选择在“自定义权限”中设置访问密码，以保护共享内容的安全。 3.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nextcloud使用WebDAV访问分享文件夹">
+<meta property="og:url" content="https://blog.rimuru.uk/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/">
+<meta property="og:site_name" content="Rimuru&#39;s Blog">
+<meta property="og:description" content="1. 新建分享链接在 Nextcloud 网页端，选择需要分享的文件夹，创建共享链接可以以生成一个形如https:&#x2F;&#x2F;*****&#x2F;s&#x2F;AaaAABbbBBCccCCC的链接。其中*****为你的 Nextcloud 服务器地址，AaaAABbbBBCccCCC为分享链接的唯一标识符。 2. 配置访问密码（可选）在分享链接的设置中，可以选择在“自定义权限”中设置访问密码，以保护共享内容的安全。 3.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.rimuru.uk/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/cover.png">
+<meta property="article:published_time" content="2025-12-21T21:22:27.000Z">
+<meta property="article:modified_time" content="2025-12-21T13:41:35.413Z">
+<meta property="article:author" content="Rimuru">
+<meta property="article:tag" content="Nextcloud">
+<meta property="article:tag" content="WebDAV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.rimuru.uk/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/cover.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+    <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('/images/background_light.png');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('/images/background_dark.png');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+    
+  </style>
+
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Rimuru&#39;s Blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Rimuru&#39;s Blog</h2> <br />
+                        <span>又是CUDA Out of Memory的一天</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.rimuru.uk/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">Nextcloud使用WebDAV访问分享文件夹</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-12-21T21:22:27.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-12-21</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">Rimuru</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            410
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><h2 id="1-新建分享链接"><a href="#1-新建分享链接" class="headerlink" title="1. 新建分享链接"></a>1. 新建分享链接</h2><p>在 Nextcloud 网页端，选择需要分享的文件夹，创建共享链接可以以生成一个形如<code>https://*****/s/AaaAABbbBBCccCCC</code>的链接。其中<code>*****</code>为你的 Nextcloud 服务器地址，<code>AaaAABbbBBCccCCC</code>为分享链接的唯一标识符。</p>
+<h2 id="2-配置访问密码（可选）"><a href="#2-配置访问密码（可选）" class="headerlink" title="2. 配置访问密码（可选）"></a>2. 配置访问密码（可选）</h2><p>在分享链接的设置中，可以选择在“自定义权限”中设置访问密码，以保护共享内容的安全。</p>
+<h2 id="3-使用-WebDAV-访问分享文件夹"><a href="#3-使用-WebDAV-访问分享文件夹" class="headerlink" title="3. 使用 WebDAV 访问分享文件夹"></a>3. 使用 WebDAV 访问分享文件夹</h2><p>WebDAV 访问分享文件夹的URL为<code>https://*****/public.php/webdav</code>。用户名为1中生成的分享链接的唯一标识符<code>AaaAABbbBBCccCCC</code>，密码为2中设置的访问密码（如果有设置）。</p>
+<h3 id="4-在文件管理器中访问"><a href="#4-在文件管理器中访问" class="headerlink" title="4 在文件管理器中访问"></a>4 在文件管理器中访问</h3><p>以 Windows11 为例，可以在此电脑右键选择“映射网络驱动器”，在文件夹栏中输入 WebDAV URL，并使用上述的用户名和密码进行连接。</p>
+</div>
+        </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+                <div class="post-actions text-center clearfix" id="post-actions">
+                
+                
+                    <a class="share" href="javascript:;" onclick="krOpenShareModal()"><i class="fa fa-share-alt"></i> 分享</a>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/nextcloud/" rel="tag">Nextcloud</a>, <a class="tag-none-link" href="/tags/webdav/" rel="tag">WebDAV</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-12-21T13:41:35.413Z" itemprop="dateModified">最后编辑：2025-12-21</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" HuggingfaceProxy：Hugging Face 反向代理加速方案" href="/2025/12/17/HuggingfaceProxy-项目介绍与部署指南/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/avatar.png" alt="Rimuru" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">A tech blog about Hexo, Virtualization, and Programming.</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                10
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                5
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                9
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">tech</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">技术分享</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难杂症</a><span class="category-list-count">2</span></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/cloudflare/" style="font-size: 0.8em;">Cloudflare</a> <a href="/tags/hugging-face/" style="font-size: 0.8em;">Hugging Face</a> <a href="/tags/nextcloud/" style="font-size: 0.6em;">Nextcloud</a> <a href="/tags/steam/" style="font-size: 0.6em;">Steam</a> <a href="/tags/wallpaper-engine/" style="font-size: 0.6em;">Wallpaper Engine</a> <a href="/tags/webdav/" style="font-size: 0.6em;">WebDAV</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">天际线2</a> <a href="/tags/tutorial/" style="font-size: 0.6em;">教程</a> <a href="/tags/virtualization/" style="font-size: 0.6em;">虚拟机</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/"><i class="fa fa-book"></i> Nextcloud使用WebDAV访问分享文件夹</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/"><i class="fa fa-book"></i> HuggingfaceProxy：Hugging Face 反向代理加速方案</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"><i class="fa fa-book"></i> 使用 Cloudflare Workers 搭建 Hugging Face 镜像代理</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/12/10/Wallpaper-Engine%E6%90%9C%E7%B4%A2%E4%BD%9C%E8%80%85/"><i class="fa fa-book"></i> Wallpaper Engine 搜索作者教程</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%9F%8E%E5%B8%82%E8%A7%84%E5%88%92%E6%8A%80%E5%B7%A7%E6%8C%87%E5%8D%97/"><i class="fa fa-book"></i> 天际线2 城市规划技巧指南</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 Rimuru's Blog 版权所有.</li>
+                            <li>本站已运行<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://blog.rimuru.uk" target="_blank">Rimuru</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                        <div>
+                            <li>本页访问人次:<span id="page_pv"></span></li>
+                            <li>本页访问人数:<span id="page_uv"></span></li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+    <div id="kr-share-modal" class="kr-modal">
+    <div class="kr-modal-bg" onclick="krCloseShareModal()"></div>
+    <div class="kr-modal-content">
+        <div class="kr-modal-header">
+            <div class="kr-modal-icon">
+                <i class="fa fa-share-alt"></i>
+            </div>
+            <div class="kr-modal-title">分享</div>
+            <button class="kr-modal-close" onclick="krCloseShareModal()">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="kr-modal-body">
+            <div class="kr-share-message">分享提示信息</div>
+            <div class="kr-share-qr" id="kr-share-qr"></div>
+            <div class="kr-share-platforms">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/kr-modal/share.min.js"></script>
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<script defer src="https://cdn.rimuru.uk/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.uk"></script>
+
+<!-- 额外的追加注入项 -->
+
+
+
+    <script>
+        window.addEventListener('pjax:complete', function() {
+            const scriptUrl = 'https://cdn.rimuru.uk/analytics_with_cloudflare/index.min.js';
+            const oldScript = document.querySelector(`script[src="${scriptUrl}"]`);
+            if (oldScript) {
+                oldScript.remove();
+            }
+            const newScript = document.createElement('script');
+            newScript.src = scriptUrl;
+            newScript.defer = true;
+            newScript.setAttribute('data-base-url', 'https://analytics.rimuru.uk');
+            document.body.appendChild(newScript);
+        });
+    </script>
+
+
+    </body>
+</html>
