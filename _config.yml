@@ -76,7 +76,9 @@ category_map:
   技术分享: tech
   Hexo: hexo
   游戏: gaming
-tag_map:
+tag_map:  Nextcloud: nextcloud
+  WebDAV: webdav
+
   天际线2: cities-skylines-2
   虚拟机: virtualization
   Wallpaper Engine: wallpaper-engine
