@@ -26,21 +26,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Cloudflare, Hugging Face" />
+    <meta name="keywords" content="CDN加速, Cloudflare, Hugging Face, 反向代理, 教程, 模型下载, 问题解决" />
   
-  <meta name="description" content="HuggingfaceProxy 开源项目介绍，基于 Cloudflare Workers 的轻量级 Hugging Face 反向代理，100 行代码实现访问加速。">
+  <meta name="description" content="本文介绍了一个基于 Cloudflare Workers 的开源项目 HuggingfaceProxy，通过 100 行代码轻松实现 Hugging Face 国内反向代理加速。文章详细讲解了其 CDN 映射、重定向重写等核心功能，并提供 Cloudflare Pages 部署教程及 Python 环境下的配置方法，有效解决模型下载超时及访问受限问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HuggingfaceProxy：Hugging Face 反向代理加速方案">
 <meta property="og:url" content="https://blog.rimuru.uk/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/">
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
-<meta property="og:description" content="HuggingfaceProxy 开源项目介绍，基于 Cloudflare Workers 的轻量级 Hugging Face 反向代理，100 行代码实现访问加速。">
+<meta property="og:description" content="本文介绍了一个基于 Cloudflare Workers 的开源项目 HuggingfaceProxy，通过 100 行代码轻松实现 Hugging Face 国内反向代理加速。文章详细讲解了其 CDN 映射、重定向重写等核心功能，并提供 Cloudflare Pages 部署教程及 Python 环境下的配置方法，有效解决模型下载超时及访问受限问题。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.uk/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/cover.png">
 <meta property="article:published_time" content="2025-12-17T10:00:00.000Z">
-<meta property="article:modified_time" content="2025-12-21T14:47:46.264Z">
+<meta property="article:modified_time" content="2025-12-21T15:30:37.592Z">
 <meta property="article:author" content="Rimuru">
+<meta property="article:tag" content="CDN加速">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="Hugging Face">
+<meta property="article:tag" content="反向代理">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="模型下载">
+<meta property="article:tag" content="问题解决">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.rimuru.uk/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/cover.png">
   
@@ -53,7 +58,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "HuggingfaceProxy：Hugging Face 反向代理加速方案",
-    "description": "HuggingfaceProxy 开源项目介绍，基于 Cloudflare Workers 的轻量级 Hugging Face 反向代理，100 行代码实现访问加速。",
+    "description": "本文介绍了一个基于 Cloudflare Workers 的开源项目 HuggingfaceProxy，通过 100 行代码轻松实现 Hugging Face 国内反向代理加速。文章详细讲解了其 CDN 映射、重定向重写等核心功能，并提供 Cloudflare Pages 部署教程及 Python 环境下的配置方法，有效解决模型下载超时及访问受限问题。",
     "image": "https://blog.rimuru.uk/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/cover.png",
     "author": {
       "@type": "Person",
@@ -68,7 +73,7 @@
       }
     },
     "datePublished": "2025-12-17T10:00:00.000Z",
-    "dateModified": "2025-12-21T14:47:46.264Z",
+    "dateModified": "2025-12-21T15:30:37.592Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://blog.rimuru.uk/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/"
@@ -198,7 +203,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~1.60K
+                            ~1.59K
                         
                         字
                     </li>
@@ -221,8 +226,8 @@
 <li><strong>重定向重写</strong>：自动拦截 302 重定向，确保下载全程走代理</li>
 <li><strong>零配置</strong>：自动识别域名，无需硬编码</li>
 </ul>
-<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请求 → Cloudflare Workers → 解析子域名 → 转发到 HF → 重写重定向 → 返回</span><br></pre></td></tr></table></figure>
-
+<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><pre><code>请求 → Cloudflare Workers → 解析子域名 → 转发到 HF → 重写重定向 → 返回
+</code></pre>
 <p>核心逻辑（<code>_worker.js</code>，约 100 行）：</p>
 <ol>
 <li>解析子域名，判断目标（主站&#x2F;CDN）</li>
@@ -236,19 +241,27 @@
 <li>选择仓库，Framework 选 <code>None</code>，直接部署</li>
 <li>绑定域名，配置 DNS：</li>
 </ol>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CNAME  hf   your-project.pages.dev</span><br><span class="line">CNAME  *    your-project.pages.dev  (泛域名，支持 CDN)</span><br></pre></td></tr></table></figure>
-
-<h3 id="方法二：Wrangler-CLI"><a href="#方法二：Wrangler-CLI" class="headerlink" title="方法二：Wrangler CLI"></a>方法二：Wrangler CLI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/HuggingfaceProxy.git</span><br><span class="line"><span class="built_in">cd</span> HuggingfaceProxy</span><br><span class="line">npm install</span><br><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
-
+<pre><code>CNAME  hf   your-project.pages.dev
+CNAME  *    your-project.pages.dev  (泛域名，支持 CDN)
+</code></pre>
+<h3 id="方法二：Wrangler-CLI"><a href="#方法二：Wrangler-CLI" class="headerlink" title="方法二：Wrangler CLI"></a>方法二：Wrangler CLI</h3><pre><code class="language-bash">git clone https://github.com/AinzRimuru/HuggingfaceProxy.git
+cd HuggingfaceProxy
+npm install
+npm run deploy
+</code></pre>
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p><strong>设置环境变量</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HF_ENDPOINT=https://hf.yourdomain.com</span><br></pre></td></tr></table></figure>
-
+<pre><code class="language-bash">export HF_ENDPOINT=https://hf.yourdomain.com
+</code></pre>
 <p><strong>Python</strong>：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&quot;HF_ENDPOINT&quot;</span>] = <span class="string">&quot;https://hf.yourdomain.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> huggingface_hub <span class="keyword">import</span> snapshot_download</span><br><span class="line">snapshot_download(repo_id=<span class="string">&quot;gpt2&quot;</span>)</span><br></pre></td></tr></table></figure>
+<pre><code class="language-python">import os
+os.environ[&quot;HF_ENDPOINT&quot;] = &quot;https://hf.yourdomain.com&quot;
 
+from huggingface_hub import snapshot_download
+snapshot_download(repo_id=&quot;gpt2&quot;)
+</code></pre>
 <p><strong>Git 克隆</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://hf.yourdomain.com/username/repo.git</span><br></pre></td></tr></table></figure>
-
+<pre><code class="language-bash">git clone https://hf.yourdomain.com/username/repo.git
+</code></pre>
 <p><strong>浏览器</strong>：直接访问 <code>https://hf.yourdomain.com</code></p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p><strong>Q: 522 错误？</strong><br>等待 DNS 生效（5-10 分钟），清除缓存。</p>
 <p><strong>Q: 下载失败？</strong><br>检查泛域名解析 <code>*.yourdomain.com</code> 是否配置。</p>
@@ -277,10 +290,10 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/hugging-face/" rel="tag">Hugging Face</a>
+                    <a class="tag-none-link" href="/tags/cdn/" rel="tag">CDN加速</a>, <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/hugging-face/" rel="tag">Hugging Face</a>, <a class="tag-none-link" href="/tags/options/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>, <a class="tag-none-link" href="/tags/model-download/" rel="tag">模型下载</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-12-21T14:47:46.264Z" itemprop="dateModified">最后编辑：2025-12-21</time>
+                    <time datetime="2025-12-21T15:30:37.592Z" itemprop="dateModified">最后编辑：2025-12-21</time>
                 </div>
             </div>
         </footer>
@@ -337,7 +350,7 @@
                 分类
             </span>
             <span class="count">
-                4
+                3
             </span>
         </a>
         <a class="meta-item" href="/tags/">
@@ -345,7 +358,7 @@
                 标签
             </span>
             <span class="count">
-                22
+                47
             </span>
         </a>
     </div>
@@ -356,7 +369,7 @@
                 
   <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
     <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">Hexo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">技术分享</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难杂症</a><span class="category-list-count">2</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">技术分享</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难杂症</a><span class="category-list-count">2</span></li></ul>
   </aside>
 
 
@@ -365,7 +378,7 @@
   <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
     <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
       <div class="tag-clouds">
-        <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">Cities Skylines 2</a> <a href="/tags/cloudflare/" style="font-size: 0.8em;">Cloudflare</a> <a href="/tags/Hexo/" style="font-size: 0.6em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.8em;">Hugging Face</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/linux/" style="font-size: 0.6em;">Linux</a> <a href="/tags/markdown/" style="font-size: 0.6em;">Markdown</a> <a href="/tags/microsoft-word/" style="font-size: 0.6em;">Microsoft Word</a> <a href="/tags/nextcloud/" style="font-size: 0.6em;">Nextcloud</a> <a href="/tags/office/" style="font-size: 0.6em;">Office</a> <a href="/tags/steam/" style="font-size: 0.6em;">Steam</a> <a href="/tags/vmware/" style="font-size: 0.6em;">VMware</a> <a href="/tags/wallpaper-engine/" style="font-size: 0.6em;">Wallpaper Engine</a> <a href="/tags/webdav/" style="font-size: 0.6em;">WebDAV</a> <a href="/tags/blog-tutorial/" style="font-size: 0.6em;">博客教程</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">天际线2</a> <a href="/tags/student-license/" style="font-size: 0.6em;">学生许可</a>
+        <a href="/tags/ai-tools/" style="font-size: 0.6em;">AI工具</a> <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cdn/" style="font-size: 0.6em;">CDN加速</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">Cities Skylines 2</a> <a href="/tags/cloudflare/" style="font-size: 0.8em;">Cloudflare</a> <a href="/tags/ext4/" style="font-size: 0.6em;">EXT4</a> <a href="/tags/hexo/" style="font-size: 0.6em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.8em;">Hugging Face</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/linux/" style="font-size: 0.6em;">Linux</a> <a href="/tags/markdown/" style="font-size: 0.6em;">Markdown</a> <a href="/tags/microsoft-word/" style="font-size: 0.6em;">Microsoft Word</a> <a href="/tags/nextcloud/" style="font-size: 0.6em;">Nextcloud</a> <a href="/tags/office/" style="font-size: 0.6em;">Office</a> <a href="/tags/serverless/" style="font-size: 0.6em;">Serverless</a> <a href="/tags/steam/" style="font-size: 0.6em;">Steam</a> <a href="/tags/steam-id/" style="font-size: 0.6em;">Steam ID</a> <a href="/tags/vmware/" style="font-size: 0.6em;">VMware</a>
       </div>
   </aside>
 
