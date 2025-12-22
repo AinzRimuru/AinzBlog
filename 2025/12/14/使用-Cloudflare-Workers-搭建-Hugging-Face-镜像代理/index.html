@@ -26,27 +26,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="AI工具, Cloudflare, Hugging Face, Serverless, 博客教程, 反向代理, 教程, 问题解决" />
+    <meta name="keywords" content="AI工具, Cloudflare, Hugging Face, Serverless, 反向代理, 教程" />
   
-  <meta name="description" content="本文详细介绍了如何使用 Cloudflare Workers&#x2F;Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，开发者可以利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题。文章涵盖了核心特性、智能 CDN 映射原理、详细的部署步骤以及如何通过环境变量配置加速，是优化 AI 开发环境的实用技术教程。">
+  <meta name="description" content="本文详细介绍如何使用 Cloudflare Workers&#x2F;Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题，包含完整的部署步骤和使用指南。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理">
 <meta property="og:url" content="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/">
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
-<meta property="og:description" content="本文详细介绍了如何使用 Cloudflare Workers&#x2F;Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，开发者可以利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题。文章涵盖了核心特性、智能 CDN 映射原理、详细的部署步骤以及如何通过环境变量配置加速，是优化 AI 开发环境的实用技术教程。">
+<meta property="og:description" content="本文详细介绍如何使用 Cloudflare Workers&#x2F;Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题，包含完整的部署步骤和使用指南。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png">
 <meta property="article:published_time" content="2025-12-14T21:04:21.000Z">
-<meta property="article:modified_time" content="2025-12-21T15:30:37.610Z">
+<meta property="article:modified_time" content="2025-12-22T21:00:00.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="AI工具">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="Hugging Face">
 <meta property="article:tag" content="Serverless">
-<meta property="article:tag" content="博客教程">
 <meta property="article:tag" content="反向代理">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="问题解决">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png">
   
@@ -59,7 +57,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "使用 Cloudflare Workers 搭建 Hugging Face 镜像代理",
-    "description": "本文详细介绍了如何使用 Cloudflare Workers/Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，开发者可以利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题。文章涵盖了核心特性、智能 CDN 映射原理、详细的部署步骤以及如何通过环境变量配置加速，是优化 AI 开发环境的实用技术教程。",
+    "description": "本文详细介绍如何使用 Cloudflare Workers/Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题，包含完整的部署步骤和使用指南。",
     "image": "https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png",
     "author": {
       "@type": "Person",
@@ -74,7 +72,7 @@
       }
     },
     "datePublished": "2025-12-14T21:04:21.000Z",
-    "dateModified": "2025-12-21T15:30:37.610Z",
+    "dateModified": "2025-12-22T21:00:00.000Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://blog.rimuru.uk/2025/12/14/%E4%BD%BF%E7%94%A8-Cloudflare-Workers-%E6%90%AD%E5%BB%BA-Hugging-Face-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"
@@ -204,7 +202,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~2.25K
+                            ~1.99K
                         
                         字
                     </li>
@@ -218,64 +216,49 @@
             
             
             <hr />
-            <div itemprop="articleBody"><h1 id="使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理"><a href="#使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理" class="headerlink" title="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理"></a>使用 Cloudflare Workers 搭建 Hugging Face 镜像代理</h1><p>在进行 AI 模型开发和下载时，Hugging Face 是我们绕不开的宝库。然而，由于网络环境的复杂性，直接访问 <code>huggingface.co</code> 及其 CDN 资源（如模型权重文件的下载）有时会遇到速度缓慢甚至连接失败的问题。</p>
-<p>为了解决这个问题，我开发了一个基于 Cloudflare Workers (或 Cloudflare Pages Functions) 的轻量级反向代理项目 —— <strong>HuggingfaceProxy</strong>。</p>
-<h2 id="🌟-项目介绍"><a href="#🌟-项目介绍" class="headerlink" title="🌟 项目介绍"></a>🌟 项目介绍</h2><p><strong>HuggingfaceProxy</strong> 是一个开源项目，旨在利用 Cloudflare 强大的全球边缘网络，为 Hugging Face 提供快速、稳定的访问代理。</p>
+            <div itemprop="articleBody"><h1 id="使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理"><a href="#使用-Cloudflare-Workers-搭建-Hugging-Face-镜像代理" class="headerlink" title="使用 Cloudflare Workers 搭建 Hugging Face 镜像代理"></a>使用 Cloudflare Workers 搭建 Hugging Face 镜像代理</h1><p>在进行 AI 模型开发时，Hugging Face 是绕不开的资源库。然而，直接访问 <code>huggingface.co</code> 及其 CDN 资源有时会遇到速度缓慢甚至连接失败的问题。</p>
+<p>为了解决这个问题，我开发了一个基于 Cloudflare Workers 的轻量级反向代理项目 —— <strong>HuggingfaceProxy</strong>。</p>
+<h2 id="🌟-项目介绍"><a href="#🌟-项目介绍" class="headerlink" title="🌟 项目介绍"></a>🌟 项目介绍</h2><p><strong>HuggingfaceProxy</strong> 是一个开源项目，利用 Cloudflare 全球边缘网络，为 Hugging Face 提供快速、稳定的访问代理。</p>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">https://github.com/AinzRimuru/HuggingfaceProxy</a></p>
-<h3 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h3><ol>
-<li><p><strong>主站无缝代理</strong>：<br>通过配置的主子域名（默认为 <code>hf</code>），可以直接访问 <code>huggingface.co</code> 的完整功能。</p>
-</li>
-<li><p><strong>智能 CDN 资源映射</strong>：<br>Hugging Face 的模型文件通常存储在 <code>*.hf.co</code> 等 CDN 域名上。本项目通过特殊的子域名映射机制（例如将 <code>cas-bridge.xethub.hf.co</code> 映射为 <code>cas-bridge---xethub.yourdomain.com</code>），实现了对这些动态 CDN 资源的完美代理。</p>
-</li>
-<li><p><strong>重定向自动重写</strong>：<br>下载模型时经常会遇到 301&#x2F;302 重定向。本代理会自动拦截这些重定向响应，修改其中的 <code>Location</code> 头，确保后续请求依然走你的代理域名，而不是跳回原始的 Hugging Face 域名。</p>
-</li>
-<li><p><strong>零配置动态域名</strong>：<br>代码能够自动识别当前部署的根域名，无需在代码中硬编码域名，部署即用，非常方便。</p>
-</li>
-</ol>
-<h2 id="🛠️-原理简析"><a href="#🛠️-原理简析" class="headerlink" title="🛠️ 原理简析"></a>🛠️ 原理简析</h2><p>这个项目的核心逻辑非常简单，主要在 <code>_worker.js</code> 中实现。</p>
-<p>当请求到达 Cloudflare Worker 时，脚本会解析请求的子域名：</p>
-<ul>
-<li>如果是主子域名（如 <code>hf</code>），则将请求转发给 <code>huggingface.co</code>。</li>
-<li>如果是其他子域名，脚本会将子域名中的 <code>---</code> 替换回 <code>.</code>，并补全 <code>.hf.co</code> 后缀，从而构造出原始的 CDN 域名进行请求转发。</li>
+<h3 id="核心特性"><a href="#核心特性" class="headerlink" title="核心特性"></a>核心特性</h3><ul>
+<li><strong>零配置使用</strong>：直接访问即可，所有请求自动转发到 Hugging Face</li>
+<li><strong>智能重定向</strong>：自动处理 CDN 重定向，无需多域名配置</li>
+<li><strong>下载器脚本</strong>：提供 Python 下载器，支持并行下载、断点续传</li>
+<li><strong>模块化架构</strong>：代码结构清晰，易于维护和扩展</li>
 </ul>
-<p>这种设计巧妙地解决了多级域名代理的问题，同时利用了 Cloudflare 免费且高速的线路。</p>
-<h2 id="🚀-如何部署"><a href="#🚀-如何部署" class="headerlink" title="🚀 如何部署"></a>🚀 如何部署</h2><p>最推荐的方式是使用 <strong>Cloudflare Pages</strong> 进行部署，因为配置最简单且免费额度充裕。</p>
-<h3 id="方法一：Fork-Deploy-推荐"><a href="#方法一：Fork-Deploy-推荐" class="headerlink" title="方法一：Fork &amp; Deploy (推荐)"></a>方法一：Fork &amp; Deploy (推荐)</h3><ol>
-<li><p><strong>Fork 项目</strong>：<br>首先访问 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">GitHub 仓库</a>，点击右上角的 <code>Fork</code> 按钮，将其复制到你自己的账号下。</p>
-</li>
-<li><p><strong>创建 Cloudflare Pages</strong>：<br>登录 Cloudflare Dashboard，进入 <code>Workers &amp; Pages</code> -&gt; <code>Create Application</code> -&gt; <code>Pages</code> -&gt; <code>Connect to Git</code>。</p>
-</li>
-<li><p><strong>选择仓库</strong>：<br>选择你刚刚 Fork 的仓库，点击 <code>Begin setup</code>。</p>
-</li>
-<li><p><strong>构建设置</strong>：</p>
-<ul>
-<li><strong>Framework preset</strong>: 选择 <code>None</code>。</li>
-<li><strong>Build command</strong>: 留空。</li>
-<li><strong>Build output directory</strong>: 留空。</li>
-<li>点击 <code>Save and Deploy</code>。</li>
-</ul>
-</li>
-<li><p><strong>绑定域名 (关键)</strong>：<br>部署完成后，进入项目的 <code>Custom Domains</code> 设置，绑定你的自定义域名（例如 <code>yourdomain.com</code>）。</p>
-<ul>
-<li><strong>注意</strong>：为了支持 CDN 代理，建议添加一个 <strong>泛域名解析 (Wildcard DNS)</strong>。即在 DNS 记录中添加一条 <code>*.yourdomain.com</code> CNAME 指向你的 Pages 项目地址。</li>
-</ul>
-</li>
-</ol>
-<h3 id="方法二：使用-Wrangler-CLI"><a href="#方法二：使用-Wrangler-CLI" class="headerlink" title="方法二：使用 Wrangler CLI"></a>方法二：使用 Wrangler CLI</h3><p>如果你习惯本地开发，也可以使用 Wrangler 命令行工具直接部署到 Cloudflare Workers。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署</span></span><br><span class="line">npx wrangler deploy</span><br></pre></td></tr></table></figure>
-
-<h2 id="📖-如何使用"><a href="#📖-如何使用" class="headerlink" title="📖 如何使用"></a>📖 如何使用</h2><p>假设你绑定的域名是 <code>example.com</code>，并且你保留了默认的 <code>hf</code> 前缀。</p>
+<h2 id="🛠️-原理简析"><a href="#🛠️-原理简析" class="headerlink" title="🛠️ 原理简析"></a>🛠️ 原理简析</h2><p>核心逻辑在 <code>_worker.js</code> 中实现。当请求到达 Cloudflare Worker 时：</p>
 <ol>
-<li><p><strong>访问主站</strong>：<br>在浏览器中访问 <code>https://hf.example.com</code>，你应该能看到 Hugging Face 的首页。</p>
-</li>
-<li><p><strong>下载模型</strong>：<br>在使用 <code>huggingface-cli</code> 或 Python 代码下载模型时，可以通过设置环境变量来使用你的代理：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HF_ENDPOINT=https://hf.example.com</span><br></pre></td></tr></table></figure>
-
-<p>或者在 Python 代码中：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">&quot;HF_ENDPOINT&quot;</span>] = <span class="string">&quot;https://hf.example.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> huggingface_hub <span class="keyword">import</span> snapshot_download</span><br><span class="line">snapshot_download(repo_id=<span class="string">&quot;gpt2&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>解析请求路径，判断目标资源</li>
+<li>将请求转发到 <code>huggingface.co</code></li>
+<li>拦截重定向响应，自动改写 <code>Location</code> 头</li>
 </ol>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个简单的 Cloudflare Worker 脚本，我们可以轻松搭建一个属于自己的 Hugging Face 加速通道。既解决了访问难题，又利用了 Serverless 架构的低成本优势。</p>
-<p>如果你觉得这个项目对你有帮助，欢迎在 GitHub 上点个 Star！🌟</p>
+<p>当 Hugging Face 返回重定向到 CDN 时，Worker 会自动改写：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原始: Location: https://cdn-lfs.hf.co/path/to/file</span><br><span class="line">改写: Location: https://your-proxy.com/redirect_to_cdn-lfs.hf.co/path/to/file</span><br></pre></td></tr></table></figure>
+
+<p>这样所有请求都只需经过单一代理域名，无需配置泛域名。</p>
+<h2 id="🚀-如何部署"><a href="#🚀-如何部署" class="headerlink" title="🚀 如何部署"></a>🚀 如何部署</h2><p>推荐使用 <strong>Cloudflare Pages</strong> 进行部署，配置简单且免费额度充裕。</p>
+<h3 id="方法一：Fork-Deploy（推荐）"><a href="#方法一：Fork-Deploy（推荐）" class="headerlink" title="方法一：Fork &amp; Deploy（推荐）"></a>方法一：Fork &amp; Deploy（推荐）</h3><ol>
+<li><p><strong>Fork 项目</strong><br>访问 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">GitHub 仓库</a>，点击 <code>Fork</code></p>
+</li>
+<li><p><strong>创建 Cloudflare Pages</strong><br>登录 Cloudflare Dashboard → <code>Workers &amp; Pages</code> → <code>Create</code> → <code>Pages</code> → <code>Connect to Git</code></p>
+</li>
+<li><p><strong>选择仓库</strong><br>选择你 Fork 的仓库，Framework preset 选择 <code>None</code>，直接部署</p>
+</li>
+<li><p><strong>绑定域名</strong>（可选）<br>部署完成后，可在 <code>Custom Domains</code> 设置中绑定自定义域名</p>
+</li>
+</ol>
+<h3 id="方法二：使用-Wrangler-CLI"><a href="#方法二：使用-Wrangler-CLI" class="headerlink" title="方法二：使用 Wrangler CLI"></a>方法二：使用 Wrangler CLI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/HuggingfaceProxy.git</span><br><span class="line"><span class="built_in">cd</span> HuggingfaceProxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署</span></span><br><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
+
+<h2 id="📖-如何使用"><a href="#📖-如何使用" class="headerlink" title="📖 如何使用"></a>📖 如何使用</h2><p>假设你的代理域名是 <code>your-proxy.pages.dev</code>。</p>
+<h3 id="直接访问"><a href="#直接访问" class="headerlink" title="直接访问"></a>直接访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问模型页面</span></span><br><span class="line">https://your-proxy.pages.dev/bert-base-uncased</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载模型文件</span></span><br><span class="line">https://your-proxy.pages.dev/bert-base-uncased/resolve/main/config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># API 调用</span></span><br><span class="line">https://your-proxy.pages.dev/api/models/bert-base-uncased</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用下载器脚本"><a href="#使用下载器脚本" class="headerlink" title="使用下载器脚本"></a>使用下载器脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载脚本</span></span><br><span class="line">curl -O https://your-proxy.pages.dev/hf_downloader.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">pip install requests tqdm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载模型</span></span><br><span class="line">python hf_downloader.py bert-base-uncased</span><br><span class="line">python hf_downloader.py openai/whisper-large-v3 --<span class="built_in">type</span> model</span><br><span class="line">python hf_downloader.py bigcode/starcoder --workers 8</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>注意</strong>: 不推荐使用 <code>huggingface-cli</code> 或 <code>snapshot_download</code> 搭配本代理。由于 Cloudflare 的缓存机制会丢失 <code>Content-Length</code> 等关键头信息，会导致这些客户端下载失败。请使用本项目自带的下载脚本。</p>
+</blockquote>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个 Cloudflare Worker 脚本，可以轻松搭建属于自己的 Hugging Face 加速通道。既解决了访问难题，又利用了 Serverless 架构的低成本优势。</p>
+<p>如果你觉得这个项目有帮助，欢迎在 GitHub 上点个 Star！🌟</p>
 </div>
         </div>
         
@@ -293,10 +276,10 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/ai-tools/" rel="tag">AI工具</a>, <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/hugging-face/" rel="tag">Hugging Face</a>, <a class="tag-none-link" href="/tags/serverless/" rel="tag">Serverless</a>, <a class="tag-none-link" href="/tags/blog-tutorial/" rel="tag">博客教程</a>, <a class="tag-none-link" href="/tags/options/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
+                    <a class="tag-none-link" href="/tags/ai-tools/" rel="tag">AI工具</a>, <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/hugging-face/" rel="tag">Hugging Face</a>, <a class="tag-none-link" href="/tags/serverless/" rel="tag">Serverless</a>, <a class="tag-none-link" href="/tags/options/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-12-21T15:30:37.610Z" itemprop="dateModified">最后编辑：2025-12-21</time>
+                    <time datetime="2025-12-22T21:00:00.000Z" itemprop="dateModified">最后编辑：2025-12-22</time>
                 </div>
             </div>
         </footer>
@@ -310,7 +293,7 @@
             
             
             <div class="nav-next clearfix">
-                <a title=" HuggingfaceProxy：Hugging Face 反向代理加速方案" href="/2025/12/17/HuggingfaceProxy-项目介绍与部署指南/">下一篇 <i class="fa fa-angle-right"></i></a>
+                <a title=" Nextcloud使用WebDAV访问分享文件夹" href="/2025/12/21/Nextcloud使用WebDAV访问分享文件夹/">下一篇 <i class="fa fa-angle-right"></i></a>
             </div>
             
         </nav>
@@ -361,7 +344,7 @@
                 标签
             </span>
             <span class="count">
-                47
+                46
             </span>
         </a>
     </div>
@@ -381,7 +364,7 @@
   <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
     <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
       <div class="tag-clouds">
-        <a href="/tags/ai-tools/" style="font-size: 0.6em;">AI工具</a> <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cdn/" style="font-size: 0.6em;">CDN加速</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">Cities Skylines 2</a> <a href="/tags/cloudflare/" style="font-size: 0.8em;">Cloudflare</a> <a href="/tags/ext4/" style="font-size: 0.6em;">EXT4</a> <a href="/tags/hexo/" style="font-size: 0.6em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.8em;">Hugging Face</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/linux/" style="font-size: 0.6em;">Linux</a> <a href="/tags/markdown/" style="font-size: 0.6em;">Markdown</a> <a href="/tags/microsoft-word/" style="font-size: 0.6em;">Microsoft Word</a> <a href="/tags/nextcloud/" style="font-size: 0.6em;">Nextcloud</a> <a href="/tags/office/" style="font-size: 0.6em;">Office</a> <a href="/tags/serverless/" style="font-size: 0.6em;">Serverless</a> <a href="/tags/steam/" style="font-size: 0.6em;">Steam</a> <a href="/tags/steam-id/" style="font-size: 0.6em;">Steam ID</a> <a href="/tags/vmware/" style="font-size: 0.6em;">VMware</a>
+        <a href="/tags/ai-tools/" style="font-size: 0.6em;">AI工具</a> <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.8em;">Cities Skylines 2</a> <a href="/tags/cloudflare/" style="font-size: 0.8em;">Cloudflare</a> <a href="/tags/ext4/" style="font-size: 0.6em;">EXT4</a> <a href="/tags/hexo/" style="font-size: 0.6em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.8em;">Hugging Face</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/linux/" style="font-size: 0.6em;">Linux</a> <a href="/tags/markdown/" style="font-size: 0.6em;">Markdown</a> <a href="/tags/microsoft-word/" style="font-size: 0.6em;">Microsoft Word</a> <a href="/tags/nextcloud/" style="font-size: 0.6em;">Nextcloud</a> <a href="/tags/office/" style="font-size: 0.6em;">Office</a> <a href="/tags/serverless/" style="font-size: 0.6em;">Serverless</a> <a href="/tags/steam/" style="font-size: 0.6em;">Steam</a> <a href="/tags/steam-id/" style="font-size: 0.6em;">Steam ID</a> <a href="/tags/vmware/" style="font-size: 0.6em;">VMware</a> <a href="/tags/wallpaper-engine/" style="font-size: 0.6em;">Wallpaper Engine</a>
       </div>
   </aside>
 
@@ -395,13 +378,13 @@
         
           
           
-            <a class="list-group-item" href="/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/"><i class="fa fa-book"></i> Nextcloud使用WebDAV访问分享文件夹</a>
+            <a class="list-group-item" href="/2025/12/22/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/"><i class="fa fa-book"></i> HuggingfaceProxy：Hugging Face 反向代理加速方案</a>
             
           
         
           
           
-            <a class="list-group-item" href="/2025/12/17/HuggingfaceProxy-%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D%E4%B8%8E%E9%83%A8%E7%BD%B2%E6%8C%87%E5%8D%97/"><i class="fa fa-book"></i> HuggingfaceProxy：Hugging Face 反向代理加速方案</a>
+            <a class="list-group-item" href="/2025/12/21/Nextcloud%E4%BD%BF%E7%94%A8WebDAV%E8%AE%BF%E9%97%AE%E5%88%86%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9/"><i class="fa fa-book"></i> Nextcloud使用WebDAV访问分享文件夹</a>
             
           
         
