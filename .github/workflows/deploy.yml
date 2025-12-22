@@ -27,40 +27,32 @@ jobs:
         run: npm install
 
       - name: Update post timestamps
-        id: update_time
-        run: |
-          npx hexo update-time
-          if git diff --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
-      - name: Commit timestamp updates
-        if: steps.update_time.outputs.has_changes == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add -A
-          git commit -m "chore: auto update post timestamps"
-          git push
-          echo "Timestamps updated and pushed. This workflow will be re-triggered."
-          exit 0
+        run: npx hexo update-time
 
       - name: Build Theme Assets
-        if: steps.update_time.outputs.has_changes != 'true'
         run: |
           cd themes/Kratos-Rebirth
           node devtools/build-once.js
 
       - name: Build Hexo
-        if: steps.update_time.outputs.has_changes != 'true'
         run: npx hexo generate
 
       - name: Deploy to GitHub Pages
-        if: steps.update_time.outputs.has_changes != 'true'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           publish_branch: gh-pages
+
+      - name: Commit timestamp updates
+        run: |
+          if git diff --quiet; then
+            echo "No timestamp changes to commit."
+          else
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git add -A
+            git commit -m "chore: auto update post timestamps [skip ci]"
+            git push
+            echo "Timestamp updates committed."
+          fi
