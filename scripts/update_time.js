@@ -2,17 +2,22 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+// 需要排除的自动提交信息模式（这些提交不应该影响 updated 时间）
+// 只排除 "chore:" 开头的提交，这是自动更新时间戳脚本使用的格式
+const EXCLUDED_COMMIT_PATTERN = 'chore:';
+
 /**
- * 获取文件的 git commit 历史
+ * 获取文件的 git commit 历史（排除自动提交）
  * @param {string} filePath - 文件路径
  * @param {string} baseDir - git 仓库根目录
  * @returns {string[]} - commit 列表 (ISO 格式时间戳)
  */
 function getGitCommitHistory(filePath, baseDir) {
   try {
-    // 获取文件的所有 commit 时间（按时间从新到旧排序）
+    // 使用 --invert-grep 和 --fixed-strings 来精确排除 chore: 开头的提交
+    // 这样可以避免正则表达式匹配问题
     const result = execSync(
-      `git log --follow --format="%aI" -- "${filePath}"`,
+      `git log --follow --format="%aI" --invert-grep --fixed-strings --grep="${EXCLUDED_COMMIT_PATTERN}" -- "${filePath}"`,
       { cwd: baseDir, encoding: 'utf-8' }
     );
     return result.trim().split('\n').filter(line => line.length > 0);
