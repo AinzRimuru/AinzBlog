@@ -1,6 +1,7 @@
 ---
 title: HuggingfaceProxy：Hugging Face 反向代理加速方案
 date: 2025-12-22T21:00:00.000Z
+updated: 2025-12-22T13:47:32.000Z
 description: 一个基于 Cloudflare Workers 的轻量级 Hugging Face 反向代理项目，帮助国内用户快速访问和下载 Hugging Face 模型。零配置使用，自动处理 CDN 重定向，并提供专用 Python 下载器支持并行下载和断点续传。
 tags:
   - Cloudflare
