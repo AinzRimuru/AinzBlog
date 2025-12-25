@@ -4,8 +4,18 @@
   <!-- 元数据 -->
   <meta charset="utf-8">
   <!-- Preconnect hints for faster resource loading -->
+  <!-- Primary CDN -->
   <link rel="preconnect" href="https://cdn.rimuru.uk" crossorigin>
   <link rel="dns-prefetch" href="https://cdn.rimuru.uk">
+  <!-- Self-hosted analytics -->
+  <link rel="preconnect" href="https://analytics.rimuru.uk" crossorigin>
+  <link rel="dns-prefetch" href="https://analytics.rimuru.uk">
+  <!-- Google Analytics -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <!-- Google AdSense -->
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
   <% if (theme.image.favicon) { %>
     <link rel="icon" href="<%- theme.image.favicon %>">
   <% } %>
@@ -114,12 +124,6 @@
   <% } %>
   <!-- 自定义站点横幅和背景 -->
   <style>
-    /* Font-display swap for FontAwesome to prevent invisible text during loading */
-    @font-face {
-      font-family: 'FontAwesome';
-      src: local('FontAwesome');
-      font-display: swap;
-    }
     <% if (theme.image.banner) { %>
       .kratos-cover.kratos-cover-2 {
         background-image: url('<%- theme.image.banner.light %>');
