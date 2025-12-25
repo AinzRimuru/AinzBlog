@@ -20,7 +20,12 @@
             <% if (cover) { %>
                 <div class="kratos-entry-thumb">
                     <a href="<%- url_for(post.path) %>">
+                        <% /* First post image should not be lazy loaded for LCP optimization */ %>
+                        <% if (typeof __postIndex !== 'undefined' && __postIndex === 0) { %>
+                        <img class="kratos-entry-thumb-img" src="<%- cover %>" alt="<%- post.title %>" fetchpriority="high" width="770" height="380" decoding="async">
+                        <% } else { %>
                         <img class="kratos-entry-thumb-img" src="<%- cover %>" alt="<%- post.title %>" loading="lazy" width="770" height="380" decoding="async">
+                        <% } %>
                     </a>
                 </div>
             <% } %>

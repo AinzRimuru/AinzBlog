@@ -3,6 +3,7 @@
     <%- partial('_partial/breadcrumb') %>
 <% } %>
 
+<% let __postIndex = 0; %>
 <% page.posts.each(function(post) { %>
     <% if (post.show_in) {
         const postShow = 
@@ -14,10 +15,11 @@
         }
     } %>
     <% if (!post.title || post.link) { %>
-        <%- partial('_index_style/status', { post: post }) %>
+        <%- partial('_index_style/status', { post: post, __postIndex: __postIndex }) %>
     <% } else { %>
-        <%- partial(`_index_style/${theme.index.style}`, { post: post }) %>
+        <%- partial(`_index_style/${theme.index.style}`, { post: post, __postIndex: __postIndex }) %>
     <% } %>
+    <% __postIndex++; %>
 <% }) %>
 
 <% if (page.total > 1) { %>
