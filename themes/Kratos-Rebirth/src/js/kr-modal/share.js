@@ -45,6 +45,14 @@ function initQRCode() {
     // 清空上一个二维码避免冲突
     container.innerHTML = "";
 
+    // 检查 QRCodeStyling 是否可用（可能被广告拦截器阻止）
+    if (typeof QRCodeStyling === "undefined") {
+      // 库未加载，显示备用提示
+      container.innerHTML = '<div style="width:150px;height:150px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:12px;color:#888;">二维码加载失败</div>';
+      console.warn("QRCodeStyling library not loaded (possibly blocked by ad blocker)");
+      return;
+    }
+
     // 建立新的二维码
     const qrCode = new QRCodeStyling({
       width: 150,
