@@ -157,3 +157,23 @@ theme: Kratos-Rebirth
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+
+# Cloudflare Image Optimization
+# Docs: https://developers.cloudflare.com/images/transform-images/transform-via-url/
+cloudflare_image:
+  enable: true
+  # Your Cloudflare zone (domain)
+  zone: blog.rimuru.uk
+  # Default image transformation options
+  options:
+    format: auto      # Auto-select best format (WebP, AVIF, etc.)
+    quality: 85       # Image quality (1-100)
+    fit: scale-down   # Don't upscale images
+  # Only transform images from these domains (your own domain is always included)
+  allowed_domains:
+    - blog.rimuru.uk
+  # Paths to exclude from transformation
+  exclude_paths:
+    - /favicon
+    - .ico
+    - .svg
