@@ -15,6 +15,12 @@ const css_helper = (url, options) =>
     options?.integrity ? ' integrity="' + options.integrity + '"' : ""
   }${options?.media ? ' media="' + options.media + '"' : ""}></link>`;
 
+// Preload helper for critical CSS resources
+const css_preload_helper = (url, options) =>
+  `<link rel="preload" href="${url}" as="style"${
+    options?.integrity ? ' integrity="' + options.integrity + '"' : ""
+  } crossorigin>`;
+
 // Async CSS loading helper using media="print" + onload technique
 // This prevents the CSS from blocking the initial render
 const css_async_helper = (url, options) =>
@@ -145,6 +151,10 @@ const css_theme_cdn = (locals, path, options) => {
 const css_theme_cdn_async = (locals, path, options) => {
   return css_async_helper(url_theme_cdn(locals, path), options);
 };
+// Preload version of css_theme_cdn for critical CSS
+const css_theme_cdn_preload = (locals, path, options) => {
+  return css_preload_helper(url_theme_cdn(locals, path), options);
+};
 
 module.exports = {
   file_info_npm_cdn: file_info_npm_cdn,
@@ -158,4 +168,5 @@ module.exports = {
   js_theme_cdn: js_theme_cdn,
   css_theme_cdn: css_theme_cdn,
   css_theme_cdn_async: css_theme_cdn_async,
+  css_theme_cdn_preload: css_theme_cdn_preload,
 };

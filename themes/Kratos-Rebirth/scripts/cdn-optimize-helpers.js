@@ -21,6 +21,10 @@ hexo.once("generateBefore", () => {
     "css_theme_cdn_async",
     cdn.css_theme_cdn_async.bind(null, hexo),
   );
+  hexo.extend.helper.register(
+    "css_theme_cdn_preload",
+    cdn.css_theme_cdn_preload.bind(null, hexo),
+  );
 
   hexo.extend.helper.register(
     "file_info_npm_cdn",
