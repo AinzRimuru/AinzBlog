@@ -20,6 +20,10 @@ cover: cover.png
 ```bash
 docker exec <container_name> bash -c "cd /var/log/overleaf/ && cat web.log" | grep -oP 'https?://[^\\]+' | grep password
 ```
+得到的重置密码链接形如：
+```
+http://localhost/user/password/set?passwordResetToken=******&email=******
+```
 # 替换域名（可选）
 在没有设置Overleaf的域名时，重置密码的链接会包含`localhost`，需要替换为实际的域名。
 # 重置密码
