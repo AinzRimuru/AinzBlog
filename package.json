@@ -35,14 +35,14 @@
     "hexo-theme-landscape": "^1.0.0",
     "hexo-wordcount": "^6.0.1",
     "autoprefixer": "^10.4.19",
-    "chokidar": "^3.6.0",
-    "esbuild": "^0.25.0",
+    "chokidar": "^5.0.0",
+    "esbuild": "^0.27.2",
     "esbuild-plugin-sass": "^1.0.1",
     "husky": "^9.0.11",
-    "lint-staged": "^15.2.4",
+    "lint-staged": "^16.2.7",
     "postcss": "^8.4.38",
-    "postcss-preset-env": "^9.5.13",
-    "prettier": "3.2.5",
+    "postcss-preset-env": "^10.5.0",
+    "prettier": "3.7.4",
     "scroll-into-view-if-needed": "^3.1.0"
   }
 }
