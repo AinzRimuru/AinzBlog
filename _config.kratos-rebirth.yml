@@ -1,0 +1,25 @@
+# Kratos-Rebirth 主题配置覆盖文件
+# 此文件中的配置会覆盖主题默认配置
+
+# 导航栏配置
+nav:
+  auto_hide: true
+  items:
+    - label: 首页
+      icon: home
+      url: /
+    - label: 归档
+      icon: archive
+      url: /archives/
+    - label: 分类
+      icon: folder
+      url: /categories/
+    - label: 标签
+      icon: tags
+      url: /tags/
+    - label: 友链
+      icon: link
+      url: /friends/
+    - label: 关于
+      icon: user
+      url: /about/
