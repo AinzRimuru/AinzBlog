@@ -23,19 +23,25 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Update post timestamps
-        run: npx hexo update-time
+        run: pnpm exec hexo update-time
 
       - name: Build Theme Assets
         run: |
           cd themes/Kratos-Rebirth
+          pnpm install
           node devtools/build-once.js
 
       - name: Build Hexo
-        run: npx hexo generate
+        run: pnpm exec hexo generate
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
