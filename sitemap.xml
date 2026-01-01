@@ -11,15 +11,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/privacy/</loc>
-    
-    <lastmod>2026-01-01</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.uk/tags/</loc>
     
     <lastmod>2026-01-01</lastmod>
@@ -29,7 +20,16 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/friends/</loc>
+    <loc>https://blog.rimuru.uk/privacy/</loc>
+    
+    <lastmod>2026-01-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/about/</loc>
     
     <lastmod>2026-01-01</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/about/</loc>
+    <loc>https://blog.rimuru.uk/friends/</loc>
     
     <lastmod>2026-01-01</lastmod>
     
@@ -119,15 +119,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/2025/12/04/%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</loc>
-    
-    <lastmod>2025-12-21</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%9F%8E%E5%B8%82%E8%A7%84%E5%88%92%E6%8A%80%E5%B7%A7%E6%8C%87%E5%8D%97/</loc>
     
     <lastmod>2025-12-21</lastmod>
@@ -138,6 +129,15 @@
   
   <url>
     <loc>https://blog.rimuru.uk/2025/12/09/%E5%A4%A9%E9%99%85%E7%BA%BF2-%E5%B8%B8%E8%A7%81BUG%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%E6%B1%87%E6%80%BB/</loc>
+    
+    <lastmod>2025-12-21</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/2025/12/04/%E5%9C%A8Hexo%E5%8D%9A%E5%AE%A2%E4%B8%AD%E6%8F%92%E5%85%A5%E5%9B%BE%E7%89%87/</loc>
     
     <lastmod>2025-12-21</lastmod>
     
@@ -383,41 +383,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/tags/blog-tutorial/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/markdown/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/hexo/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/picture-configuration/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/static-blog/</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.uk/tags/cities-skylines-2/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
@@ -468,6 +433,41 @@
   
   <url>
     <loc>https://blog.rimuru.uk/tags/game-optimization/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/blog-tutorial/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/markdown/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/hexo/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/picture-configuration/</loc>
+    <lastmod>2026-01-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/static-blog/</loc>
     <lastmod>2026-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
