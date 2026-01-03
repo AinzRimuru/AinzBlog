@@ -108,7 +108,7 @@ function getEmbedding(text, apiKey, endpoint, model) {
 hexo.extend.generator.register('posts-data', async function(locals) {
   const log = hexo.log || console;
   const apiKey = getEnv('OPENAI_API_KEY');
-  const endpoint = getEnv('OPENAI_BASE_URL') || getEnv('OPENAI_ENDPOINT');
+  const endpoint = getEnv('OPENAI_BASE_URL') || getEnv('OPENAI_API_ENDPOINT');
   const model = getEnv('OPENAI_EMBEDDING_MODEL');
 
   if (apiKey && !model) {
@@ -164,8 +164,6 @@ hexo.extend.generator.register('posts-data', async function(locals) {
           embedding: embedding
         };
         cacheUpdated = true;
-        // 简单的限速
-        await new Promise(r => setTimeout(r, 200)); 
       } catch (e) {
         log.error(`Failed to generate embedding for ${title}:`, e.message);
       }
