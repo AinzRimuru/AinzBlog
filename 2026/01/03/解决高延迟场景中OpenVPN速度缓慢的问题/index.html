@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/cover.png">
 <meta property="article:published_time" content="2026-01-03T22:08:11.000Z">
-<meta property="article:modified_time" content="2026-01-03T14:21:34.699Z">
+<meta property="article:modified_time" content="2026-01-03T15:07:31.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="OpenVPN">
 <meta property="article:tag" content="性能调优">
@@ -69,7 +69,7 @@
       }
     },
     "datePublished": "2026-01-03T22:08:11.000Z",
-    "dateModified": "2026-01-03T14:21:34.699Z",
+    "dateModified": "2026-01-03T15:07:31.000Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/"
@@ -284,7 +284,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            299
+                            978
                         
                         字
                     </li>
@@ -304,7 +304,11 @@
 <h2 id="增加缓冲区"><a href="#增加缓冲区" class="headerlink" title="增加缓冲区"></a>增加缓冲区</h2><p>根据实际延迟与最大带宽计算出合理的缓冲区大小，单位为字节。<br>如延迟为100ms，最大带宽为100Mbps，那么缓冲区大小应该为100ms * 100Mbps * 1000 &#x2F; 8 &#x3D; 1250000Bytes。对应的配置为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sndbuf 1250000</span><br><span class="line">rcvbuf 1250000</span><br><span class="line">push &quot;sndbuf 1250000&quot;</span><br><span class="line">push &quot;rcvbuf 1250000&quot;</span><br></pre></td></tr></table></figure>
 <p>上述值还可以适当调大。</p>
-</div>
+<h2 id="增加服务器的TCP-UDP缓冲区大小"><a href="#增加服务器的TCP-UDP缓冲区大小" class="headerlink" title="增加服务器的TCP&#x2F;UDP缓冲区大小"></a>增加服务器的TCP&#x2F;UDP缓冲区大小</h2><p>在<code>/etc/sysctl.conf</code>中添加以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 增大内核 UDP 缓冲区限制，适配高带宽深管道（BDP）</span><br><span class="line">net.core.rmem_max=16777216</span><br><span class="line">net.core.wmem_max=16777216</span><br><span class="line">net.core.rmem_default=16777216</span><br><span class="line">net.core.wmem_default=16777216</span><br><span class="line"></span><br><span class="line"># 启用 BBR 拥塞控制算法（对高延迟环境至关重要）</span><br><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp_congestion_control=bbr</span><br></pre></td></tr></table></figure>
+
+<h2 id="提高nginx的缓冲区大小"><a href="#提高nginx的缓冲区大小" class="headerlink" title="提高nginx的缓冲区大小"></a>提高nginx的缓冲区大小</h2><p>修改nginx的配置文件，添加&#x2F;修改如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 quic reuseport; # 启用 QUIC</span><br><span class="line">        http3 on; # 启用 HTTP/3</span><br><span class="line"></span><br><span class="line">        # 核心：增大单条 H3 流的缓冲区</span><br><span class="line">        # 设为 12m 可以支撑 200ms 延迟下约 500Mbps 的理论吞吐量</span><br><span class="line">        http3_stream_buffer_size 12m; # 增大单条 H3 流的缓冲区</span><br><span class="line"></span><br><span class="line">        # 增大代理缓冲区</span><br><span class="line">        proxy_buffers 16 1024k;</span><br><span class="line">        proxy_busy_buffers_size 15360k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -324,7 +328,7 @@
                     <a class="tag-none-link" href="/tags/openvpn/" rel="tag">OpenVPN</a>, <a class="tag-none-link" href="/tags/performance-tuning/" rel="tag">性能调优</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>, <a class="tag-none-link" href="/tags/system-monitoring/" rel="tag">系统监控</a>, <a class="tag-none-link" href="/tags/network-optimization/" rel="tag">网络优化</a>, <a class="tag-none-link" href="/tags/om-orders/" rel="tag">运维命令</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-01-03T14:21:34.699Z" itemprop="dateModified">最后编辑：2026-01-03</time>
+                    <time datetime="2026-01-03T15:07:31.000Z" itemprop="dateModified">最后编辑：2026-01-03</time>
                 </div>
             </div>
         </footer>
