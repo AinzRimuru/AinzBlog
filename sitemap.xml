@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/tags/</loc>
+    <loc>https://blog.rimuru.uk/terms/</loc>
     
     <lastmod>2026-01-03</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.uk/terms/</loc>
+    <loc>https://blog.rimuru.uk/tags/</loc>
     
     <lastmod>2026-01-03</lastmod>
     
@@ -48,6 +48,15 @@
   
   <url>
     <loc>https://blog.rimuru.uk/friends/</loc>
+    
+    <lastmod>2026-01-03</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
     
     <lastmod>2026-01-03</lastmod>
     
@@ -294,6 +303,20 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.uk/tags/overleaf/</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/sharelatex/</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.uk/tags/nextcloud/</loc>
     <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
@@ -351,20 +374,6 @@
   
   <url>
     <loc>https://blog.rimuru.uk/tags/account-linking/</loc>
-    <lastmod>2026-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/overleaf/</loc>
-    <lastmod>2026-01-03</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.uk/tags/sharelatex/</loc>
     <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -561,6 +570,27 @@
   
   <url>
     <loc>https://blog.rimuru.uk/tags/the-caption-is-incorrect/</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/openvpn/</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/network-optimization/</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.uk/tags/performance-tuning/</loc>
     <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
