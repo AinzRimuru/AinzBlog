@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.uk/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/cover.png">
 <meta property="article:published_time" content="2026-01-03T18:45:00.000Z">
-<meta property="article:modified_time" content="2026-01-03T11:27:35.000Z">
+<meta property="article:modified_time" content="2026-01-03T13:18:50.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Hexo">
 <meta property="article:tag" content="JavaScript">
@@ -66,7 +66,7 @@
       }
     },
     "datePublished": "2026-01-03T18:45:00.000Z",
-    "dateModified": "2026-01-03T11:27:35.000Z",
+    "dateModified": "2026-01-03T13:18:50.000Z",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://blog.rimuru.uk/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/"
@@ -281,7 +281,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~30.37K
+                            ~31.56K
                         
                         字
                     </li>
@@ -465,6 +465,25 @@
 
 <p>首次构建时会为所有文章生成 Embedding，可能需要一些时间。后续构建会使用缓存，只对修改过的文章重新计算。</p>
 <p>对于使用Github Action进行自动部署的用户，需要在Action中完成对缓存文件的提交才能生效，否则每次构建都会重新计算所有文章的 Embedding。也可以选择在本地构建后，将生成的缓存文件提交到仓库中。</p>
+<h3 id="4-GitHub-Actions-自动化配置（可选）"><a href="#4-GitHub-Actions-自动化配置（可选）" class="headerlink" title="4. GitHub Actions 自动化配置（可选）"></a>4. GitHub Actions 自动化配置（可选）</h3><p>如果你使用 GitHub Actions 进行自动部署，可以按以下步骤配置：</p>
+<h4 id="配置-Repository-Secrets"><a href="#配置-Repository-Secrets" class="headerlink" title="配置 Repository Secrets"></a>配置 Repository Secrets</h4><p>在 GitHub 仓库的 <strong>Settings → Secrets and variables → Actions</strong> 中添加以下 Secrets：</p>
+<ul>
+<li><code>OPENAI_API_KEY</code>：OpenAI API 密钥</li>
+<li><code>OPENAI_BASE_URL</code>：API 端点（可选，默认为 <code>https://api.openai.com/v1</code>）</li>
+<li><code>OPENAI_EMBEDDING_MODEL</code>：Embedding 模型名称</li>
+</ul>
+<h4 id="更新-Workflow-文件"><a href="#更新-Workflow-文件" class="headerlink" title="更新 Workflow 文件"></a>更新 Workflow 文件</h4><p>在你的 GitHub Actions workflow 文件中，为构建步骤添加环境变量：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">Hexo</span></span><br><span class="line">  <span class="attr">env:</span></span><br><span class="line">    <span class="attr">OPENAI_API_KEY:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.OPENAI_API_KEY</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">OPENAI_BASE_URL:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.OPENAI_BASE_URL</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">OPENAI_EMBEDDING_MODEL:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.OPENAI_EMBEDDING_MODEL</span> <span class="string">&#125;&#125;</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    npx hexo clean</span></span><br><span class="line"><span class="string">    npx hexo generate</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="缓存持久化（推荐）"><a href="#缓存持久化（推荐）" class="headerlink" title="缓存持久化（推荐）"></a>缓存持久化（推荐）</h4><p>为了避免每次构建都重新计算所有 Embedding，建议在 workflow 中添加缓存提交步骤：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Commit</span> <span class="string">embedding</span> <span class="string">cache</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    git config --local user.email &quot;github-actions[bot]@users.noreply.github.com&quot;</span></span><br><span class="line"><span class="string">    git config --local user.name &quot;github-actions[bot]&quot;</span></span><br><span class="line"><span class="string">    git add embeddings_store/cache.json || true</span></span><br><span class="line"><span class="string">    git diff --staged --quiet || git commit -m &quot;chore: update embedding cache [skip ci]&quot;</span></span><br><span class="line"><span class="string">    git push || true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>提示</strong>：<code>[skip ci]</code> 标记可以避免缓存提交触发新的构建。</p>
+</blockquote>
+<h3 id="Embedding模型选择（仅供参考）"><a href="#Embedding模型选择（仅供参考）" class="headerlink" title="Embedding模型选择（仅供参考）"></a>Embedding模型选择（仅供参考）</h3><p>推荐OpenRouter的<a target="_blank" rel="noopener" href="https://openrouter.ai/models/qwen/qwen3-embedding-8b">qwen&#x2F;qwen3-embedding-8b</a>模型，1M输入仅需$0.01，性价比极高。</p>
 <h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p>推荐阅读区块会自动插入到文章导航区域之后，展示风格如下：</p>
 <ul>
 <li><p>⭐ 标题图标，突出展示</p>
@@ -510,7 +529,7 @@
                     <a class="tag-none-link" href="/tags/hexo/" rel="tag">Hexo</a>, <a class="tag-none-link" href="/tags/javascript/" rel="tag">JavaScript</a>, <a class="tag-none-link" href="/tags/openai/" rel="tag">OpenAI</a>, <a class="tag-none-link" href="/tags/blog-optimization/" rel="tag">博客优化</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-01-03T11:27:35.000Z" itemprop="dateModified">最后编辑：2026-01-03</time>
+                    <time datetime="2026-01-03T13:18:50.000Z" itemprop="dateModified">最后编辑：2026-01-03</time>
                 </div>
             </div>
         </footer>
