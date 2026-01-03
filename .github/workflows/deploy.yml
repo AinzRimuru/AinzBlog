@@ -42,6 +42,11 @@ jobs:
 
       - name: Build Hexo
         run: pnpm exec hexo generate
+        env:
+          OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_API_ENDPOINT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_LLM_MODEL: ${{ vars.OPENAI_LLM_MODEL }}
+          OPENAI_EMBEDDING_MODEL: ${{ vars.OPENAI_EMBEDDING_MODEL }}
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3

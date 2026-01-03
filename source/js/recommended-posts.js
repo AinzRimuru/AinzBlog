@@ -180,16 +180,44 @@
   // 渲染推荐文章列表
   function renderPosts(container, posts) {
     const currentPath = getCurrentPath();
+    // 尝试标准化路径以匹配 JSON 中的 path (通常 JSON 中 path 不带前导斜杠)
+    // window.location.pathname 通常带前导斜杠
+    const normalizedCurrentPath = currentPath.replace(/^\//, '');
+
+    let recommended = [];
+
+    // 1. 尝试查找当前文章并获取预计算的推荐
+    const currentPost = posts.find(p => p.path === normalizedCurrentPath || p.path === currentPath);
     
-    // 过滤掉当前文章
-    const filteredPosts = posts.filter(post => {
-      const postPath = post.path.startsWith('/') ? post.path : '/' + post.path;
-      return postPath !== currentPath && !currentPath.endsWith(post.path);
-    });
-    
-    // 随机抽取
-    const shuffled = shuffleArray(filteredPosts);
-    const recommended = shuffled.slice(0, CONFIG.numRecommended);
+    if (currentPost && currentPost.recommendations && currentPost.recommendations.length > 0) {
+      // 从 recommendations 中取前 numRecommended - 1 个
+      const numFromRecommendations = Math.min(currentPost.recommendations.length, CONFIG.numRecommended - 1);
+      recommended = currentPost.recommendations.slice(0, numFromRecommendations);
+      
+      // 已选中的路径集合
+      const selectedPaths = new Set(recommended.map(p => p.path));
+      selectedPaths.add(normalizedCurrentPath);
+      selectedPaths.add(currentPath);
+      
+      // 从所有文章中随机补齐
+      const remaining = CONFIG.numRecommended - recommended.length;
+      if (remaining > 0) {
+        const pool = posts.filter(p => !selectedPaths.has(p.path));
+        const shuffled = shuffleArray(pool);
+        const extra = shuffled.slice(0, remaining);
+        recommended = recommended.concat(extra);
+      }
+    } else {
+      // 2. 降级方案：随机抽取
+      // 过滤掉当前文章
+      const filteredPosts = posts.filter(post => {
+        const postPath = post.path.startsWith('/') ? post.path : '/' + post.path;
+        return postPath !== currentPath && !currentPath.endsWith(post.path);
+      });
+      
+      const shuffled = shuffleArray(filteredPosts);
+      recommended = shuffled.slice(0, CONFIG.numRecommended);
+    }
     
     // 清除加载状态
     const loading = container.querySelector('.recommended-posts-loading');

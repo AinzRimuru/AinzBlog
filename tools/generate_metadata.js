@@ -16,7 +16,7 @@
  * Environment variables (in .env file):
  *   OPENAI_API_ENDPOINT - The OpenAI-compatible API endpoint (e.g., https://api.openai.com/v1)
  *   OPENAI_API_KEY      - Your API key
- *   OPENAI_MODEL        - The model ID to use (e.g., gpt-4, gpt-3.5-turbo)
+ *   OPENAI_LLM_MODEL    - The model ID to use (e.g., gpt-4, gpt-3.5-turbo)
  */
 
 const fs = require('fs');
@@ -31,7 +31,7 @@ function loadEnv() {
     console.error('Please create a .env file with the following variables:');
     console.error('  OPENAI_API_ENDPOINT=<your-api-endpoint>');
     console.error('  OPENAI_API_KEY=<your-api-key>');
-    console.error('  OPENAI_MODEL=<model-id>');
+    console.error('  OPENAI_LLM_MODEL=<model-id>');
     process.exit(1);
   }
 
@@ -104,7 +104,7 @@ function savePost(filePath, frontmatter, body, originalContent) {
 async function generateMetadata(env, postContent, existingTags, needDescription, needTags) {
   const endpoint = env.OPENAI_API_ENDPOINT.replace(/\/$/, '');
   const apiKey = env.OPENAI_API_KEY;
-  const model = env.OPENAI_MODEL;
+  const model = env.OPENAI_LLM_MODEL;
 
   const existingTagsList = existingTags.join(', ');
   
@@ -164,8 +164,8 @@ ${postContent.slice(0, 6000)}  <!-- 截断以避免token过多 -->
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`API request failed: ${response.status} - ${errorText}`);
+    // 不要在错误信息中包含完整响应，可能包含敏感信息
+    throw new Error(`API request failed with status ${response.status}`);
   }
 
   const data = await response.json();
@@ -342,7 +342,7 @@ async function main() {
   // Load environment
   const env = loadEnv();
   console.log(`API Endpoint: ${env.OPENAI_API_ENDPOINT}`);
-  console.log(`Model: ${env.OPENAI_MODEL}`);
+  console.log(`Model: ${env.OPENAI_LLM_MODEL}`);
 
   // Load existing tags from config
   const configPath = path.join(__dirname, '..', '_config.yml');
