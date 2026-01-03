@@ -1,6 +1,7 @@
 ---
 title: Hexo博客智能推荐阅读功能：基于OpenAI Embedding的实现
 date: 2026-01-03T18:45:00.000Z
+cover: cover.png
 categories:
   - 技术
 tags:
@@ -98,15 +99,11 @@ function getEnv(key) {
 
 
 
-| 变量名 | 说明 |
+`OPENAI_API_KEY`: OpenAI API 密钥
 
-|--------|------|
+`OPENAI_BASE_URL`: API 端点（可选，支持代理）
 
-| `OPENAI_API_KEY` | OpenAI API 密钥 |
-
-| `OPENAI_BASE_URL` | API 端点（可选，支持代理） |
-
-| `OPENAI_EMBEDDING_MODEL` | Embedding 模型名称 |
+`OPENAI_EMBEDDING_MODEL`: Embedding 模型名称
 
 
 
