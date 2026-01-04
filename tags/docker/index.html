@@ -26,36 +26,37 @@
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
 <meta property="og:description" content="分享 DevOps、AI 工具、Linux 运维及游戏攻略。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.rimuru.uk/images/favicon.png">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="hexo, blog, tech, virtualization, programming, linux, windows">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.rimuru.uk/images/favicon.png">
   
     <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
+  
+  <!-- JSON-LD 结构化数据 -->
+  
   
   <!-- 关键 CSS 预加载 -->
   <link rel="preload" href="/css/kr-core.min.css" as="style" crossorigin>
   <link rel="preload" href="/css/kr-theme/light.min.css" as="style" crossorigin>
   <link rel="preload" href="/css/kr-theme/dark.min.css" as="style" crossorigin>
-
-  <!-- JSON-LD 结构化数据 -->
-  
-
   <!-- 样式表文件 -->
-  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all">
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all">
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)">
   
-    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
+    <link rel="stylesheet"  id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
   
-  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
-  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
   <script src="/js/kr-theme.min.js"></script>
-  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  <link rel="stylesheet"  id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css"></noscript>
   
-    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
+    <link rel="stylesheet"  id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
   
   
-    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
+    <link rel="stylesheet"  href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
   
-  <!-- 不得不预先加载的一些JS文件 -->
+  <!-- 预先加载的JS文件 -->
   
     <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
   
@@ -253,7 +254,6 @@
 
 
 
-
     
     
         <article class="kratos-hentry clearfix" itemscope itemtype="https://schema.org/Article">
@@ -264,10 +264,7 @@
             
                 <div class="kratos-entry-thumb">
                     <a href="/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/">
-                        
-                        
-                        <img class="kratos-entry-thumb-img" src="/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=800/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png" alt="Linux 系统管理：高频运维场景的一键命令合集" loading="lazy" width="770" height="380" decoding="async">
-                        
+                        <img class="kratos-entry-thumb-img" src="/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=800/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png" alt="Linux 系统管理：高频运维场景的一键命令合集">
                     </a>
                 </div>
             
@@ -307,7 +304,6 @@
     </div>
 </article>
     
-    
 
     
     
@@ -319,10 +315,7 @@
             
                 <div class="kratos-entry-thumb">
                     <a href="/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/">
-                        
-                        
-                        <img class="kratos-entry-thumb-img" src="/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=800/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/cover.png" alt="Overleaf(Sharelatex)本地部署无需邮箱重置管理员密码" loading="lazy" width="770" height="380" decoding="async">
-                        
+                        <img class="kratos-entry-thumb-img" src="/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=800/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/cover.png" alt="Overleaf(Sharelatex)本地部署无需邮箱重置管理员密码">
                     </a>
                 </div>
             
@@ -362,7 +355,6 @@
         </footer>
     </div>
 </article>
-    
     
 
 

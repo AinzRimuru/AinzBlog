@@ -44,58 +44,33 @@
   
     <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
   
+  <!-- JSON-LD 结构化数据 -->
+  
+  
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"解决高延迟场景中OpenVPN速度缓慢的问题","description":"针对高延迟场景下的OpenVPN速度缓慢问题，本文提供了全方位的性能调优方案。涵盖了强制UDP协议、计算并优化sndbuf/rcvbuf缓冲区、调整Linux内核sysctl参数以及启用BBR拥塞控制算法。此外还介绍了如何通过Nginx配置HTTP/3和QUIC缓冲区，以显著提升高延迟网络环境下的吞吐量和稳定性。","image":"https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.uk/images/avatar.png"}},"datePublished":"2026-01-03T22:08:11.000Z","dateModified":"2026-01-03T15:08:39.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/"}}
+    </script>
+  
   <!-- 关键 CSS 预加载 -->
   <link rel="preload" href="/css/kr-core.min.css" as="style" crossorigin>
   <link rel="preload" href="/css/kr-theme/light.min.css" as="style" crossorigin>
   <link rel="preload" href="/css/kr-theme/dark.min.css" as="style" crossorigin>
-
-  <!-- JSON-LD 结构化数据 -->
-  
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "解决高延迟场景中OpenVPN速度缓慢的问题",
-    "description": "针对高延迟场景下的OpenVPN速度缓慢问题，本文提供了全方位的性能调优方案。涵盖了强制UDP协议、计算并优化sndbuf/rcvbuf缓冲区、调整Linux内核sysctl参数以及启用BBR拥塞控制算法。此外还介绍了如何通过Nginx配置HTTP/3和QUIC缓冲区，以显著提升高延迟网络环境下的吞吐量和稳定性。",
-    "image": "https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/cover.png",
-    "author": {
-      "@type": "Person",
-      "name": "Rimuru"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Rimuru's Blog",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://blog.rimuru.uk/images/avatar.png"
-      }
-    },
-    "datePublished": "2026-01-03T22:08:11.000Z",
-    "dateModified": "2026-01-03T15:08:39.000Z",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https://blog.rimuru.uk/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/"
-    }
-  }
-  </script>
-  
-
   <!-- 样式表文件 -->
-  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all">
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all">
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)">
   
-    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
+    <link rel="stylesheet"  id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
   
-  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
-  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
   <script src="/js/kr-theme.min.js"></script>
-  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  <link rel="stylesheet"  id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css"></noscript>
   
-    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
+    <link rel="stylesheet"  id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
   
   
-    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
+    <link rel="stylesheet"  href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
   
-  <!-- 不得不预先加载的一些JS文件 -->
+  <!-- 预先加载的JS文件 -->
   
     <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
   
