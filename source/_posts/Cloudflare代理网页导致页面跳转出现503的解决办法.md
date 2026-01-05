@@ -1,6 +1,7 @@
 ---
 title: Cloudflare代理网页导致页面跳转出现503的解决办法
 date: 2026-01-05T22:35:22.000Z
+cover: cover.png
 tags:
   - Cloudflare
   - CDN加速
