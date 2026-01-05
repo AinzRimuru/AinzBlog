@@ -1,7 +1,7 @@
 ---
 title: Windows配置Claude Code代理（无额外依赖）
 date: 2026-01-04T18:21:59.000Z
-updated: 2026-01-04T15:31:35.000Z
+updated: 2026-01-04T23:31:35.000Z
 cover: cover.png
 tags:
   - 问题解决

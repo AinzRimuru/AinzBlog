@@ -1,7 +1,7 @@
 ---
 title: 在Hexo博客中插入图片
 date: 2025-12-04T15:53:49.000Z
-updated: 2025-12-21T15:30:12.000Z
+updated: 2025-12-21T23:30:12.000Z
 description: 本文详细介绍了在Hexo博客中插入图片的两种核心方法：通过source/images目录统一管理及启用post_asset_folder实现资源文件夹管理。同时针对图片路径解析失败、无法加载等常见BUG，提供了修改_config.yml配置文件的解决方案，确保Markdown图片在Hexo中正确渲染。
 categories:
   - 技术分享

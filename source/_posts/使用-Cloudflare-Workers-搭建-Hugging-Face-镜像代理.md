@@ -1,7 +1,7 @@
 ---
 title: 使用 Cloudflare Workers 搭建 Hugging Face 镜像代理
 date: 2025-12-14T21:04:21.000Z
-updated: 2025-12-22T13:47:32.000Z
+updated: 2025-12-22T21:47:32.000Z
 description: 本文详细介绍如何使用 Cloudflare Workers/Pages 搭建 HuggingfaceProxy 镜像代理。通过该开源项目，利用 Cloudflare 全球边缘网络解决 Hugging Face 访问缓慢及模型下载失败的问题，包含完整的部署步骤和使用指南。
 tags:
   - Cloudflare

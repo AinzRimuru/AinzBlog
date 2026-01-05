@@ -1,7 +1,7 @@
 ---
 title: Wallpaper Engine 搜索作者教程
 date: 2025-12-10T22:24:09.000Z
-updated: 2025-12-21T15:30:12.000Z
+updated: 2025-12-21T23:30:12.000Z
 description: Wallpaper Engine不支持直接根据名称搜索作者？本教程手把手教你如何通过作者的Steam ID或用户搜索功能，快速构建并访问特定作者的创意工坊主页。涵盖从已知壁纸查找、Steam用户搜索到链接构建的详细步骤，助你轻松获取心仪作者的所有动态壁纸资源。
 categories:
   - 技术分享
