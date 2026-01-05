@@ -138,6 +138,9 @@ tag_map:
   Claude Code: claude-code
   环境变量: environment-vars
   代理配置: proxy-configuration
+  Speed Brain: speed-brain
+  503错误: 503-error
+  网页预加载: page-preloader
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
