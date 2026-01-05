@@ -20,3 +20,4 @@ source/lib/*
 public
 .deploy_git
 db.json
+_multiconfig.yml

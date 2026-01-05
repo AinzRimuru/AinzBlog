@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "hexo generate",
+    "build": "hexo generate --config _config.yml,_config.tag_map.yml",
     "clean": "hexo clean",
-    "deploy": "hexo deploy",
-    "server": "hexo server",
+    "deploy": "hexo deploy --config _config.yml,_config.tag_map.yml",
+    "server": "hexo server --config _config.yml,_config.tag_map.yml",
     "generate-metadata": "node tools/generate_metadata.js",
     "generate-metadata:all": "node tools/generate_metadata.js --all",
     "generate-metadata:dry": "node tools/generate_metadata.js --all --dry-run",
