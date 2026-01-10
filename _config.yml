@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://blog.rimuru.uk
+url: https://blog.rimuru.cc
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -116,7 +116,7 @@ deploy:
 cloudflare_image:
   enable: true
   # Your Cloudflare zone (domain)
-  zone: blog.rimuru.uk
+  zone: blog.rimuru.cc
   # Default image transformation options
   options:
     format: auto      # Auto-select best format (WebP, AVIF, etc.)
@@ -152,7 +152,7 @@ cloudflare_image:
       quality: 80
   # Only transform images from these domains (your own domain is always included)
   allowed_domains:
-    - blog.rimuru.uk
+    - blog.rimuru.cc
   # Paths to exclude from transformation
   exclude_paths:
     - .ico
