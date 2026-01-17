@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.cc/2026/01/11/%E5%9F%BA%E4%BA%8ECloudflare%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%AB%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8F%8A%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%89/cover.png">
 <meta property="article:published_time" content="2026-01-11T21:29:43.000Z">
-<meta property="article:modified_time" content="2026-01-13T22:54:27.000Z">
+<meta property="article:modified_time" content="2026-01-17T22:10:08.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="内网穿透">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）","description":"本文详细介绍了基于Cloudflare Zero Trust和Tunnel实现的内网穿透方案。通过配置Cloudflared隧道、Access安全认证以及利用Cloudflare Worker构建动态IP白名单，有效解决了传统穿透工具在安全性与易用性上的痛点，为内网资源提供企业级的防火墙保护与灵活的访问控制。","image":"https://blog.rimuru.cc/2026/01/11/%E5%9F%BA%E4%BA%8ECloudflare%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%AB%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8F%8A%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%89/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.cc/images/avatar.png"}},"datePublished":"2026-01-11T21:29:43.000Z","dateModified":"2026-01-13T22:54:27.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.cc/2026/01/11/%E5%9F%BA%E4%BA%8ECloudflare%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%AB%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8F%8A%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%89/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）","description":"本文详细介绍了基于Cloudflare Zero Trust和Tunnel实现的内网穿透方案。通过配置Cloudflared隧道、Access安全认证以及利用Cloudflare Worker构建动态IP白名单，有效解决了传统穿透工具在安全性与易用性上的痛点，为内网资源提供企业级的防火墙保护与灵活的访问控制。","image":"https://blog.rimuru.cc/2026/01/11/%E5%9F%BA%E4%BA%8ECloudflare%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%AB%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8F%8A%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%89/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.cc/images/avatar.png"}},"datePublished":"2026-01-11T21:29:43.000Z","dateModified":"2026-01-17T22:10:08.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.cc/2026/01/11/%E5%9F%BA%E4%BA%8ECloudflare%E7%9A%84%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88%E5%90%AB%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81%E5%8F%8A%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%89/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -255,7 +255,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            ~2.88K
+                            ~3.02K
                         
                         字
                     </li>
@@ -269,98 +269,110 @@
             
             
                 <div class="kratos-post-inner-toc toc-div-class" >
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">方案概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-number">4.</span> <span class="toc-text">详细步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AECloudflare-Tunnel"><span class="toc-number">4.1.</span> <span class="toc-text">1. 配置Cloudflare Tunnel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AECloudflare-Access%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81"><span class="toc-number">4.2.</span> <span class="toc-text">2. 配置Cloudflare Access安全认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">4.3.</span> <span class="toc-text">3. 配置动态IP白名单（可选）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.3.1.</span> <span class="toc-text">3.1 适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.3.2.</span> <span class="toc-text">3.2 部署项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84Bypass%E7%AD%96%E7%95%A5"><span class="toc-number">4.3.3.</span> <span class="toc-text">3.3 配置白名单的Bypass策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-IP%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Token%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">4.3.4.</span> <span class="toc-text">3.4 IP白名单的注册鉴权（Token方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-IP%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Email%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">4.3.5.</span> <span class="toc-text">3.5 IP白名单的注册鉴权（Email方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">4.3.6.</span> <span class="toc-text">3.6 使用说明</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">方案概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-number">3.</span> <span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%85%8D%E7%BD%AE-Cloudflare-Tunnel"><span class="toc-number">4.</span> <span class="toc-text">一、配置 Cloudflare Tunnel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E9%9A%A7%E9%81%93"><span class="toc-number">4.1.</span> <span class="toc-text">1. 创建隧道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E9%9A%A7%E9%81%93"><span class="toc-number">4.2.</span> <span class="toc-text">2. 启动隧道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1"><span class="toc-number">4.3.</span> <span class="toc-text">3. 配置路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AE-Cloudflare-Access-%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81"><span class="toc-number">5.</span> <span class="toc-text">二、配置 Cloudflare Access 安全认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">5.1.</span> <span class="toc-text">1. 创建应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E8%AE%BF%E9%97%AE%E7%AD%96%E7%95%A5"><span class="toc-number">5.2.</span> <span class="toc-text">2. 创建访问策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B3%E8%81%94%E7%AD%96%E7%95%A5"><span class="toc-number">5.3.</span> <span class="toc-text">3. 关联策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81-IP-%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">三、配置动态 IP 白名单（可选）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">6.1.</span> <span class="toc-text">3.1 适用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="toc-number">6.2.</span> <span class="toc-text">3.2 部署项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E5%85%8B%E9%9A%86%E9%A1%B9%E7%9B%AE"><span class="toc-number">6.2.1.</span> <span class="toc-text">3.2.1 克隆项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E5%88%9B%E5%BB%BA-KV-Namespace"><span class="toc-number">6.2.2.</span> <span class="toc-text">3.2.2 创建 KV Namespace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E5%88%9B%E5%BB%BA-IP-%E5%88%97%E8%A1%A8"><span class="toc-number">6.2.3.</span> <span class="toc-text">3.2.3 创建 IP 列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-%E8%8E%B7%E5%8F%96-Account-ID"><span class="toc-number">6.2.4.</span> <span class="toc-text">3.2.4 获取 Account ID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5-%E9%85%8D%E7%BD%AE%E5%85%81%E8%AE%B8%E7%9A%84%E5%9F%9F%E5%90%8D%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">6.2.5.</span> <span class="toc-text">3.2.5 配置允许的域名（可选）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-6-%E9%83%A8%E7%BD%B2-Worker-%E8%84%9A%E6%9C%AC"><span class="toc-number">6.2.6.</span> <span class="toc-text">3.2.6 部署 Worker 脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84-Bypass-%E7%AD%96%E7%95%A5"><span class="toc-number">6.3.</span> <span class="toc-text">3.3 配置白名单的 Bypass 策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-IP-%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Token-%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">6.4.</span> <span class="toc-text">3.4 IP 白名单的注册鉴权（Token 方式）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%87%AD%E6%8D%AE"><span class="toc-number">6.4.1.</span> <span class="toc-text">3.4.1 创建服务凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%88%9B%E5%BB%BA-Worker-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">6.4.2.</span> <span class="toc-text">3.4.2 创建 Worker 应用程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-%E5%88%9B%E5%BB%BA-SERVICE-AUTH-%E7%AD%96%E7%95%A5"><span class="toc-number">6.4.3.</span> <span class="toc-text">3.4.3 创建 SERVICE AUTH 策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-%E5%85%B3%E8%81%94%E7%AD%96%E7%95%A5"><span class="toc-number">6.4.4.</span> <span class="toc-text">3.4.4 关联策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-IP-%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Email-%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-number">6.5.</span> <span class="toc-text">3.5 IP 白名单的注册鉴权（Email 方式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-number">6.6.</span> <span class="toc-text">3.6 使用说明</span></a></li></ol></li></ol>
                 </div>
             
             <hr />
-            <div itemprop="articleBody"><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>目前，内网穿透的解决方案有很多，比如frp、ngrok等，但这些方案在安全性和易用性方面仍有提升空间。本文将介绍一种基于Cloudflare的内网穿透解决方案，结合安全认证和动态IP白名单机制，提升内网穿透服务的安全性和可靠性。</p>
-<h2 id="方案概述"><a href="#方案概述" class="headerlink" title="方案概述"></a>方案概述</h2><p>本方案利用Cloudflare的Zero Trust（原Cloudflare Access）和Cloudflare Tunnel（原Argo Tunnel）功能，实现内网服务的安全访问。通过配置安全认证和基于Cloudfare Worker的动态IP白名单，确保只有授权用户能够访问内网资源，同时适配不支持认证的客户端。</p>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ol>
-<li>Cloudflare账号及域名</li>
-<li>Docker环境（可选）</li>
-<li>npm环境（用于部署Worker脚本）</li>
-</ol>
-<h2 id="详细步骤"><a href="#详细步骤" class="headerlink" title="详细步骤"></a>详细步骤</h2><h3 id="1-配置Cloudflare-Tunnel"><a href="#1-配置Cloudflare-Tunnel" class="headerlink" title="1. 配置Cloudflare Tunnel"></a>1. 配置Cloudflare Tunnel</h3><ul>
-<li><p>登录Cloudflare控制台，选择“Zero Trust”。</p>
-</li>
-<li><p>导航到“网络” &gt; “连接器”</p>
-</li>
-<li><p>选择“创建隧道” &gt; “选择Cloudflared” &gt; 填入名称 &gt; “保存隧道”。</p>
-</li>
-<li><p>启动隧道。网页会提供一段命令，复制并在内网服务器上执行以启动Cloudflared隧道。默认显示Windows，可以切换”Mac”,”Debian,”Red Hat”,”Docker”等系统。</p>
-</li>
-<li><p>特别提供docker compose方式启动隧道：</p>
-</li>
+            <div itemprop="articleBody"><h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>目前，内网穿透的解决方案有很多，比如 frp、ngrok 等，但这些方案在安全性和易用性方面仍有提升空间。</p>
+<p>本文将介绍一种基于 Cloudflare 的内网穿透解决方案，结合安全认证和动态 IP 白名单机制，提升内网穿透服务的安全性和可靠性。</p>
+<h2 id="方案概述"><a href="#方案概述" class="headerlink" title="方案概述"></a>方案概述</h2><p>本方案利用 Cloudflare 的 <strong>Zero Trust</strong>（原 Cloudflare Access）和 <strong>Cloudflare Tunnel</strong>（原 Argo Tunnel）功能，实现内网服务的安全访问。</p>
+<p>通过配置安全认证和基于 Cloudflare Worker 的动态 IP 白名单，确保只有授权用户能够访问内网资源，同时适配不支持认证的客户端。</p>
+<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><ul>
+<li>Cloudflare 账号及域名</li>
+<li>Docker 环境（可选）</li>
+<li>npm 环境（用于部署 Worker 脚本）</li>
 </ul>
+<hr>
+<h2 id="一、配置-Cloudflare-Tunnel"><a href="#一、配置-Cloudflare-Tunnel" class="headerlink" title="一、配置 Cloudflare Tunnel"></a>一、配置 Cloudflare Tunnel</h2><h3 id="1-创建隧道"><a href="#1-创建隧道" class="headerlink" title="1. 创建隧道"></a>1. 创建隧道</h3><ol>
+<li>登录 Cloudflare 控制台，选择 <strong>Zero Trust</strong></li>
+<li>导航到 <strong>网络</strong> &gt; <strong>连接器</strong></li>
+<li>选择 <strong>创建隧道</strong> &gt; <strong>选择 Cloudflared</strong> &gt; 填入名称 &gt; <strong>保存隧道</strong></li>
+</ol>
+<h3 id="2-启动隧道"><a href="#2-启动隧道" class="headerlink" title="2. 启动隧道"></a>2. 启动隧道</h3><p>网页会提供一段启动命令，复制并在内网服务器上执行。默认显示 Windows，可切换至 Mac、Debian、Red Hat、Docker 等系统。</p>
+<p><strong>Docker Compose 方式：</strong></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">cloudflared:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">cloudflare/cloudflared:latest</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">cloudflared</span></span><br><span class="line">    <span class="attr">restart:</span> <span class="string">unless-stopped</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">tunnel</span> <span class="string">--no-autoupdate</span> <span class="string">run</span> <span class="string">--token</span> <span class="string">&lt;YOUR_TUNNEL_TOKEN&gt;</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>选择“路由隧道”&#x2F;“已发布应用程序路由”添加路由，填写子域名和内网服务地址（如<code>http://localhost:8080</code>）。注意不要经过nginx等代理，直接填写内网服务地址。</li>
-</ul>
-<h3 id="2-配置Cloudflare-Access安全认证"><a href="#2-配置Cloudflare-Access安全认证" class="headerlink" title="2. 配置Cloudflare Access安全认证"></a>2. 配置Cloudflare Access安全认证</h3><ul>
-<li><p>在Cloudflare控制台，导航到“Zero Trust” &gt; “访问控制” &gt; “应用程序” &gt; “添加应用程序”。输入应用名称，添加公共主机名（即上一步配置的子域名）。</p>
-</li>
-<li><p>选择“创建新新策略”输入策略名称，操作选择“允许”，选择器类型选择“电子邮件”，输入允许访问的用户邮箱（可根据需要选择其他认证方式，不支持认证的客户端应用等后面介绍处理办法）。保存策略。</p>
-</li>
-<li><p>回到应用程序页面，选择现有策略，关联刚创建的策略。</p>
-</li>
-<li><p>现在，访问该子域名时会被重定向到Cloudflare的认证页面，只有通过认证的用户才能访问内网服务。</p>
-</li>
-</ul>
-<h3 id="3-配置动态IP白名单（可选）"><a href="#3-配置动态IP白名单（可选）" class="headerlink" title="3. 配置动态IP白名单（可选）"></a>3. 配置动态IP白名单（可选）</h3><h4 id="3-1-适用场景"><a href="#3-1-适用场景" class="headerlink" title="3.1 适用场景"></a>3.1 适用场景</h4><ul>
-<li>如果应用程序不支持Cloudflare Access认证，或者频繁的认证不便，可以通过Cloudflare Worker实现动态IP白名单功能。</li>
-</ul>
-<h4 id="3-2-部署项目"><a href="#3-2-部署项目" class="headerlink" title="3.2 部署项目"></a>3.2 部署项目</h4><ul>
-<li><p>使用项目<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/cloudflare_dynamic_ip_list">cloudflare_dynamic_ip_list</a>来实现动态IP白名单功能。</p>
-</li>
-<li><p>克隆项目到本地</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/cloudflare_dynamic_ip_list.git</span><br></pre></td></tr></table></figure>
+<h3 id="3-配置路由"><a href="#3-配置路由" class="headerlink" title="3. 配置路由"></a>3. 配置路由</h3><p>选择 <strong>路由隧道</strong>&#x2F;<strong>已发布应用程序路由</strong> 添加路由，填写子域名和内网服务地址（如 <code>http://localhost:8080</code>）。</p>
+<blockquote>
+<p><strong>注意：</strong> 直接填写内网服务地址，不要经过 nginx 等代理。</p>
+</blockquote>
+<hr>
+<h2 id="二、配置-Cloudflare-Access-安全认证"><a href="#二、配置-Cloudflare-Access-安全认证" class="headerlink" title="二、配置 Cloudflare Access 安全认证"></a>二、配置 Cloudflare Access 安全认证</h2><h3 id="1-创建应用程序"><a href="#1-创建应用程序" class="headerlink" title="1. 创建应用程序"></a>1. 创建应用程序</h3><ol>
+<li>导航到 <strong>Zero Trust</strong> &gt; <strong>访问控制</strong> &gt; <strong>应用程序</strong> &gt; <strong>添加应用程序</strong></li>
+<li>输入应用名称</li>
+<li>添加公共主机名（即上一步配置的子域名）</li>
+</ol>
+<h3 id="2-创建访问策略"><a href="#2-创建访问策略" class="headerlink" title="2. 创建访问策略"></a>2. 创建访问策略</h3><ol>
+<li>选择 <strong>创建新策略</strong>，输入策略名称</li>
+<li>操作选择 <strong>允许</strong></li>
+<li>选择器类型选择 <strong>电子邮件</strong></li>
+<li>输入允许访问的用户邮箱（可根据需要选择其他认证方式）</li>
+<li>保存策略</li>
+</ol>
+<blockquote>
+<p><strong>提示：</strong> 不支持认证的客户端应用的处理办法将在后续章节介绍。</p>
+</blockquote>
+<h3 id="3-关联策略"><a href="#3-关联策略" class="headerlink" title="3. 关联策略"></a>3. 关联策略</h3><p>回到应用程序页面，选择现有策略，关联刚创建的策略。</p>
+<p>完成配置后，访问该子域名时会被重定向到 Cloudflare 的认证页面，只有通过认证的用户才能访问内网服务。</p>
+<hr>
+<h2 id="三、配置动态-IP-白名单（可选）"><a href="#三、配置动态-IP-白名单（可选）" class="headerlink" title="三、配置动态 IP 白名单（可选）"></a>三、配置动态 IP 白名单（可选）</h2><h3 id="3-1-适用场景"><a href="#3-1-适用场景" class="headerlink" title="3.1 适用场景"></a>3.1 适用场景</h3><p>如果应用程序不支持 Cloudflare Access 认证，或者频繁认证不便，可以通过 Cloudflare Worker 实现动态 IP 白名单功能。</p>
+<h3 id="3-2-部署项目"><a href="#3-2-部署项目" class="headerlink" title="3.2 部署项目"></a>3.2 部署项目</h3><p>使用项目 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/cloudflare_dynamic_ip_list">cloudflare_dynamic_ip_list</a> 来实现动态 IP 白名单功能。</p>
+<h4 id="3-2-1-克隆项目"><a href="#3-2-1-克隆项目" class="headerlink" title="3.2.1 克隆项目"></a>3.2.1 克隆项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/cloudflare_dynamic_ip_list.git</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>创建KV Namespace用于维护IP的过期状态，运行以下命令创建KV命名空间，并记下返回的ID，填入<code>wrangler.toml</code>中的<code>[[kv_namespaces]]</code>部分的<code>id</code>字段：</li>
-</ul>
+<h4 id="3-2-2-创建-KV-Namespace"><a href="#3-2-2-创建-KV-Namespace" class="headerlink" title="3.2.2 创建 KV Namespace"></a>3.2.2 创建 KV Namespace</h4><p>运行以下命令创建 KV 命名空间，用于维护 IP 的过期状态：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wrangler kv namespace create IP_WHITELIST</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p>创建List用于存储允许访问的IP地址: 打开<code>ZeroTrust</code> &gt; <code>可重用组件</code> &gt; <code>列表</code> &gt; <code>创建列表</code>，名称无要求，创建后记下列表ID（点开List页面，在URL中可以看到ID，形如<code>********-****-****-****-************</code>）。将该ID填入<code>wrangler.toml</code>中的<code>[vars]</code>部分的<code>LIST_ID</code>字段。</p>
-</li>
-<li><p>获取ACCOUNT_ID: 打开<code>计算和AI</code> &gt; <code>Workers和Pages</code>，在右边可以看到<code>Account Details</code>，记下<code>Account ID</code>，填入<code>wrangler.toml</code>中的<code>ACCOUNT_ID</code>字段。</p>
-</li>
-<li><p>配置允许的域名（可选）：如果配置了新域名，且希望仅允许该域名访问，可以在<code>wrangler.toml</code>中的<code>[vars]</code>部分的<code>ALLOWED_HOSTS</code>字段添加域名，多个域名用逗号分隔。如果不配置该字段，则允许所有域名访问。</p>
-</li>
-<li><p>部署Worker脚本：</p>
-</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx wrangler login</span><br><span class="line">npx wrangler deploy --config config/wrangler.toml</span><br></pre></td></tr></table></figure>
+<p>记下返回的 ID，填入 <code>wrangler.toml</code> 中 <code>[[kv_namespaces]]</code> 部分的 <code>id</code> 字段。</p>
+<h4 id="3-2-3-创建-IP-列表"><a href="#3-2-3-创建-IP-列表" class="headerlink" title="3.2.3 创建 IP 列表"></a>3.2.3 创建 IP 列表</h4><ol>
+<li>打开 <strong>Zero Trust</strong> &gt; <strong>可重用组件</strong> &gt; <strong>列表</strong> &gt; <strong>创建列表</strong></li>
+<li>创建后记下列表 ID（点开 List 页面，在 URL 中可以看到 ID，形如 <code>********-****-****-****-************</code>）</li>
+<li>将该 ID 填入 <code>wrangler.toml</code> 中 <code>[vars]</code> 部分的 <code>LIST_ID</code> 字段</li>
+</ol>
+<h4 id="3-2-4-获取-Account-ID"><a href="#3-2-4-获取-Account-ID" class="headerlink" title="3.2.4 获取 Account ID"></a>3.2.4 获取 Account ID</h4><ol>
+<li>打开 <strong>计算和 AI</strong> &gt; <strong>Workers 和 Pages</strong></li>
+<li>在右边可以看到 <strong>Account Details</strong></li>
+<li>记下 <strong>Account ID</strong>，填入 <code>wrangler.toml</code> 中的 <code>ACCOUNT_ID</code> 字段</li>
+</ol>
+<h4 id="3-2-5-配置允许的域名（可选）"><a href="#3-2-5-配置允许的域名（可选）" class="headerlink" title="3.2.5 配置允许的域名（可选）"></a>3.2.5 配置允许的域名（可选）</h4><p>如果配置了新域名，且希望仅允许该域名访问，可以在 <code>wrangler.toml</code> 中 <code>[vars]</code> 部分的 <code>ALLOWED_HOSTS</code> 字段添加域名，多个域名用逗号分隔。</p>
+<p>如果不配置该字段，则允许所有域名访问。</p>
+<h4 id="3-2-6-部署-Worker-脚本"><a href="#3-2-6-部署-Worker-脚本" class="headerlink" title="3.2.6 部署 Worker 脚本"></a>3.2.6 部署 Worker 脚本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx wrangler login</span><br><span class="line">npx wrangler deploy --config config/wrangler.toml</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-3-配置白名单的Bypass策略"><a href="#3-3-配置白名单的Bypass策略" class="headerlink" title="3.3 配置白名单的Bypass策略"></a>3.3 配置白名单的Bypass策略</h4><ul>
-<li><p>配置白名单Bypass路由：在Cloudflare控制台，导航到<code>Zero Trust</code> &gt; <code>访问控制</code> &gt; <code>策略</code>，创建新策略，名称自定义，操作选择<code>BYPASS</code>，选择器类型选择<code>IP List</code>, 值为刚创建的List名称。保存策略。</p>
+<h3 id="3-3-配置白名单的-Bypass-策略"><a href="#3-3-配置白名单的-Bypass-策略" class="headerlink" title="3.3 配置白名单的 Bypass 策略"></a>3.3 配置白名单的 Bypass 策略</h3><ol>
+<li>在 Cloudflare 控制台，导航到 <strong>Zero Trust</strong> &gt; <strong>访问控制</strong> &gt; <strong>策略</strong></li>
+<li>创建新策略，名称自定义</li>
+<li>操作选择 <strong>BYPASS</strong></li>
+<li>选择器类型选择 <strong>IP List</strong>，值为刚创建的 List 名称</li>
+<li>保存策略</li>
+</ol>
+<p><strong>关联策略：</strong> 将策略添加到刚刚创建的应用程序中，排名第 1 位。这样，IP 在白名单中的请求将绕过认证直接访问内网服务。</p>
+<h3 id="3-4-IP-白名单的注册鉴权（Token-方式）"><a href="#3-4-IP-白名单的注册鉴权（Token-方式）" class="headerlink" title="3.4 IP 白名单的注册鉴权（Token 方式）"></a>3.4 IP 白名单的注册鉴权（Token 方式）</h3><h4 id="3-4-1-创建服务凭据"><a href="#3-4-1-创建服务凭据" class="headerlink" title="3.4.1 创建服务凭据"></a>3.4.1 创建服务凭据</h4><ol>
+<li>选择 <strong>Zero Trust</strong> &gt; <strong>访问控制</strong> &gt; <strong>服务凭据</strong> &gt; <strong>创建凭据</strong></li>
+<li>输入名称，创建后记下 <strong>Client ID</strong> 和 <strong>Client Secret</strong></li>
+</ol>
+<h4 id="3-4-2-创建-Worker-应用程序"><a href="#3-4-2-创建-Worker-应用程序" class="headerlink" title="3.4.2 创建 Worker 应用程序"></a>3.4.2 创建 Worker 应用程序</h4><ol>
+<li>新建应用程序，名称自定义</li>
+<li>公共主机名填写 Worker 脚本的域名（如 <code>your-worker.your-domain.com</code>）</li>
+</ol>
+<h4 id="3-4-3-创建-SERVICE-AUTH-策略"><a href="#3-4-3-创建-SERVICE-AUTH-策略" class="headerlink" title="3.4.3 创建 SERVICE AUTH 策略"></a>3.4.3 创建 SERVICE AUTH 策略</h4><ol>
+<li>创建新策略，名称自定义</li>
+<li>操作选择 <strong>SERVICE AUTH</strong></li>
+<li>选择器类型选择 <strong>Service Token</strong>，值为刚创建的服务凭据名称</li>
+<li>保存策略</li>
+</ol>
+<h4 id="3-4-4-关联策略"><a href="#3-4-4-关联策略" class="headerlink" title="3.4.4 关联策略"></a>3.4.4 关联策略</h4><p>回到 Worker 的应用程序页面，选择现有策略，关联刚创建的策略。</p>
+<h3 id="3-5-IP-白名单的注册鉴权（Email-方式）"><a href="#3-5-IP-白名单的注册鉴权（Email-方式）" class="headerlink" title="3.5 IP 白名单的注册鉴权（Email 方式）"></a>3.5 IP 白名单的注册鉴权（Email 方式）</h3><ol>
+<li>创建新策略，名称自定义</li>
+<li>操作选择 <strong>Allow</strong></li>
+<li>选择器类型选择 <strong>Emails</strong>，值为允许注册的邮箱地址（可添加多个）</li>
+<li>保存策略后，回到 Worker 的应用程序页面，关联刚创建的策略</li>
+</ol>
+<h3 id="3-6-使用说明"><a href="#3-6-使用说明" class="headerlink" title="3.6 使用说明"></a>3.6 使用说明</h3><ul>
+<li><p>浏览器访问 Worker 脚本的域名，完成认证后，IP 将被添加到白名单中，且在指定时间内有效。</p>
 </li>
-<li><p>现在，将策略添加到刚刚创建的应用程序中，排名第1位。这样，IP在白名单中的请求将绕过认证直接访问内网服务。</p>
-</li>
-</ul>
-<h4 id="3-4-IP白名单的注册鉴权（Token方式）"><a href="#3-4-IP白名单的注册鉴权（Token方式）" class="headerlink" title="3.4 IP白名单的注册鉴权（Token方式）"></a>3.4 IP白名单的注册鉴权（Token方式）</h4><ul>
-<li><p>选择<code>Zero Trust</code> &gt; <code>访问控制</code> &gt; <code>服务凭据</code> &gt; <code>创建凭据</code>，输入名称，创建后记下<code>Client ID</code>和<code>Client Secret</code>。</p>
-</li>
-<li><p>新建应用程序，名称自定义，公共主机名填写Worker脚本的域名（如<code>your-worker.your-domain.com</code>）。</p>
-</li>
-<li><p>创建新策略，名称自定义，操作选择<code>SERVICE AUTH</code>，选择器类型选择<code>Service Token</code>，值为刚创建的服务凭据名称。保存策略。</p>
-</li>
-<li><p>回到Worker的应用程序页面，选择现有策略，关联刚创建的策略。</p>
-</li>
-</ul>
-<h4 id="3-5-IP白名单的注册鉴权（Email方式）"><a href="#3-5-IP白名单的注册鉴权（Email方式）" class="headerlink" title="3.5 IP白名单的注册鉴权（Email方式）"></a>3.5 IP白名单的注册鉴权（Email方式）</h4><ul>
-<li><p>创建新策略，名称自定义，操作选择<code>Allow</code>，选择器类型选择<code>Emails</code>，值为允许注册的邮箱地址，可以添加多个邮箱。</p>
-</li>
-<li><p>保存策略后，回到Worker的应用程序页面，选择现有策略，关联刚创建的策略。</p>
-</li>
-</ul>
-<h4 id="3-6-使用说明"><a href="#3-6-使用说明" class="headerlink" title="3.6 使用说明"></a>3.6 使用说明</h4><ul>
-<li><p>浏览器访问Worker脚本的域名，完成认证后，IP将被添加到白名单中，且在指定时间内有效。</p>
-</li>
-<li><p>对于不支持认证的客户端应用，可以选择使用自动化任务如（ios的快捷指令等）配置<code>CF-Access-Client-Id</code>和<code>CF-Access-Client-Secret</code>请求头，实现自动认证。需要注意的是，自动化任务可能无法指定请求时的IPv4&#x2F;IPv6地址,因此可以尝试重复请求多次以确保IPv4和IPv6地址均被添加到白名单中。</p>
+<li><p>对于不支持认证的客户端应用，可使用自动化任务（如 iOS 的快捷指令等）配置 <code>CF-Access-Client-Id</code> 和 <code>CF-Access-Client-Secret</code> 请求头，实现自动认证。</p>
+<blockquote>
+<p><strong>注意：</strong> 自动化任务可能无法指定请求时的 IPv4&#x2F;IPv6 地址，因此可以尝试重复请求多次以确保 IPv4 和 IPv6 地址均被添加到白名单中。</p>
+</blockquote>
 </li>
 </ul>
 </div>
@@ -383,7 +395,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/intranet-penetration/" rel="tag">内网穿透</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-01-13T22:54:27.000Z" itemprop="dateModified">最后编辑：2026-01-13</time>
+                    <time datetime="2026-01-17T22:10:08.000Z" itemprop="dateModified">最后编辑：2026-01-17</time>
                 </div>
             </div>
         </footer>
@@ -460,7 +472,7 @@
         <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
     </h4>
     <div class="textwidget">
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="toc-text">方案概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%A6%E7%BB%86%E6%AD%A5%E9%AA%A4"><span class="toc-text">详细步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%85%8D%E7%BD%AECloudflare-Tunnel"><span class="toc-text">1. 配置Cloudflare Tunnel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%85%8D%E7%BD%AECloudflare-Access%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81"><span class="toc-text">2. 配置Cloudflare Access安全认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81IP%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">3. 配置动态IP白名单（可选）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">3.1 适用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="toc-text">3.2 部署项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84Bypass%E7%AD%96%E7%95%A5"><span class="toc-text">3.3 配置白名单的Bypass策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-IP%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Token%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-text">3.4 IP白名单的注册鉴权（Token方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-5-IP%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Email%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-text">3.5 IP白名单的注册鉴权（Email方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-text">3.6 使用说明</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%A1%88%E6%A6%82%E8%BF%B0"><span class="toc-text">方案概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%9C%9F%E5%87%86%E5%A4%87"><span class="toc-text">前期准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%85%8D%E7%BD%AE-Cloudflare-Tunnel"><span class="toc-text">一、配置 Cloudflare Tunnel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E9%9A%A7%E9%81%93"><span class="toc-text">1. 创建隧道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E9%9A%A7%E9%81%93"><span class="toc-text">2. 启动隧道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%85%8D%E7%BD%AE%E8%B7%AF%E7%94%B1"><span class="toc-text">3. 配置路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%85%8D%E7%BD%AE-Cloudflare-Access-%E5%AE%89%E5%85%A8%E8%AE%A4%E8%AF%81"><span class="toc-text">二、配置 Cloudflare Access 安全认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-text">1. 创建应用程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E8%AE%BF%E9%97%AE%E7%AD%96%E7%95%A5"><span class="toc-text">2. 创建访问策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%85%B3%E8%81%94%E7%AD%96%E7%95%A5"><span class="toc-text">3. 关联策略</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AE%E5%8A%A8%E6%80%81-IP-%E7%99%BD%E5%90%8D%E5%8D%95%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">三、配置动态 IP 白名单（可选）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">3.1 适用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E9%83%A8%E7%BD%B2%E9%A1%B9%E7%9B%AE"><span class="toc-text">3.2 部署项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-%E5%85%8B%E9%9A%86%E9%A1%B9%E7%9B%AE"><span class="toc-text">3.2.1 克隆项目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-2-%E5%88%9B%E5%BB%BA-KV-Namespace"><span class="toc-text">3.2.2 创建 KV Namespace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-3-%E5%88%9B%E5%BB%BA-IP-%E5%88%97%E8%A1%A8"><span class="toc-text">3.2.3 创建 IP 列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-4-%E8%8E%B7%E5%8F%96-Account-ID"><span class="toc-text">3.2.4 获取 Account ID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-5-%E9%85%8D%E7%BD%AE%E5%85%81%E8%AE%B8%E7%9A%84%E5%9F%9F%E5%90%8D%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-text">3.2.5 配置允许的域名（可选）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-6-%E9%83%A8%E7%BD%B2-Worker-%E8%84%9A%E6%9C%AC"><span class="toc-text">3.2.6 部署 Worker 脚本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E9%85%8D%E7%BD%AE%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84-Bypass-%E7%AD%96%E7%95%A5"><span class="toc-text">3.3 配置白名单的 Bypass 策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-IP-%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Token-%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-text">3.4 IP 白名单的注册鉴权（Token 方式）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-1-%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%87%AD%E6%8D%AE"><span class="toc-text">3.4.1 创建服务凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-2-%E5%88%9B%E5%BB%BA-Worker-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-text">3.4.2 创建 Worker 应用程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-3-%E5%88%9B%E5%BB%BA-SERVICE-AUTH-%E7%AD%96%E7%95%A5"><span class="toc-text">3.4.3 创建 SERVICE AUTH 策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-4-4-%E5%85%B3%E8%81%94%E7%AD%96%E7%95%A5"><span class="toc-text">3.4.4 关联策略</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-IP-%E7%99%BD%E5%90%8D%E5%8D%95%E7%9A%84%E6%B3%A8%E5%86%8C%E9%89%B4%E6%9D%83%EF%BC%88Email-%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="toc-text">3.5 IP 白名单的注册鉴权（Email 方式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="toc-text">3.6 使用说明</span></a></li></ol></li></ol>
     </div>
 </aside>
                 
