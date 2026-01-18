@@ -49,7 +49,7 @@ footer:
       since: "2025/12/04 13:58:00"
       text: "本站已运行"
     author:
-      homepage: "https://blog.rimuru.cc" # 可以导向作者的首页
+      homepage: "https://blog.rimuru.work" # 可以导向作者的首页
     additional:
       - - '本页访问人次:<span id="page_pv"></span>'
         - '本页访问人数:<span id="page_uv"></span>'
@@ -79,10 +79,10 @@ copyright_notice:
 additional_injections:
   head: |
     <!-- Preconnect hints for faster resource loading -->
-    <link rel="preconnect" href="https://cdn.rimuru.cc" crossorigin>
-    <link rel="dns-prefetch" href="https://cdn.rimuru.cc">
-    <link rel="preconnect" href="https://analytics.rimuru.cc" crossorigin>
-    <link rel="dns-prefetch" href="https://analytics.rimuru.cc">
+    <link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.rimuru.work">
+    <link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
+    <link rel="dns-prefetch" href="https://analytics.rimuru.work">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
@@ -94,7 +94,7 @@ additional_injections:
     <!-- 推荐阅读功能 -->
     <script defer src="/js/recommended-posts.js"></script>
     <!-- Self-hosted analytics -->
-    <script defer src="https://cdn.rimuru.cc/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.cc"></script>
+    <script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>
     <!-- Google Analytics -->
     <script defer src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
     <script>
@@ -108,13 +108,13 @@ additional_injections:
     <!-- PJAX analytics reload handler -->
     <script>
       window.addEventListener('pjax:complete', function() {
-        const scriptUrl = 'https://cdn.rimuru.cc/analytics_with_cloudflare/index.min.js';
+        const scriptUrl = 'https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js';
         const oldScript = document.querySelector('script[src="' + scriptUrl + '"]');
         if (oldScript) oldScript.remove();
         const newScript = document.createElement('script');
         newScript.src = scriptUrl;
         newScript.defer = true;
-        newScript.setAttribute('data-base-url', 'https://analytics.rimuru.cc');
+        newScript.setAttribute('data-base-url', 'https://analytics.rimuru.work');
         document.body.appendChild(newScript);
       });
     </script>

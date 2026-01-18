@@ -31,7 +31,7 @@ comments: false
 
 如果你有任何问题或建议，欢迎通过以下方式联系我：
 
-- **博客**: [blog.rimuru.cc](https://blog.rimuru.cc)
+- **博客**: [blog.rimuru.work](https://blog.rimuru.work)
 - **GitHub**: 欢迎在文章下方留言交流
 
 ### ⚖️ 版权声明
