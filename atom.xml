@@ -6,7 +6,7 @@
   <link href="https://blog.rimuru.work/atom.xml" rel="self"/>
   
   <link href="https://blog.rimuru.work/"/>
-  <updated>2026-01-17T22:10:08.000Z</updated>
+  <updated>2026-03-02T15:05:30.536Z</updated>
   <id>https://blog.rimuru.work/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>家用宽带上行被限速后的全方位取证方法</title>
+    <link href="https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/"/>
+    <id>https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/</id>
+    <published>2026-03-02T22:36:19.000Z</published>
+    <updated>2026-03-02T15:05:30.536Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>家宽在前段时间被限速了，在与师傅沟通无果之后决定工信部投诉，目前上行已经恢复正常。下面介绍具体的取证方法。</p><h1 id="白名单限速取证"><a href="#白名单限速取证" class="headerlink" title="白名单限速取证"></a>白名单限速取证</h1><p>目前，运营商对与家宽用户的限速方式往往基于域名白名单进行。也就是说，当用户访问特定域名时，运营商不会对其进行限速，而访问其他域名时则会被限速。这一机制使得Speedtest等测速工具在测试时可能显示正常的速度，因为它们通常使用的是被列入白名单的域名。面对这种情况有两种解决办法：</p><ol><li><strong>使用非白名单域名进行测速</strong>：Speedtest等工具通常允许用户选择测试服务器，可以多选择一些不同的服务器进行测速。如果测速得到的下行速率正常，但上行速率明显低于预期，那么很可能是被限速了。</li><li><strong>使用自建测速工具</strong>：如果有公网ip，可以在所在地找相同运营商的家宽用户，使用iperf3等工具进行测速。这里的公网ip不局限于IPv4，也可以是IPv6，因为运营商的限速机制通常对IPv4和IPv6都适用。需要注意的是，使用自建测速工具时，必须确保双方使用相同的运营商，并且位于同一个城市，以排除跨省、跨运营商等因素影响测试结果的可信度。</li></ol><h1 id="限速路由取证"><a href="#限速路由取证" class="headerlink" title="限速路由取证"></a>限速路由取证</h1><p>自建测速工具测速时，可以采用traceroute等工具查看数据包的路由路径。如果两条宽带位于同一小区，那么路由跳数应该非常少，通常只经过一个运营商网关。如此，可以确保流量没有被转发到其他地方，在所有基础设施属于当地运营商的情况下，限速的责任方也只能是当地运营商。通过这种方式，可以有效地排除其他因素的干扰，增强取证的可信度。有些运营商的限速策略可能会在省级直接下发，不通知地方运营商，通过这种方式，能够让地方运营商在排查的过程中发现相关策略由省级直接下发，从而进一步向上反馈。</p><h1 id="限速特征取证（可选）"><a href="#限速特征取证（可选）" class="headerlink" title="限速特征取证（可选）"></a>限速特征取证（可选）</h1><p>为了尽可能的减少对用户体验的影响，运营商的限速机制通常时动态调整的，可能会在识别到特定特征时生效。比如，某些限速机制可能会在用户上传大量数据时触发。因此，在使用iperf3进行测速时，可以使用<code>-i</code>参数来设置报告间隔，以观察速率的变化趋势。在我的观察中，设置间隔为10秒时，速率会在第一个10秒内高于平均速率但仍然低于正常水平，而在10秒后速率会稳定在一个较低的水平。设置间隔为1s时，速率会在第一个1秒内接近正常水平，但随后迅速下降并稳定在一个较低的水平。不同的是，达到正常水平的时间点除第一个1秒外，还会在之后的某些时间点随机出现。这表明限速机制可能会在识别到特定特征时动态调整速率，而不是在整个测试过程中持续保持一个固定的速率水平。通过观察速率的变化趋势，可以进一步确认是否存在限速行为，并且可以提供更多的证据来支持投诉。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;家宽在前段时间被限速了，在与师傅沟通无果之后决定工信部投诉，目前上行已经恢复正常。下面介绍具体的取证方法。&lt;/p&gt;
+&lt;h1 id=&quot;白名单限</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）</title>
@@ -54,13 +75,13 @@
     
     
     
-    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
-    
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
+    
+    <category term="CDN加速" scheme="https://blog.rimuru.work/tags/cdn/"/>
     
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
-    <category term="CDN加速" scheme="https://blog.rimuru.work/tags/cdn/"/>
+    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
     
     <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
     
@@ -87,13 +108,13 @@
     
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
-    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
-    
     <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
     
     <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
     
@@ -120,19 +141,19 @@
     
     
     
+    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
+    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
-    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
-    
     <category term="运维命令" scheme="https://blog.rimuru.work/tags/om-orders/"/>
     
     <category term="系统监控" scheme="https://blog.rimuru.work/tags/system-monitoring/"/>
-    
-    <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
     
     <category term="OpenVPN" scheme="https://blog.rimuru.work/tags/openvpn/"/>
     
@@ -157,13 +178,13 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
+    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
+    
     <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
     
     <category term="JavaScript" scheme="https://blog.rimuru.work/tags/javascript/"/>
     
     <category term="OpenAI" scheme="https://blog.rimuru.work/tags/openai/"/>
-    
-    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
     
   </entry>
   
@@ -172,7 +193,7 @@
     <link href="https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/"/>
     <id>https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/</id>
     <published>2025-12-27T16:45:03.000Z</published>
-    <updated>2026-01-25T15:00:03.736Z</updated>
+    <updated>2026-03-02T15:05:30.445Z</updated>
     
     <content type="html"><![CDATA[<h2 id="查看所有硬盘的SMART详细信息"><a href="#查看所有硬盘的SMART详细信息" class="headerlink" title="查看所有硬盘的SMART详细信息"></a>查看所有硬盘的SMART详细信息</h2><h3 id="依赖包安装"><a href="#依赖包安装" class="headerlink" title="依赖包安装"></a>依赖包安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install smartmontools</span><br></pre></td></tr></table></figure><h3 id="命令介绍"><a href="#命令介绍" class="headerlink" title="命令介绍"></a>命令介绍</h3><p>首先使用<code>lsblk</code>获取所有的存储设备，然后使用<code>grep</code>过滤出<code>sd</code>、<code>hd</code>、<code>nvme</code>、<code>vd</code>开头的设备，最后使用<code>xargs</code>和<code>smartctl</code>获取每个设备的SMART信息。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk -d -o NAME | grep -E <span class="string">&#x27;^(sd|hd|nvme|vd)&#x27;</span> | xargs -I &#123;&#125; <span class="built_in">sudo</span> smartctl -a <span class="string">&quot;/dev/&#123;&#125;&quot;</span></span><br></pre></td></tr></table></figure><h2 id="查看所有硬盘的SMART详细信息（极简输出）"><a href="#查看所有硬盘的SMART详细信息（极简输出）" class="headerlink" title="查看所有硬盘的SMART详细信息（极简输出）"></a>查看所有硬盘的SMART详细信息（极简输出）</h2><h3 id="依赖包安装-1"><a href="#依赖包安装-1" class="headerlink" title="依赖包安装"></a>依赖包安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install smartmontools</span><br></pre></td></tr></table></figure><h3 id="命令介绍-1"><a href="#命令介绍-1" class="headerlink" title="命令介绍"></a>命令介绍</h3><p>流程同上</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsblk -d -o NAME | grep -E <span class="string">&#x27;^(sd|hd|nvme|vd)&#x27;</span> | xargs -I &#123;&#125; <span class="built_in">sudo</span> smartctl -H <span class="string">&quot;/dev/&#123;&#125;&quot;</span></span><br></pre></td></tr></table></figure><h2 id="定位进程所属容器-Pod"><a href="#定位进程所属容器-Pod" class="headerlink" title="定位进程所属容器&#x2F;Pod"></a>定位进程所属容器&#x2F;Pod</h2><h3 id="依赖包安装-2"><a href="#依赖包安装-2" class="headerlink" title="依赖包安装"></a>依赖包安装</h3><p>定位pod需要crictl</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install crictl</span><br></pre></td></tr></table></figure><h3 id="命令介绍-2"><a href="#命令介绍-2" class="headerlink" title="命令介绍"></a>命令介绍</h3><h4 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h4><p>首先使用<code>cat</code>和<code>grep</code>获取进程所属的cgroup，然后使用<code>docker ps</code>和<code>grep</code>获取容器ID。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps | grep $(<span class="built_in">sudo</span> <span class="built_in">cat</span> /proc/&lt;pid&gt;/cgroup | grep -oP <span class="string">&#x27;docker-\K[a-f0-9]+&#x27;</span> | <span class="built_in">head</span> -c 12)</span><br></pre></td></tr></table></figure><h4 id="ctr-containerd"><a href="#ctr-containerd" class="headerlink" title="ctr(containerd)"></a>ctr(containerd)</h4><p>首先使用<code>cat</code>和<code>grep</code>获取进程所属的cgroup，然后选取包含pids的一行以去掉重复数据，直接从最后的信息中提取命名空间和容器名称。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /proc/&lt;pid&gt;/cgroup | grep pids | awk -F<span class="string">&#x27;/&#x27;</span> <span class="string">&#x27;&#123;print $(NF-1), $NF&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h4 id="Kubernetes获取容器id"><a href="#Kubernetes获取容器id" class="headerlink" title="Kubernetes获取容器id"></a>Kubernetes获取容器id</h4><p>首先使用<code>cat</code>和<code>grep</code>获取进程所属的cgroup, 然后选取包含pids的一行以去掉重复数据，从行中解析最后一级的前12位。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cat</span> /proc/&lt;pid&gt;/cgroup | grep pids | awk -F<span class="string">&#x27;/&#x27;</span> <span class="string">&#x27;&#123;print substr($NF,1,12)&#125;&#x27;</span></span><br></pre></td></tr></table></figure><h4 id="Kubernetes获取Pod名称"><a href="#Kubernetes获取Pod名称" class="headerlink" title="Kubernetes获取Pod名称"></a>Kubernetes获取Pod名称</h4><p>使用<code>crictl</code>根据容器ID获取Pod名称。其中容器ID为上一步获取到的12位ID。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crictl inspect -o go-template --template=<span class="string">&#x27;&#123;&#123;index .status.labels &quot;io.kubernetes.pod.name&quot;&#125;&#125;&#x27;</span> $(<span class="built_in">sudo</span> <span class="built_in">cat</span> /proc/&lt;pid&gt;/cgroup | grep pids | awk -F<span class="string">&#x27;/&#x27;</span> <span class="string">&#x27;&#123;print substr($NF,1,12)&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -182,6 +203,8 @@
     
     
     
+    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
@@ -189,8 +212,6 @@
     <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
     
     <category term="磁盘管理" scheme="https://blog.rimuru.work/tags/managing-disks/"/>
-    
-    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
     <category term="运维命令" scheme="https://blog.rimuru.work/tags/om-orders/"/>
     
@@ -215,15 +236,15 @@
     
     
     
+    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
-    <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
-    
-    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
-    
     <category term="Overleaf" scheme="https://blog.rimuru.work/tags/overleaf/"/>
+    
+    <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
     
     <category term="ShareLaTeX" scheme="https://blog.rimuru.work/tags/sharelatex/"/>
     
@@ -275,9 +296,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Nextcloud" scheme="https://blog.rimuru.work/tags/nextcloud/"/>
     
@@ -316,9 +337,9 @@
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
-    <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
-    
     <category term="Serverless" scheme="https://blog.rimuru.work/tags/serverless/"/>
+    
+    <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
     
   </entry>
   
@@ -339,9 +360,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Wallpaper Engine" scheme="https://blog.rimuru.work/tags/wallpaper-engine/"/>
     
@@ -436,13 +457,13 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
+    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
     <category term="磁盘管理" scheme="https://blog.rimuru.work/tags/managing-disks/"/>
-    
-    <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
     <category term="虚拟机" scheme="https://blog.rimuru.work/tags/virtualization/"/>
     
@@ -471,9 +492,9 @@
     <category term="疑难杂症" scheme="https://blog.rimuru.work/categories/troubleshooting/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Microsoft Word" scheme="https://blog.rimuru.work/tags/microsoft-word/"/>
     
@@ -504,9 +525,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
     
     <category term="博客教程" scheme="https://blog.rimuru.work/tags/blog-tutorial/"/>
     
@@ -535,9 +556,9 @@
     <category term="疑难杂症" scheme="https://blog.rimuru.work/categories/troubleshooting/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="JetBrains" scheme="https://blog.rimuru.work/tags/jetbrains/"/>
     
