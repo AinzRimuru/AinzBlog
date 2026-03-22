@@ -75,3 +75,13 @@ tag_map:
   iperf3: iperf3
   OpenClaw: openclaw
   智谱AI: smart-spectrum-ai
+  NAS: nas
+  数据备份: data-backup
+  RAID: raid
+  自托管服务: self-hosted-services
+  硬件选购: hardware-purchase
+  CMR硬盘: cmr-hard-drive
+  存储方案: storage-scenarios
+  容器化: containerization
+  媒体服务器: ms
+  Docker Compose: docker-compose

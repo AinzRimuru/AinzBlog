@@ -6,6 +6,8 @@ tags:
   - 智谱AI
   - Docker
 cover: cover.png
+categories:
+  - 疑难杂症
 description: 本文详解OpenClaw自定义模型时报错'No API provider registered for api'的解决办法。通过升级Docker镜像至最新版本修复此问题，并补充了智谱AI GLM-5-turbo模型中baseUrl的配置要点，确保编码套餐额度正常使用，帮助开发者快速排除故障。
 ---
 ## TL;DR

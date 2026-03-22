@@ -12,6 +12,8 @@ tags:
   - Speed Brain
   - 503错误
   - 网页预加载
+categories:
+  - 技术分享
 description: 解决Cloudflare代理网页时出现503错误及cf-speculation-refused响应头的问题。本文深入分析了Cloudflare Speed Brain智能加速功能导致的prefetch请求失败原因，并提供了关闭该功能以消除503报错的详细步骤，适合使用Cloudflare进行CDN加速和网站优化的开发者参考。
 ---
 ## TL;DR

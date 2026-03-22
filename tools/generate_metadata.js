@@ -165,6 +165,7 @@ ${postContent.slice(0, 6000)}  <!-- 截断以避免token过多 -->
 
   if (!response.ok) {
     // 不要在错误信息中包含完整响应，可能包含敏感信息
+    console.error('API response error:', await response.text());
     throw new Error(`API request failed with status ${response.status}`);
   }
 
@@ -379,11 +380,17 @@ async function main() {
 
   for (const filePath of filesToProcess) {
     const result = await processPost(filePath, env, existingTags, options);
-    
+
     if (result.status === 'updated') {
       results.updated++;
       if (result.newTags) {
-        result.newTags.forEach(t => results.newTags.add(t));
+        result.newTags.forEach(t => {
+          results.newTags.add(t);
+          // Dynamically add new tags to existingTags so subsequent posts can reference them
+          if (!existingTags.includes(t)) {
+            existingTags.push(t);
+          }
+        });
       }
     } else if (result.status === 'error') {
       results.errors++;

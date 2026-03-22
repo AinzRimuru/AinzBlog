@@ -5,39 +5,48 @@ type: "page"
 comments: false
 ---
 
-## 👋 欢迎来到 Rimuru's Blog
+## 关于 Rimuru's Blog
 
-你好！我是 **Rimuru**，一名热爱技术的博主。这个博客是我分享技术心得、解决方案和个人见解的地方。
+你好，我是 **Rimuru**。这个博客是我的技术笔记本，记录我在日常开发、运维和学习中遇到的问题与解决方案。
 
-### 🎯 博客内容
+### 博客定位
 
-本博客主要涵盖以下领域：
+本博客的内容均基于**真实的实践经验**，每篇文章都来自我亲自踩过的坑或完成的搭建过程。我不会搬运官方文档或转载他人内容——如果你在这里看到一篇教程，说明我一定在真实环境中验证过。
 
-- **技术分享** - 编程技巧、开发工具、最佳实践
-- **疑难杂症** - 技术问题的排查与解决方案
-- **虚拟化技术** - VMware、Docker 等虚拟化相关内容
-- **游戏** - 游戏攻略、优化技巧
+### 内容方向
 
-### 💻 技术栈
+- **网络与基础设施** — Cloudflare、内网穿透、VPN、宽带诊断等网络相关技术
+- **系统运维** — Linux 运维、虚拟机管理、NAS 搭建与安全加固
+- **开发实践** — Docker 容器化部署、反向代理、自托管服务搭建
+- **游戏** — Cities: Skylines 2 等游戏的攻略与优化
 
-本博客使用以下技术构建：
+### 技术背景
 
-- **框架**: [Hexo](https://hexo.io/)
-- **主题**: [Kratos-Rebirth](https://github.com/Candinya/Kratos-Rebirth)
-- **托管**: GitHub Pages
-- **CDN**: Cloudflare
+- 熟悉 Linux 系统管理与网络配置，日常使用 VMware、Docker 等虚拟化技术
+- 拥有自建 NAS 和家庭实验室环境，涉及 RAID、备份、安全加固
+- 有 Cloudflare 生态使用经验，包括 Tunnel、Workers、Zero Trust 等服务
+- 使用 Hexo 构建本博客，并进行主题定制与功能开发
 
-### 📬 联系方式
+### 开源项目
 
-如果你有任何问题或建议，欢迎通过以下方式联系我：
+- [HuggingfaceProxy](https://github.com/AinzRimuru/HuggingfaceProxy) — 基于 Cloudflare Workers 的 Hugging Face 镜像代理，提供零配置的模型下载加速
+- [cloudflare_dynamic_ip_list](https://github.com/AinzRimuru/cloudflare_dynamic_ip_list) — Cloudflare 动态 IP 白名单管理工具，用于 Zero Trust 访问控制
 
-- **博客**: [blog.rimuru.work](https://blog.rimuru.work)
-- **GitHub**: 欢迎在文章下方留言交流
+### 博客技术栈
 
-### ⚖️ 版权声明
+| 组件 | 技术 |
+|------|------|
+| 框架 | [Hexo](https://hexo.io/) |
+| 主题 | [Kratos-Rebirth](https://github.com/Candinya/Kratos-Rebirth)（已定制） |
+| 托管 | GitHub Pages |
+| CDN | Cloudflare |
+| 域名 | blog.rimuru.work |
+
+### 联系方式
+
+- **GitHub**: [AinzRimuru](https://github.com/AinzRimuru)
+- **Issues**: [提交问题或建议](https://github.com/AinzRimuru/AinzBlog/issues)
+
+### 版权声明
 
 除特别声明外，本站所有内容采用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 协议进行许可。转载请注明出处。
-
----
-
-感谢你的访问！希望这里的内容对你有所帮助 🎉
