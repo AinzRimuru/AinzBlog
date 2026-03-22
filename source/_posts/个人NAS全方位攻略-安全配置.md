@@ -6,6 +6,8 @@ tags:
   - 数据备份
   - NAS
   - RAID
+categories:
+  - 技术分享
 cover: cover.png
 description: 本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。
 ---
