@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/cdn-cgi/image/format=auto,quality=85,fit=contain,width=128,height=128/images/favicon.png">
+  
+  
+  <title>个人NAS全方位攻略--需求分析 | Rimuru&#39;s Blog</title>
+  <link rel="canonical" href="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">
+  <meta name="author" content="Rimuru" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="CMR硬盘, Docker, NAS, 存储方案, 数据备份, 硬件选购, 自托管服务" />
+  
+  <meta name="description" content="本文是个人NAS全方位攻略的开篇，深度解析NAS的核心价值：大容量、高速存取、始终在线与数据自主。文章详细对比了成品NAS与DIY方案的优劣，并针对机械硬盘（CMR&#x2F;SMR）与固态硬盘的选择、数据恢复能力及硬件配置给出了专业建议，帮助用户在购买前理性分析需求，避免冲动消费。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人NAS全方位攻略--需求分析">
+<meta property="og:url" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">
+<meta property="og:site_name" content="Rimuru&#39;s Blog">
+<meta property="og:description" content="本文是个人NAS全方位攻略的开篇，深度解析NAS的核心价值：大容量、高速存取、始终在线与数据自主。文章详细对比了成品NAS与DIY方案的优劣，并针对机械硬盘（CMR&#x2F;SMR）与固态硬盘的选择、数据恢复能力及硬件配置给出了专业建议，帮助用户在购买前理性分析需求，避免冲动消费。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/cover.png">
+<meta property="article:published_time" content="2026-03-21T23:17:45.000Z">
+<meta property="article:modified_time" content="2026-03-22T14:27:55.504Z">
+<meta property="article:author" content="Rimuru">
+<meta property="article:tag" content="CMR硬盘">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="NAS">
+<meta property="article:tag" content="存储方案">
+<meta property="article:tag" content="数据备份">
+<meta property="article:tag" content="硬件选购">
+<meta property="article:tag" content="自托管服务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/cover.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
+  
+  <!-- JSON-LD 结构化数据 -->
+  
+  
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略--需求分析","description":"本文是个人NAS全方位攻略的开篇，深度解析NAS的核心价值：大容量、高速存取、始终在线与数据自主。文章详细对比了成品NAS与DIY方案的优劣，并针对机械硬盘（CMR/SMR）与固态硬盘的选择、数据恢复能力及硬件配置给出了专业建议，帮助用户在购买前理性分析需求，避免冲动消费。","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:45.000Z","dateModified":"2026-03-22T14:27:55.504Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/"}}
+    </script>
+  
+  <!-- 关键 CSS 预加载 -->
+  <link rel="preload" href="/css/kr-core.min.css" as="style" crossorigin>
+  <link rel="preload" href="/css/kr-theme/light.min.css" as="style" crossorigin>
+  <link rel="preload" href="/css/kr-theme/dark.min.css" as="style" crossorigin>
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all">
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all">
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)">
+  
+    <link rel="stylesheet"  id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
+  
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet"  id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css"></noscript>
+  
+    <link rel="stylesheet"  id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
+  
+  
+    <link rel="stylesheet"  href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
+  
+  <!-- 预先加载的JS文件 -->
+  
+    <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url("/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=1920/images/background_light.png");
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url("/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=1920/images/background_dark.png");
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+    <!-- Preconnect hints for faster resource loading -->
+<link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.rimuru.work">
+<link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://analytics.rimuru.work">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<!-- Google AdSense Account Verification -->
+<meta name="google-adsense-account" content="ca-pub-9760626627924711">
+<!-- Google Consent Mode v2 - default denied -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+</script>
+<!-- Cookie Consent Banner CSS -->
+<style>
+  #cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color,#fff);color:var(--text-color,#333);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:99999;font-size:14px;flex-wrap:wrap;transition:transform .3s ease}#cookie-consent.hidden{transform:translateY(100%);pointer-events:none}#cookie-consent p{margin:0;flex:1;min-width:200px;line-height:1.6}#cookie-consent a{color:var(--theme-color,#4a9eff);text-decoration:underline}#cookie-consent .btn-group{display:flex;gap:8px;flex-shrink:0}#cookie-consent button{padding:8px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:opacity .2s}#cookie-consent button:hover{opacity:.85}#cookie-consent .btn-accept{background:var(--theme-color,#4a9eff);color:#fff}#cookie-consent .btn-reject{background:transparent;color:var(--text-color,#666);border:1px solid var(--border-color,#ddd)}@media(max-width:600px){#cookie-consent{flex-direction:column;align-items:stretch;text-align:center}#cookie-consent .btn-group{justify-content:center}}
+</style>
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-archive"></i>
+                                            
+                                            归档
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/categories/">
+                                        
+                                            
+                                                <i class="fa fa-folder"></i>
+                                            
+                                            分类
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/tags/">
+                                        
+                                            
+                                                <i class="fa fa-tags"></i>
+                                            
+                                            标签
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/about/">
+                                        
+                                            
+                                                <i class="fa fa-user"></i>
+                                            
+                                            关于
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/contact/">
+                                        
+                                            
+                                                <i class="fa fa-envelope"></i>
+                                            
+                                            联系
+                                        </a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Rimuru&#39;s Blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Rimuru&#39;s Blog</h2> <br />
+                        <span>又是CUDA Out of Memory的一天</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">个人NAS全方位攻略--需求分析</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2026-03-21T23:17:45.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2026-03-21</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">Rimuru</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~8.28K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><blockquote>
+<p>本系列导航：</p>
+<ol>
+<li><a href="#">需求分析</a>（当前）</li>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/">安全配置</a></li>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">容器化部署</a></li>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">常用软件</a></li>
+</ol>
+</blockquote>
+<p>有很多人购买NAS的动机是冲动消费，没有充分考虑自己的实际需求。这一部分将根据不同的需求选择不同的方案。</p>
+<h2 id="1-你需要NAS吗？"><a href="#1-你需要NAS吗？" class="headerlink" title="1.你需要NAS吗？"></a>1.你需要NAS吗？</h2><p>在回答这个问题之前，我们先看看NAS通常被宣传的使用场景：</p>
+<ul>
+<li><strong>文件同步</strong>——多设备间同步文件</li>
+<li><strong>照片备份</strong>——自动备份手机照片，释放手机空间</li>
+<li><strong>远程办公</strong>——在外访问家中文件</li>
+<li><strong>服务托管</strong>——搭建个人博客、网站等</li>
+</ul>
+<p>这些需求确实都是真实存在的，但问题在于——它们真的需要NAS吗？</p>
+<p>文件同步可以用百度网盘、OneDrive、iCloud；照片备份有Google Photos、手机自带云服务；远程办公靠各类云盘和在线文档就能解决；服务托管买一台轻量云服务器同样能搞定。如果你只有这些需求，买NAS大概率是冲动消费。</p>
+<p>NAS真正的不可替代性，体现在以下几个场景：</p>
+<p><strong>高速存取的大容量存储</strong></p>
+<p>注意，这里的关键是”高速存取”和”大容量”必须<strong>同时满足</strong>。如果只需要高速存取，电脑上的固态硬盘就够了；如果只需要大容量而不在乎速度，云盘就能解决，考虑到NAS的硬件投入和持续的电费开销，未必比云盘便宜。</p>
+<p>但当你的数据量达到几个TB，又需要频繁地高速读写——比如影视素材的剪辑和调取、大型项目的工程文件、虚拟机镜像等——这时NAS的优势就体现出来了。局域网内千兆甚至万兆的带宽，配合大容量机械硬盘，能在可控的成本下同时提供充足的空间和流畅的访问速度，这是当前任何单一方案都无法替代的。</p>
+<p><strong>私人影音中心</strong></p>
+<p>这本质上是大容量存储的延伸。一部4K电影动辄几十GB，一个中等规模的影音库轻松突破几个TB。将这样的影音库放在云服务器上既不现实也不经济，而NAS搭配Jellyfin、Emby等媒体管理工具，可以实现自动刮削海报、分类管理，并通过局域网向电视、手机等设备串流播放。</p>
+<p><strong>7×24小时在线服务</strong></p>
+<p>有些需求天然要求设备始终在线——挂机下载、智能家居中枢、监控存储等。让普通电脑7×24小时运行既费电又不安静，而NAS本身就是为长期运行设计的，功耗低、噪音小，适合放在角落默默工作。</p>
+<p><strong>数据自主权</strong></p>
+<p>使用云服务，你的数据存放在别人的服务器上，随时可能面临隐私泄露、服务关停、随意限速等问题。NAS把数据完全掌握在自己手中，这是任何云服务都无法提供的。</p>
+<p>总结一下，NAS的核心价值可以概括为：<strong>大容量 + 高速存取 + 始终在线 + 数据自主</strong>。如果你确实有这些诉求中的至少一个，那么NAS值得考虑；如果只是”感觉好像有个NAS会方便一点”，建议先冷静一下，别让NAS变成吃灰的摆设。</p>
+<h2 id="2-你需要的是什么样的NAS？"><a href="#2-你需要的是什么样的NAS？" class="headerlink" title="2.你需要的是什么样的NAS？"></a>2.你需要的是什么样的NAS？</h2><h3 id="2-1-DIY-成品NAS哪个更适合？"><a href="#2-1-DIY-成品NAS哪个更适合？" class="headerlink" title="2.1.DIY&#x2F;成品NAS哪个更适合？"></a>2.1.DIY&#x2F;成品NAS哪个更适合？</h3><p>决定这个问题之前，先不要看硬件参数和价格，先问自己一个问题：<strong>你有没有DIY的能力和意愿？</strong></p>
+<p>NAS和普通电脑不同，普通电脑蓝屏了重启一下可能就好，NAS出问题丢的是你的数据。DIY NAS意味着你要对自己的数据安全负责，没有官方售后兜底。因此，以下是DIY NAS的最低门槛：</p>
+<ul>
+<li>能独立选购兼容的硬件（主板、CPU、内存、电源、机箱）</li>
+<li>能安装和配置Linux系统（大多数NAS系统基于Linux）</li>
+<li>了解RAID、网络配置、Docker等基础概念</li>
+<li>出问题时能独立排查，而不是等着别人来帮你修</li>
+</ul>
+<p>如果以上任何一条你不确定能做到，建议直接选成品NAS。不要为了省钱去硬DIY，最后折腾了几周没搞定，或者用着用着出问题却不知道怎么修，反而浪费了时间和数据。</p>
+<p>如果你确认具备DIY的能力，接下来就是两种方案的取舍：</p>
+<p><strong>成品NAS</strong></p>
+<p>成品NAS的核心卖点就两个字：省心。开箱装上硬盘就能用，系统更新、套件生态、售后保障都有人管。但代价也很明显：</p>
+<ul>
+<li>同等硬件配置下价格更高，通常溢价30%-50%</li>
+<li>CPU、内存、网口等大多不可更换或受限</li>
+<li>部分品牌系统封闭，不支持SSH，Docker功能受限</li>
+</ul>
+<p>主流成品NAS品牌按需求匹配如下：</p>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>推荐品牌</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>数据安全至上</td>
+<td>群晖</td>
+<td>DSM系统生态最成熟，长期安全更新有保障，数据可靠性业界标杆</td>
+</tr>
+<tr>
+<td>追求性价比</td>
+<td>绿联</td>
+<td>同价位硬件配置最高，底层为Debian，Docker支持好，可玩性佳</td>
+</tr>
+<tr>
+<td>家庭影音为主</td>
+<td>极空间</td>
+<td>极影视体验优秀，上手门槛最低，全家老小都能用</td>
+</tr>
+<tr>
+<td>进阶折腾</td>
+<td>威联通</td>
+<td>硬件配置在同价位最具竞争力，专业性强，适合有经验的用户</td>
+</tr>
+</tbody></table>
+<p>但选择成品NAS时，有几个容易踩坑的地方需要注意：</p>
+<ul>
+<li><strong>硬盘兼容性</strong>：购买前务必查看该机型的硬盘兼容列表，并非所有硬盘都能正常识别</li>
+<li><strong>硬件升级受限</strong>：购买时按未来3-5年的需求预留，CPU和内存一旦选定基本无法更换</li>
+<li><strong>实况照片支持</strong>：如果你有iPhone照片备份的需求，各品牌对LIVE Photo的支持程度不同，购买前务必确认</li>
+<li><strong>生态封闭性</strong>：极空间不支持SSH，部分品牌对Docker有各种限制，如果你有折腾需求，选之前看清底细</li>
+<li><strong>新品牌可靠性</strong>：绿联、极空间等品牌入局NAS时间较短，软件生态仍在快速迭代中，长期稳定性有待市场验证</li>
+<li><strong>噪音与摆放</strong>：如果打算放在卧室等安静环境，提前关注该机型实际使用时的噪音表现</li>
+</ul>
+<p><strong>DIY NAS</strong></p>
+<p>DIY NAS的核心优势在于<strong>自由度和可升级性</strong>：CPU、内存、硬盘位、网卡、PCIe扩展完全自主选择，未来可以随时升级。同等硬件配置下，成本通常比成品NAS低30%-50%。但代价是你需要投入大量时间选件、组装、安装系统、调试，而且出了问题只能靠自己。</p>
+<p>DIY NAS的主流方案如下：</p>
+<table>
+<thead>
+<tr>
+<th>需求场景</th>
+<th>推荐配置</th>
+<th>主机成本（不含硬盘）</th>
+<th>参考总成本（含硬盘）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>纯存储&#x2F;备份</td>
+<td>N100主板 + 16GB内存 + 飞牛OS</td>
+<td>1,050-1,750元</td>
+<td>2,650-3,750元（含2×4TB）</td>
+</tr>
+<tr>
+<td>4K转码 + Docker</td>
+<td>N100&#x2F;N5095主板 + 16GB内存</td>
+<td>1,050-1,750元</td>
+<td>2,650-3,750元</td>
+</tr>
+<tr>
+<td>虚拟机 + 重度转码</td>
+<td>i3-12300T + B760主板 + 32GB内存</td>
+<td>2,200-3,450元</td>
+<td>7,800-9,850元（含4×8TB）</td>
+</tr>
+</tbody></table>
+<p>注意，硬盘是NAS中最大的成本项，通常占总成本的40%-65%。不要为了省主机预算而过度压缩硬盘投入，NAS的核心价值就是存储，硬盘才是最不该省钱的部分。</p>
+<p>另外，虽然同等配置下DIY确实更便宜，但算上你花费的时间成本，性价比未必有想象中那么高。如果你的时薪不低，花几天时间去组装调试一台省了几百块的NAS，可能并不划算。</p>
+<p><strong>数据恢复：一个经常被忽略的考量</strong></p>
+<p>无论选择成品NAS还是DIY NAS，数据恢复能力都值得你在购买前认真考虑，因为这直接关系到你的数据在灾难发生后能不能救回来。</p>
+<p>成品NAS（以群晖为例）的硬盘采用专有格式，只能在同品牌设备上直接读取。群晖的HDD迁移要求目标设备也是群晖，且硬盘必须按原始顺序插入对应插槽。好处是系统内置了快照、版本回滚、回收站等完善的恢复机制，日常误删误改基本都能救回来。但风险在于——如果你的NAS主机坏了，你需要再买一台同品牌的设备才能恢复数据；而如果该厂商倒闭或放弃产品线，恢复难度会大幅增加。</p>
+<p>需要注意的是，并非所有成品NAS都是如此。绿联的RAID基于mdadm实现，这是Linux标准的软RAID方案，数据恢复策略与DIY NAS相同——硬盘插到任何Linux系统上都能直接读取，不存在厂商锁定的问题。因此如果你既想要成品NAS的省心，又在意数据的可恢复性，绿联是一个值得考虑的选择。</p>
+<p>DIY NAS通常使用标准RAID或ZFS等开源文件系统，硬盘插到任何一台Linux机器上都能读取，不依赖特定厂商或硬件。这意味着即使你的NAS主机彻底报废，随便找一台电脑接上硬盘就能恢复数据。但代价是没有内置的高级恢复功能，快照、版本回滚等需要你自行配置和维护。</p>
+<p>简单来说：成品NAS的恢复工具更完善，但数据被厂商锁定；DIY NAS的数据更自由，但恢复手段需要自己搭建。两者各有利弊，选择哪种取决于你更信任厂商还是更信任自己。</p>
+<h3 id="2-2-机械-固态硬盘如何选择？"><a href="#2-2-机械-固态硬盘如何选择？" class="headerlink" title="2.2.机械&#x2F;固态硬盘如何选择？"></a>2.2.机械&#x2F;固态硬盘如何选择？</h3><p>这是很多新手最容易忽视的环节。NAS的硬件可以随时更换，但硬盘上存的是你的数据，选错了硬盘，轻则体验拉胯，重则数据丢失。我们从以下几个维度来对比。</p>
+<h4 id="容量与价格"><a href="#容量与价格" class="headerlink" title="容量与价格"></a>容量与价格</h4><p>机械硬盘在容量和成本上占据绝对优势。目前单块机械硬盘可达20TB以上，而固态硬盘主流容量仍在1-4TB，每GB成本远高于机械硬盘。如果你的数据量不大（几个TB以内），全固态方案可以考虑；但如果需要存储大量照片、视频、备份文件，机械硬盘仍然是唯一经济的选择。</p>
+<h4 id="读写速度"><a href="#读写速度" class="headerlink" title="读写速度"></a>读写速度</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>持续读写速度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>机械硬盘（7200rpm）</td>
+<td>~128MB&#x2F;s</td>
+</tr>
+<tr>
+<td>SATA固态硬盘</td>
+<td>~500MB&#x2F;s</td>
+</tr>
+<tr>
+<td>NVMe固态硬盘</td>
+<td>3000-7000MB&#x2F;s</td>
+</tr>
+</tbody></table>
+<p>固态硬盘在随机读写上的优势更加明显——机械硬盘需要磁头物理移动来寻道，随机IO性能很差，而固态硬盘没有机械结构，随机读写几乎不受影响。对于NAS来说，如果你经常需要访问大量小文件（照片、代码、Docker镜像等），固态硬盘的体验提升是质的。</p>
+<h4 id="功耗"><a href="#功耗" class="headerlink" title="功耗"></a>功耗</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>典型功耗</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>固态硬盘</td>
+<td>2-3W</td>
+</tr>
+<tr>
+<td>机械硬盘</td>
+<td>6-8W</td>
+</tr>
+</tbody></table>
+<p>单盘差距看似不大，但NAS通常是多盘运行。4块机械硬盘仅硬盘部分就比固态多出约20W，7×24小时运行，一年电费差距就有一百多元。如果配合整机功耗来看，全固态NAS的待机功耗可以压到十几瓦，而多盘机械NAS往往在30-50W。</p>
+<h4 id="噪音"><a href="#噪音" class="headerlink" title="噪音"></a>噪音</h4><p>固态硬盘零噪音，没有机械部件。机械硬盘在读写时磁头移动和盘片旋转会产生明显的噪音，多盘叠加后更加明显。如果你的NAS需要放在卧室或安静的办公环境，这一点必须考虑——除非你愿意忍受一块硬盘的随机读写声在半夜格外刺耳。</p>
+<h4 id="寿命与耐久度"><a href="#寿命与耐久度" class="headerlink" title="寿命与耐久度"></a>寿命与耐久度</h4><p>两种硬盘的寿命衡量方式和故障模式完全不同：</p>
+<ul>
+<li><strong>固态硬盘</strong>的寿命用TBW（总写入字节数）衡量，消费级1TB固态硬盘大约能承受600TB的写入量。到达上限后硬盘不会突然损坏，但会出现坏块增多、性能下降等问题，数据仍然可以读取。固态硬盘的故障通常是逐渐衰减的，有预警空间。</li>
+<li><strong>机械硬盘</strong>的寿命看通电时间和启停次数，NAS专用盘MTBF可达100万小时以上。但机械硬盘的故障往往是突然的——盘片划伤、磁头损坏、电机故障都可能瞬间让一块盘报废，没有任何预兆。</li>
+</ul>
+<p>简单说，固态硬盘”老死”，机械硬盘”猝死”。所以无论选哪种，<strong>备份都是必须的</strong>。</p>
+<h4 id="数据安全"><a href="#数据安全" class="headerlink" title="数据安全"></a>数据安全</h4><p>除了上述的故障模式差异外，机械硬盘在数据安全上还有一个需要注意的隐患——抗震性。固态硬盘没有活动部件，抗震性远好于机械硬盘。机械硬盘在工作时磁头与盘片距离只有几纳米，即使是轻微的震动或碰撞也可能导致盘片划伤，造成数据永久丢失。如果你的NAS放置环境容易受到震动影响（比如桌面上、靠近音箱等），这一点需要格外注意。</p>
+<h4 id="SMR与CMR：NAS选购硬盘必须知道的事"><a href="#SMR与CMR：NAS选购硬盘必须知道的事" class="headerlink" title="SMR与CMR：NAS选购硬盘必须知道的事"></a>SMR与CMR：NAS选购硬盘必须知道的事</h4><p>如果你决定使用机械硬盘，这里有一个必须避开的坑：<strong>SMR（叠瓦式磁记录）</strong>。</p>
+<p>机械硬盘按记录方式分为两种：CMR（垂直磁记录）和SMR（叠瓦式磁记录）。CMR的磁道平行排列，互不干扰，写入速度稳定；SMR为了让磁道更密集，新磁道与已有磁道部分重叠，就像屋顶的瓦片一样叠在一起。这样做的好处是同容量成本更低，但代价是灾难性的——SMR在碎片化写入时速度会急剧下降，因为它需要先读出整组磁道数据，修改后再重新写入。</p>
+<p>在NAS的RAID环境下，SMR的问题会被放大到无法忍受的程度。RAID阵列在重建时需要大量随机写入，SMR盘的写入速度可能降到几MB&#x2F;s，重建时间从几个小时变成几天甚至几周。这期间如果再有另一块盘出故障，整个阵列的数据就全部丢失了。因此SMR被广泛称为”NAS杀手”。</p>
+<p>选购时必须认准<strong>CMR垂直盘</strong>。西数曾悄悄把红盘从CMR换成SMR，引发了大量用户的数据事故，后来不得不将CMR版本改名为红盘Plus以示区分。购买时注意看清型号，不要贪便宜买成叠瓦盘。</p>
+<h4 id="NAS专用硬盘-vs-普通桌面硬盘"><a href="#NAS专用硬盘-vs-普通桌面硬盘" class="headerlink" title="NAS专用硬盘 vs 普通桌面硬盘"></a>NAS专用硬盘 vs 普通桌面硬盘</h4><p>除了SMR&#x2F;CMR的区分，NAS专用硬盘和普通桌面硬盘也有本质区别：</p>
+<ul>
+<li><strong>设计运行时长</strong>：普通桌面盘按每天8小时、每周5天设计，不适合7×24小时不间断运行；NAS专用盘针对全天候运行优化了固件、轴承和功耗</li>
+<li><strong>抗震能力</strong>：NAS专用盘配备3D主动平衡技术，抗震能力可达普通硬盘的两倍以上，多盘位环境下尤为重要</li>
+<li><strong>功耗与发热</strong>：NAS专用盘转速通常较低（5400rpm居多），功耗和发热都低于桌面盘，适合多盘密集安装</li>
+</ul>
+<p>主流NAS专用硬盘品牌包括西数红盘Plus、希捷酷狼、东芝N300，三者均为CMR记录，可根据预算和容量需求选择。</p>
+<h4 id="混合方案：兼顾速度与容量"><a href="#混合方案：兼顾速度与容量" class="headerlink" title="混合方案：兼顾速度与容量"></a>混合方案：兼顾速度与容量</h4><p>如果你的NAS同时需要大容量存储和快速响应，混合方案是最务实的选择——用固态硬盘做缓存或系统盘，机械硬盘做数据存储。</p>
+<p>固态硬盘做缓存后，系统会自动将频繁读取的数据缓存到固态硬盘中，再次访问时直接从缓存读取。实测效果显示，小文件随机读性能可以提升3-10倍，照片浏览、文件索引、Docker等场景的体验提升非常明显。</p>
+<p>不过需要注意，写缓存存在断电丢数据的风险，务必配合UPS使用（后面会专门讲）。如果不想冒险，只开只读缓存就够了，效果已经很好。</p>
+<h3 id="2-3-核显-独显如何选择？"><a href="#2-3-核显-独显如何选择？" class="headerlink" title="2.3.核显&#x2F;独显如何选择？"></a>2.3.核显&#x2F;独显如何选择？</h3><p>如果你计划在NAS上运行Jellyfin、Plex、Emby等媒体服务器，或者需要运行一些依赖GPU加速的应用（如Home Assistant的Frigate目标检测、本地AI推理等），就需要考虑NAS的图形处理能力。</p>
+<h4 id="Intel核显"><a href="#Intel核显" class="headerlink" title="Intel核显"></a>Intel核显</h4><p>Intel核显内置的Quick Sync Video（QSV）是专门用于视频编解码的硬件单元，对于NAS来说是最经济高效的转码方案——零额外成本、零额外功耗、不占用PCIe插槽。</p>
+<p>不同代际的核显在编解码能力上差异很大，常见的NAS用CPU核显对比如下（<a target="_blank" rel="noopener" href="https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding">完整对比数据可参考此页面</a>）：</p>
+<table>
+<thead>
+<tr>
+<th>CPU</th>
+<th>核显</th>
+<th>HEVC 10-bit</th>
+<th>AV1解码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>J4125 &#x2F; N5105</td>
+<td>UHD 600 &#x2F; UHD 24EUs</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>N100 &#x2F; N150</td>
+<td>UHD 24EUs</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>i3-12100</td>
+<td>UHD 730</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>i5-12400</td>
+<td>UHD 730</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>i5-12500</td>
+<td>UHD 770（双视频引擎）</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+</tbody></table>
+<p>HEVC 10-bit是目前HDR影视内容的主流格式，AV1则是新一代编码标准，码率更低、画质更好。如果你的影音库中有AV1格式的资源，至少需要N100及以上才能硬件解码。</p>
+<p>核显在Docker中透传也很简单，只需映射<code>/dev/dri/renderD128</code>设备即可，不需要像NVIDIA那样安装额外的container toolkit。更重要的是，核显<strong>没有并发转码会话数量限制</strong>，多用户同时观看也不会受限。</p>
+<p>核显唯一的限制是你必须选择Intel CPU。如果你对CPU没有特殊偏好，Intel平台对于NAS来说通常是最省心的选择。</p>
+<h4 id="NVIDIA消费级显卡"><a href="#NVIDIA消费级显卡" class="headerlink" title="NVIDIA消费级显卡"></a>NVIDIA消费级显卡</h4><p>如果需要CUDA算力（比如运行本地AI模型、Stable Diffusion等），或者对转码质量有更高要求，NVIDIA独显是Intel核显之外的另一种选择。但消费级显卡用在NAS上有几个需要注意的问题。</p>
+<p>首先是<strong>驱动并发转码限制</strong>。NVIDIA对GeForce系列显卡设有驱动级别的并发编码会话上限（目前为8路），多人同时观看时可能触发限制。虽然可以通过nvidia-patch工具破解，但每次驱动更新后都需要重新打补丁，维护成本不低。</p>
+<p>其次是<strong>功耗问题</strong>。消费级显卡的待机功耗并不低——GTX 1650约5-10W，RTX 3060约10-15W，7×24小时运行一年下来也是一笔不小的电费。更重要的是它们需要独立供电（双槽设计，需要PCIe供电线），对NAS机箱和电源都有额外要求。</p>
+<p>另外，消费级显卡有两个著名的选购陷阱需要避开：</p>
+<ul>
+<li><strong>GT 1030 DDR4版</strong>：这个版本的显存是DDR4而非GDDR5，<strong>完全没有NVENC编码单元</strong>，不能进行任何硬件转码。购买前务必确认是GDDR5版本，但即使是GDDR5版，Pascal架构的NVENC也已经过时，不推荐</li>
+<li><strong>GTX 1650 TU117版</strong>：GTX 1650有多个芯片版本，其中TU117版本使用的是老一代Volta NVENC，不支持HEVC B-frame，编码效率比Turing NVENC低约15%。如果选择GTX 1650，认准1650 SUPER（TU116芯片）或确认是TU106版本</li>
+</ul>
+<h4 id="NVIDIA专业级显卡（Quadro-Tesla）"><a href="#NVIDIA专业级显卡（Quadro-Tesla）" class="headerlink" title="NVIDIA专业级显卡（Quadro&#x2F;Tesla）"></a>NVIDIA专业级显卡（Quadro&#x2F;Tesla）</h4><p>NVIDIA的Quadro（现称RTX A系列）和Tesla数据中心卡在NAS场景下比消费级显卡更适合，核心优势有两点：<strong>无并发转码会话限制</strong>，以及<strong>单槽设计、低功耗、无需独立供电</strong>。</p>
+<p>以下是NAS场景下常见NVIDIA独显的对比（<a target="_blank" rel="noopener" href="https://developer.nvidia.com/video-encode-decode-support-matrix">详细编解码参数可参考NVIDIA官方支持矩阵</a>，<a target="_blank" rel="noopener" href="https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding">转码性能数据可参考此页面</a>）：</p>
+<table>
+<thead>
+<tr>
+<th>型号</th>
+<th>分类</th>
+<th>VRAM</th>
+<th>TDP</th>
+<th>并发限制</th>
+<th>HEVC B-frame</th>
+<th>AV1</th>
+<th>二手参考价</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Quadro P400</td>
+<td>专业</td>
+<td>2GB</td>
+<td>30W</td>
+<td>无</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>150-300元</td>
+</tr>
+<tr>
+<td>Quadro T400</td>
+<td>专业</td>
+<td>2&#x2F;4GB</td>
+<td>30W</td>
+<td>无</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>350-550元</td>
+</tr>
+<tr>
+<td>Quadro T1000</td>
+<td>专业</td>
+<td>4GB</td>
+<td>50W</td>
+<td>无</td>
+<td>支持</td>
+<td>不支持</td>
+<td>600-900元</td>
+</tr>
+<tr>
+<td>Tesla P4</td>
+<td>数据中心</td>
+<td>8GB</td>
+<td>75W</td>
+<td>无</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>280-400元</td>
+</tr>
+<tr>
+<td>RTX 3060 12GB</td>
+<td>消费</td>
+<td>12GB</td>
+<td>170W</td>
+<td>12路</td>
+<td>支持</td>
+<td>解码</td>
+<td>1200-1800元</td>
+</tr>
+<tr>
+<td>RTX 4060</td>
+<td>消费</td>
+<td>8GB</td>
+<td>115W</td>
+<td>12路</td>
+<td>支持</td>
+<td>编解码</td>
+<td>1800-2500元</td>
+</tr>
+</tbody></table>
+<p>这四张专业卡（P400&#x2F;T400&#x2F;T1000&#x2F;Tesla P4）都是单槽、刀卡（Low Profile）设计，无需PCIe供电线，直接插在主板上就能工作，对NAS机箱和电源几乎没有额外要求。</p>
+<p><strong>T400</strong>是目前NAS社区中最热门的选择。Turing架构、30W低功耗、无会话限制，二手价格在350-550元之间，综合性价比最高。不过它的TU117芯片与GTX 1650 TU117版相同，缺少HEVC B-frame支持。如果你对编码质量有更高要求，<strong>T1000</strong>的TU116芯片支持完整的Turing NVENC特性（包括B-frame），是Turing专业卡中转码质量最好的选择，但价格也更高。</p>
+<p><strong>P400</strong>是预算有限的入门之选，150-300元的价格很有吸引力，但Pascal架构的NVENC编码质量明显落后于Turing，适合预算紧张且转码需求不高的场景。</p>
+<p><strong>Tesla P4</strong>比较特殊——它没有显示输出接口，需要用dummy plug（虚拟显示头）欺骗系统。但它拥有8GB显存和2560个CUDA核心，如果除了转码外还需要运行AI推理、Frigate目标检测等CUDA任务，280-400元的价格性价比极高。</p>
+<h4 id="如何选择"><a href="#如何选择" class="headerlink" title="如何选择"></a>如何选择</h4><p>简单总结：</p>
+<ul>
+<li><strong>只需要媒体转码</strong>：Intel核显就够了，N100或i5-12400的核显性能可以满足绝大多数家庭需求，省下的钱和电费远比买独显划算</li>
+<li><strong>需要转码 + 少量CUDA任务</strong>：Quadro T400，单槽低功耗无会话限制，综合最适合NAS</li>
+<li><strong>对转码质量有要求</strong>：Quadro T1000，TU116的Turing NVENC是目前专业卡中最优选择</li>
+<li><strong>预算有限但需要CUDA</strong>：Tesla P4，8GB显存+2560 CUDA核心，但无显示输出且Pascal架构较老</li>
+<li><strong>需要大量CUDA算力或本地AI</strong>：RTX 3060 12GB，但功耗170W，不适合追求低功耗的NAS</li>
+</ul>
+<p>另外需要注意，NVIDIA的Linux闭源驱动与系统内核强绑定，驱动安装或更新都有可能导致系统无法开机、开机黑屏、无法联网等问题。在部分NAS系统（如TrueNAS Scale）上还经常出现驱动版本不匹配导致GPU识别失败的情况。如果打算使用NVIDIA独显，务必在稳定运行后做好完整备份，再进行驱动相关的操作。相比之下，Intel核显的驱动集成在Linux内核中，开箱即用，兼容性和稳定性都更好。</p>
+</div>
+        </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+                <div class="post-actions text-center clearfix" id="post-actions">
+                
+                
+                    <a class="share" href="javascript:;" onclick="krOpenShareModal()"><i class="fa fa-share-alt"></i> 分享</a>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/cmr-hard-drive/" rel="tag">CMR硬盘</a>, <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/storage-scenarios/" rel="tag">存储方案</a>, <a class="tag-none-link" href="/tags/data-backup/" rel="tag">数据备份</a>, <a class="tag-none-link" href="/tags/hardware-purchase/" rel="tag">硬件选购</a>, <a class="tag-none-link" href="/tags/self-hosted-services/" rel="tag">自托管服务</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2026-03-22T14:27:55.504Z" itemprop="dateModified">最后编辑：2026-03-22</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 解决OpenClaw自定义模型后出现&#34;No API provider registered for api&#34;报错" href="/2026/03/19/解决OpenClaw自定义模型后出现-No-API-provider-registered-for-api-报错/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+            <div class="nav-next clearfix">
+                <a title=" 个人NAS全方位攻略--安全配置" href="/2026/03/21/个人NAS全方位攻略-安全配置/">下一篇 <i class="fa fa-angle-right"></i></a>
+            </div>
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/cdn-cgi/image/format=auto,quality=85,fit=cover,width=200,height=200/images/avatar.png" alt="Rimuru" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">分享 DevOps、AI 工具、Linux 运维及游戏攻略。</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                23
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                3
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                82
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">技术分享</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难杂症</a><span class="category-list-count">6</span></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/503-error/" style="font-size: 0.6em;">503错误</a> <a href="/tags/ai-tools/" style="font-size: 0.67em;">AI工具</a> <a href="/tags/bbr/" style="font-size: 0.6em;">BBR</a> <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cdn/" style="font-size: 0.6em;">CDN加速</a> <a href="/tags/cmr-hard-drive/" style="font-size: 0.6em;">CMR硬盘</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.67em;">Cities Skylines 2</a> <a href="/tags/claude-code/" style="font-size: 0.6em;">Claude Code</a> <a href="/tags/cloudflare/" style="font-size: 0.73em;">Cloudflare</a> <a href="/tags/docker/" style="font-size: 0.8em;">Docker</a> <a href="/tags/docker-compose/" style="font-size: 0.6em;">Docker Compose</a> <a href="/tags/ext4/" style="font-size: 0.6em;">EXT4</a> <a href="/tags/hexo/" style="font-size: 0.67em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.67em;">Hugging Face</a> <a href="/tags/javascript/" style="font-size: 0.6em;">JavaScript</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/kubernetes/" style="font-size: 0.6em;">Kubernetes</a> <a href="/tags/linux/" style="font-size: 0.73em;">Linux</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"><i class="fa fa-book"></i> 个人NAS全方位攻略--常用软件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"><i class="fa fa-book"></i> 个人NAS全方位攻略--容器化部署</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"><i class="fa fa-book"></i> 个人NAS全方位攻略--安全配置</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/"><i class="fa fa-book"></i> 个人NAS全方位攻略--需求分析</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/"><i class="fa fa-book"></i> 解决OpenClaw自定义模型后出现"No API provider registered for api"报错</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2026 Rimuru's Blog 版权所有.</li>
+                            <li>本站已运行<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://blog.rimuru.work" target="_blank">Rimuru</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>本页访问人次:<span id="page_pv"></span></li>
+                                
+                                    <li>本页访问人数:<span id="page_uv"></span></li>
+                                
+                            </div>
+                        
+                            <div>
+                                
+                                    <li><a href="/about/">关于</a> | <a href="/contact/">联系</a> | <a href="/privacy/">隐私政策</a> | <a href="/terms/">服务条款</a></li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                <!-- 额外的追加注入项 -->
+                
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+    <div id="kr-share-modal" class="kr-modal">
+    <div class="kr-modal-bg" onclick="krCloseShareModal()"></div>
+    <div class="kr-modal-content">
+        <div class="kr-modal-header">
+            <div class="kr-modal-icon">
+                <i class="fa fa-share-alt"></i>
+            </div>
+            <div class="kr-modal-title">分享</div>
+            <button class="kr-modal-close" onclick="krCloseShareModal()">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="kr-modal-body">
+            <div class="kr-share-message">分享提示信息</div>
+            <div class="kr-share-qr" id="kr-share-qr"></div>
+            <div class="kr-share-platforms">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/kr-modal/share.min.js"></script>
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+  <!-- 推荐阅读功能 -->
+<script defer src="/js/recommended-posts.js"></script>
+<!-- Self-hosted analytics -->
+<script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>
+<!-- Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PKP8Z0FC73');
+</script>
+<!-- Google AdSense -->
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- PJAX analytics reload handler -->
+<script>
+  window.addEventListener('pjax:complete', function() {
+    const scriptUrl = 'https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js';
+    const oldScript = document.querySelector('script[src="' + scriptUrl + '"]');
+    if (oldScript) oldScript.remove();
+    const newScript = document.createElement('script');
+    newScript.src = scriptUrl;
+    newScript.defer = true;
+    newScript.setAttribute('data-base-url', 'https://analytics.rimuru.work');
+    document.body.appendChild(newScript);
+  });
+</script>
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent">
+  <p>本站使用 Cookie 来改善用户体验、分析流量并展示个性化广告。继续浏览即表示你同意使用 Cookie。详情请阅读 <a href="/privacy/">隐私政策</a>。</p>
+  <div class="btn-group">
+    <button class="btn-accept" onclick="acceptCookies()">接受全部</button>
+    <button class="btn-reject" onclick="rejectCookies()">仅必要</button>
+  </div>
+</div>
+<script>
+  (function(){
+    var banner = document.getElementById('cookie-consent');
+    var consent = localStorage.getItem('cookie_consent');
+    function applyConsent(mode) {
+      gtag('consent', 'update', {
+        'ad_storage': mode,
+        'ad_user_data': mode,
+        'ad_personalization': mode,
+        'analytics_storage': mode
+      });
+    }
+    function hideBanner() {
+      banner.classList.add('hidden');
+      setTimeout(function(){ banner.remove(); }, 300);
+    }
+    if (consent === 'accepted') {
+      hideBanner();
+      applyConsent('granted');
+    } else if (consent === 'rejected') {
+      hideBanner();
+    } else {
+      applyConsent('denied');
+    }
+    window.acceptCookies = function() {
+      localStorage.setItem('cookie_consent', 'accepted');
+      applyConsent('granted');
+      hideBanner();
+    };
+    window.rejectCookies = function() {
+      localStorage.setItem('cookie_consent', 'rejected');
+      hideBanner();
+    };
+  })();
+</script>
+
+
+
+    </body>
+</html>

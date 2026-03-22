@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+    <link rel="icon" href="/cdn-cgi/image/format=auto,quality=85,fit=contain,width=128,height=128/images/favicon.png">
+  
+  
+  <title>个人NAS全方位攻略--常用软件 | Rimuru&#39;s Blog</title>
+  <link rel="canonical" href="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">
+  <meta name="author" content="Rimuru" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="Docker, NAS, 内网穿透, 媒体服务器, 容器化, 自托管服务" />
+  
+  <meta name="description" content="本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin&#x2F;Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="个人NAS全方位攻略--常用软件">
+<meta property="og:url" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">
+<meta property="og:site_name" content="Rimuru&#39;s Blog">
+<meta property="og:description" content="本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin&#x2F;Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png">
+<meta property="article:published_time" content="2026-03-21T23:17:49.000Z">
+<meta property="article:modified_time" content="2026-03-22T14:27:55.499Z">
+<meta property="article:author" content="Rimuru">
+<meta property="article:tag" content="Docker">
+<meta property="article:tag" content="NAS">
+<meta property="article:tag" content="内网穿透">
+<meta property="article:tag" content="媒体服务器">
+<meta property="article:tag" content="容器化">
+<meta property="article:tag" content="自托管服务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Rimuru's Blog" type="application/atom+xml">
+  
+  <!-- JSON-LD 结构化数据 -->
+  
+  
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略--常用软件","description":"本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin/Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:49.000Z","dateModified":"2026-03-22T14:27:55.499Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"}}
+    </script>
+  
+  <!-- 关键 CSS 预加载 -->
+  <link rel="preload" href="/css/kr-core.min.css" as="style" crossorigin>
+  <link rel="preload" href="/css/kr-theme/light.min.css" as="style" crossorigin>
+  <link rel="preload" href="/css/kr-theme/dark.min.css" as="style" crossorigin>
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all">
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all">
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)">
+  
+    <link rel="stylesheet"  id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/css/highlight/highlight.js/night-eighties.min.css"></noscript>
+  
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet"  id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css"></noscript>
+  
+    <link rel="stylesheet"  id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/nprogress@0.2.0/nprogress.css"></noscript>
+  
+  
+    <link rel="stylesheet"  href="/vendors/viewerjs@1.11.6/dist/viewer.min.css" media="print" onload="this.media='all'" onerror="this.media='all'"><noscript><link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></noscript>
+  
+  <!-- 预先加载的JS文件 -->
+  
+    <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url("/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=1920/images/background_light.png");
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url("/cdn-cgi/image/format=auto,quality=80,fit=scale-down,width=1920/images/background_dark.png");
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+    <!-- Preconnect hints for faster resource loading -->
+<link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.rimuru.work">
+<link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://analytics.rimuru.work">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
+<link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
+<!-- Google AdSense Account Verification -->
+<meta name="google-adsense-account" content="ca-pub-9760626627924711">
+<!-- Google Consent Mode v2 - default denied -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied'
+  });
+</script>
+<!-- Cookie Consent Banner CSS -->
+<style>
+  #cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color,#fff);color:var(--text-color,#333);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:99999;font-size:14px;flex-wrap:wrap;transition:transform .3s ease}#cookie-consent.hidden{transform:translateY(100%);pointer-events:none}#cookie-consent p{margin:0;flex:1;min-width:200px;line-height:1.6}#cookie-consent a{color:var(--theme-color,#4a9eff);text-decoration:underline}#cookie-consent .btn-group{display:flex;gap:8px;flex-shrink:0}#cookie-consent button{padding:8px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:opacity .2s}#cookie-consent button:hover{opacity:.85}#cookie-consent .btn-accept{background:var(--theme-color,#4a9eff);color:#fff}#cookie-consent .btn-reject{background:transparent;color:var(--text-color,#666);border:1px solid var(--border-color,#ddd)}@media(max-width:600px){#cookie-consent{flex-direction:column;align-items:stretch;text-align:center}#cookie-consent .btn-group{justify-content:center}}
+</style>
+
+  
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-archive"></i>
+                                            
+                                            归档
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/categories/">
+                                        
+                                            
+                                                <i class="fa fa-folder"></i>
+                                            
+                                            分类
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/tags/">
+                                        
+                                            
+                                                <i class="fa fa-tags"></i>
+                                            
+                                            标签
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/friends/">
+                                        
+                                            
+                                                <i class="fa fa-link"></i>
+                                            
+                                            友链
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/about/">
+                                        
+                                            
+                                                <i class="fa fa-user"></i>
+                                            
+                                            关于
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/contact/">
+                                        
+                                            
+                                                <i class="fa fa-envelope"></i>
+                                            
+                                            联系
+                                        </a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">Rimuru&#39;s Blog</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>Rimuru&#39;s Blog</h2> <br />
+                        <span>又是CUDA Out of Memory的一天</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">个人NAS全方位攻略--常用软件</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2026-03-21T23:17:49.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2026-03-21</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">Rimuru</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~2.37K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+            <hr />
+            <div itemprop="articleBody"><blockquote>
+<p>本系列导航：</p>
+<ol>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">需求分析</a></li>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/">安全配置</a></li>
+<li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/">容器化部署</a></li>
+<li><a href="#">常用软件</a>（当前）</li>
+</ol>
+</blockquote>
+<p>本章介绍NAS上常用的软件及其选型建议。这些软件大多可以通过Docker部署，前面介绍的容器化部署经验在这里都能用上。</p>
+<h2 id="1-文件同步"><a href="#1-文件同步" class="headerlink" title="1.文件同步"></a>1.文件同步</h2><p><strong>Nextcloud</strong> 是目前最主流的开源自托管文件同步与协作平台。它提供文件同步、在线预览、日历、联系人管理、在线文档编辑等功能，支持Web端和桌面&#x2F;移动客户端。</p>
+<p>Nextcloud最大的优势是<strong>数据完全自主可控</strong>——文件存储在你自己的NAS上，不依赖任何第三方服务。客户端可以将服务器文件同步到本地，保留一份完整副本，等于自动实现了本地+远程双备份。此外Nextcloud还支持版本控制和回收站功能，误删文件或误改内容都可以恢复历史版本。</p>
+<p>需要注意，Nextcloud对服务器性能有一定要求，尤其是启用在线预览和协作功能时。如果只需要简单的文件同步而不需要协作功能，也可以考虑更轻量的方案如Syncthing。</p>
+<h2 id="2-版本控制"><a href="#2-版本控制" class="headerlink" title="2.版本控制"></a>2.版本控制</h2><p><strong>Gogs</strong> 是一款使用Go语言开发的轻量级自托管Git服务，单个二进制文件即可运行，内存占用通常在几十MB以内，非常适合部署在资源有限的NAS上。它支持仓库管理、Issue、Pull Request、Wiki等核心功能，并提供简洁的Web管理界面。</p>
+<p>如果你需要更活跃的社区支持和更丰富的功能（如内置CI&#x2F;CD集成、容器镜像仓库等），可以考虑Gitea——它是从Gogs分支出来的社区驱动项目，与Gogs数据库兼容，迁移非常方便。</p>
+<h2 id="3-媒体管理"><a href="#3-媒体管理" class="headerlink" title="3.媒体管理"></a>3.媒体管理</h2><p><strong>Jellyfin &#x2F; Emby &#x2F; Plex</strong> 是三大主流的自托管媒体服务器，用于管理影音库并提供跨设备串流播放。</p>
+<p>三者的核心区别：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Jellyfin</th>
+<th>Emby</th>
+<th>Plex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开源</td>
+<td>完全开源免费</td>
+<td>闭源，高级功能付费</td>
+<td>闭源，核心功能付费</td>
+</tr>
+<tr>
+<td>易用性</td>
+<td>需一定折腾能力</td>
+<td>较好，分享体验优秀</td>
+<td>最易上手，开箱即用</td>
+</tr>
+<tr>
+<td>客户端</td>
+<td>较丰富，持续改进</td>
+<td>完善，转码性能好</td>
+<td>最丰富，跨平台体验最佳</td>
+</tr>
+<tr>
+<td>适合人群</td>
+<td>注重隐私、不愿付费的用户</td>
+<td>需要分享给多人使用的场景</td>
+<td>不想折腾、愿意付费的用户</td>
+</tr>
+</tbody></table>
+<p>社区有一个简洁的总结：自用选Plex，分享选Emby，免费选Jellyfin。</p>
+<h2 id="4-下载管理"><a href="#4-下载管理" class="headerlink" title="4.下载管理"></a>4.下载管理</h2><p><strong>qBittorrent</strong> 和 <strong>Transmission</strong> 是两款主流的开源BT下载工具，均支持Docker部署。</p>
+<p>qBittorrent功能更丰富，支持RSS自动订阅、IP过滤、搜索引擎插件等，Web UI也更现代化。Transmission则更加简洁轻量，资源占用更低，适合只需要基本下载功能的用户。</p>
+<p>注意，使用BT下载工具时请遵守相关法律法规，仅下载和分享正版授权的内容。</p>
+<h2 id="5-内网穿透"><a href="#5-内网穿透" class="headerlink" title="5.内网穿透"></a>5.内网穿透</h2><p>如果你没有公网IP（国内家庭宽带的普遍情况），需要通过内网穿透将NAS的服务暴露到公网。</p>
+<p><strong>Frp</strong> 是目前最主流的开源内网穿透工具，支持TCP、UDP、HTTP、HTTPS等多种协议，配置灵活，社区活跃，教程丰富。它采用C&#x2F;S架构，需要一台有公网IP的服务器（VPS）运行服务端，NAS上运行客户端。</p>
+<p><strong>NPS</strong> 同样是Go语言开发，带有Web图形管理界面，配置更直观，适合偏好图形界面管理的用户。</p>
+<p><strong>Lanproxy</strong> 更轻量，但仅支持TCP流量转发，适合只需要简单SSH或Web映射的场景。</p>
+<p>选择建议：如果你不介意配置文件，Frp的稳定性和灵活性是最好的；如果想要图形界面，NPS更友好。</p>
+<h2 id="6-动态域名"><a href="#6-动态域名" class="headerlink" title="6.动态域名"></a>6.动态域名</h2><p>如果你的宽带有公网IP但IP地址会变化（动态IP），就需要DDNS（动态域名解析）来自动更新域名指向。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/NewFuture/DDNS">DDNS-GO</a> 是一款支持多种DNS服务商的动态域名解析工具，支持阿里云DNS、腾讯云DNSPod、Cloudflare、华为云DNS等主流平台。它通过定时检测公网IP变化，自动更新DNS记录，让你可以通过固定域名访问NAS，而不需要记住每次变化的IP地址。</p>
+<h2 id="7-SSL自动续签"><a href="#7-SSL自动续签" class="headerlink" title="7.SSL自动续签"></a>7.SSL自动续签</h2><p><strong>acme.sh</strong> 是一个纯Shell脚本实现的Let’s Encrypt证书申请和自动续签工具，支持多种DNS验证方式和Web服务器验证。它可以将证书申请、部署和续签整个过程自动化，配置一次之后基本无需再管。</p>
+<p>在NAS场景下，通常配合Nginx反向代理使用：acme.sh负责证书的申请和续签，Nginx负责使用证书提供HTTPS服务。也可以配合前面提到的内网穿透工具，实现端到端的HTTPS加密。</p>
+<h2 id="8-Latex在线编辑"><a href="#8-Latex在线编辑" class="headerlink" title="8.Latex在线编辑"></a>8.Latex在线编辑</h2><p><strong>ShareLaTeX</strong>（现已更名为Overleaf，但自托管版本通常仍被称为ShareLaTeX）是一个开源的在线LaTeX编辑器，支持多人实时协作编辑LaTeX文档。</p>
+<p>对于需要在多台设备间切换工作、或者与他人合作撰写论文的用户来说，将ShareLaTeX部署在NAS上可以避免依赖第三方在线服务，同时保证文档数据的安全和私密性。</p>
+<h2 id="9-在线绘图"><a href="#9-在线绘图" class="headerlink" title="9.在线绘图"></a>9.在线绘图</h2><p><strong>draw.io</strong>（现称diagrams.net）是一款开源的在线绘图工具，支持流程图、UML图、网络拓扑图、ER图等多种图表类型。</p>
+<p>draw.io的核心优势是<strong>完全免费且无使用限制</strong>，不需要注册账号，数据文件存储在本地。Docker部署在NAS上后，可以通过浏览器随时随地访问，图表文件以XML格式保存，轻量且易于版本管理。</p>
+<h2 id="10-文档编辑"><a href="#10-文档编辑" class="headerlink" title="10.文档编辑"></a>10.文档编辑</h2><p><strong>OnlyOffice</strong> 是一款开源的在线办公套件，提供文档、表格、演示文稿的在线编辑功能，兼容Microsoft Office格式（docx、xlsx、pptx）。</p>
+<p>OnlyOffice可以独立部署在NAS上，也可以作为Nextcloud的应用集成使用。对于需要在多设备间编辑Office文档、且不想依赖微软365或WPS云服务的用户来说，OnlyOffice是目前最成熟的自托管方案。</p>
+</div>
+        </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+                <div class="post-actions text-center clearfix" id="post-actions">
+                
+                
+                    <a class="share" href="javascript:;" onclick="krOpenShareModal()"><i class="fa fa-share-alt"></i> 分享</a>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/intranet-penetration/" rel="tag">内网穿透</a>, <a class="tag-none-link" href="/tags/ms/" rel="tag">媒体服务器</a>, <a class="tag-none-link" href="/tags/containerization/" rel="tag">容器化</a>, <a class="tag-none-link" href="/tags/self-hosted-services/" rel="tag">自托管服务</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2026-03-22T14:27:55.499Z" itemprop="dateModified">最后编辑：2026-03-22</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" 个人NAS全方位攻略--容器化部署" href="/2026/03/21/个人NAS全方位攻略-容器化部署/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/cdn-cgi/image/format=auto,quality=85,fit=cover,width=200,height=200/images/avatar.png" alt="Rimuru" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center">分享 DevOps、AI 工具、Linux 运维及游戏攻略。</p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                23
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                3
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                82
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/tech/">技术分享</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难杂症</a><span class="category-list-count">6</span></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/503-error/" style="font-size: 0.6em;">503错误</a> <a href="/tags/ai-tools/" style="font-size: 0.67em;">AI工具</a> <a href="/tags/bbr/" style="font-size: 0.6em;">BBR</a> <a href="/tags/bug-fix/" style="font-size: 0.6em;">BUG修复</a> <a href="/tags/cdn/" style="font-size: 0.6em;">CDN加速</a> <a href="/tags/cmr-hard-drive/" style="font-size: 0.6em;">CMR硬盘</a> <a href="/tags/cities-skylines-2/" style="font-size: 0.67em;">Cities Skylines 2</a> <a href="/tags/claude-code/" style="font-size: 0.6em;">Claude Code</a> <a href="/tags/cloudflare/" style="font-size: 0.73em;">Cloudflare</a> <a href="/tags/docker/" style="font-size: 0.8em;">Docker</a> <a href="/tags/docker-compose/" style="font-size: 0.6em;">Docker Compose</a> <a href="/tags/ext4/" style="font-size: 0.6em;">EXT4</a> <a href="/tags/hexo/" style="font-size: 0.67em;">Hexo</a> <a href="/tags/hugging-face/" style="font-size: 0.67em;">Hugging Face</a> <a href="/tags/javascript/" style="font-size: 0.6em;">JavaScript</a> <a href="/tags/jetbrains/" style="font-size: 0.6em;">JetBrains</a> <a href="/tags/kubernetes/" style="font-size: 0.6em;">Kubernetes</a> <a href="/tags/linux/" style="font-size: 0.73em;">Linux</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"><i class="fa fa-book"></i> 个人NAS全方位攻略--常用软件</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"><i class="fa fa-book"></i> 个人NAS全方位攻略--容器化部署</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"><i class="fa fa-book"></i> 个人NAS全方位攻略--安全配置</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/"><i class="fa fa-book"></i> 个人NAS全方位攻略--需求分析</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/"><i class="fa fa-book"></i> 解决OpenClaw自定义模型后出现"No API provider registered for api"报错</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2026 Rimuru's Blog 版权所有.</li>
+                            <li>本站已运行<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://blog.rimuru.work" target="_blank">Rimuru</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>本页访问人次:<span id="page_pv"></span></li>
+                                
+                                    <li>本页访问人数:<span id="page_uv"></span></li>
+                                
+                            </div>
+                        
+                            <div>
+                                
+                                    <li><a href="/about/">关于</a> | <a href="/contact/">联系</a> | <a href="/privacy/">隐私政策</a> | <a href="/terms/">服务条款</a></li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                <!-- 额外的追加注入项 -->
+                
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+
+
+    <div id="kr-share-modal" class="kr-modal">
+    <div class="kr-modal-bg" onclick="krCloseShareModal()"></div>
+    <div class="kr-modal-content">
+        <div class="kr-modal-header">
+            <div class="kr-modal-icon">
+                <i class="fa fa-share-alt"></i>
+            </div>
+            <div class="kr-modal-title">分享</div>
+            <button class="kr-modal-close" onclick="krCloseShareModal()">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="kr-modal-body">
+            <div class="kr-share-message">分享提示信息</div>
+            <div class="kr-share-qr" id="kr-share-qr"></div>
+            <div class="kr-share-platforms">
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/kr-modal/share.min.js"></script>
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+  <!-- 推荐阅读功能 -->
+<script defer src="/js/recommended-posts.js"></script>
+<!-- Self-hosted analytics -->
+<script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>
+<!-- Google Analytics -->
+<script defer src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PKP8Z0FC73');
+</script>
+<!-- Google AdSense -->
+<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- PJAX analytics reload handler -->
+<script>
+  window.addEventListener('pjax:complete', function() {
+    const scriptUrl = 'https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js';
+    const oldScript = document.querySelector('script[src="' + scriptUrl + '"]');
+    if (oldScript) oldScript.remove();
+    const newScript = document.createElement('script');
+    newScript.src = scriptUrl;
+    newScript.defer = true;
+    newScript.setAttribute('data-base-url', 'https://analytics.rimuru.work');
+    document.body.appendChild(newScript);
+  });
+</script>
+<!-- Cookie Consent Banner -->
+<div id="cookie-consent">
+  <p>本站使用 Cookie 来改善用户体验、分析流量并展示个性化广告。继续浏览即表示你同意使用 Cookie。详情请阅读 <a href="/privacy/">隐私政策</a>。</p>
+  <div class="btn-group">
+    <button class="btn-accept" onclick="acceptCookies()">接受全部</button>
+    <button class="btn-reject" onclick="rejectCookies()">仅必要</button>
+  </div>
+</div>
+<script>
+  (function(){
+    var banner = document.getElementById('cookie-consent');
+    var consent = localStorage.getItem('cookie_consent');
+    function applyConsent(mode) {
+      gtag('consent', 'update', {
+        'ad_storage': mode,
+        'ad_user_data': mode,
+        'ad_personalization': mode,
+        'analytics_storage': mode
+      });
+    }
+    function hideBanner() {
+      banner.classList.add('hidden');
+      setTimeout(function(){ banner.remove(); }, 300);
+    }
+    if (consent === 'accepted') {
+      hideBanner();
+      applyConsent('granted');
+    } else if (consent === 'rejected') {
+      hideBanner();
+    } else {
+      applyConsent('denied');
+    }
+    window.acceptCookies = function() {
+      localStorage.setItem('cookie_consent', 'accepted');
+      applyConsent('granted');
+      hideBanner();
+    };
+    window.rejectCookies = function() {
+      localStorage.setItem('cookie_consent', 'rejected');
+      hideBanner();
+    };
+  })();
+</script>
+
+
+
+    </body>
+</html>
