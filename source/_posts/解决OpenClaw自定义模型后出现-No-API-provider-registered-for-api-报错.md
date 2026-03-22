@@ -1,6 +1,7 @@
 ---
 title: 解决OpenClaw自定义模型后出现"No API provider registered for api"报错
 date: 2026-03-19T22:05:44.000Z
+updated: 2026-03-22T22:27:28.000Z
 tags:
   - OpenClaw
   - 智谱AI
