@@ -114,7 +114,7 @@
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <!-- Google AdSense Account Verification -->
 <meta name="google-adsense-account" content="ca-pub-9760626627924711">
-<!-- Google Consent Mode v2 - default denied -->
+<!-- Google Consent Mode v2 - analytics granted by default -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -122,7 +122,7 @@
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'analytics_storage': 'denied'
+    'analytics_storage': 'granted'
   });
 </script>
 <!-- Cookie Consent Banner CSS -->
@@ -696,12 +696,13 @@
     var banner = document.getElementById('cookie-consent');
     var consent = localStorage.getItem('cookie_consent');
     function applyConsent(mode) {
-      gtag('consent', 'update', {
+      var update = {
         'ad_storage': mode,
         'ad_user_data': mode,
-        'ad_personalization': mode,
-        'analytics_storage': mode
-      });
+        'ad_personalization': mode
+      };
+      if (mode === 'granted') update.analytics_storage = 'granted';
+      gtag('consent', 'update', update);
     }
     function hideBanner() {
       banner.classList.add('hidden');

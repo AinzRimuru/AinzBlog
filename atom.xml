@@ -70,9 +70,9 @@
     
     <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
     
-    <category term="Docker Compose" scheme="https://blog.rimuru.work/tags/docker-compose/"/>
-    
     <category term="容器化" scheme="https://blog.rimuru.work/tags/containerization/"/>
+    
+    <category term="Docker Compose" scheme="https://blog.rimuru.work/tags/docker-compose/"/>
     
   </entry>
   
@@ -263,11 +263,11 @@
     <category term="疑难杂症" scheme="https://blog.rimuru.work/categories/troubleshooting/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
     <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
     
@@ -298,13 +298,13 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
-    <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
     
     <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
@@ -362,9 +362,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
@@ -397,15 +397,15 @@
     <category term="疑难杂症" scheme="https://blog.rimuru.work/categories/troubleshooting/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
-    <category term="Overleaf" scheme="https://blog.rimuru.work/tags/overleaf/"/>
-    
     <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
+    
+    <category term="Overleaf" scheme="https://blog.rimuru.work/tags/overleaf/"/>
     
     <category term="ShareLaTeX" scheme="https://blog.rimuru.work/tags/sharelatex/"/>
     
@@ -457,9 +457,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Nextcloud" scheme="https://blog.rimuru.work/tags/nextcloud/"/>
     
@@ -521,9 +521,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Wallpaper Engine" scheme="https://blog.rimuru.work/tags/wallpaper-engine/"/>
     
@@ -618,9 +618,9 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
-    
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
+    
+    <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
