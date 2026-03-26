@@ -5,6 +5,7 @@ tags:
   - Google Search Console
   - SEO
   - 站点地图
+cover: cover.png
 description: 解决Google Search Console无法抓取sitemap.xml的问题。文章分析了GSC报错原因，提供了使用atom.xml替代提交的有效方案，帮助站长修复站点地图抓取失败错误，确保网站正常索引。
 ---
 ## 问题描述
