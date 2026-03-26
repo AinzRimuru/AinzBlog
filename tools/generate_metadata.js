@@ -138,7 +138,7 @@ ${postContent.slice(0, 6000)}  <!-- 截断以避免token过多 -->
 3. 新建议的标签应该是有价值的、可复用的，避免过于具体或一次性的标签
 4. description 应该包含文章的关键词，便于搜索引擎优化
 
-请只返回JSON对象，不要包含其他文字说明。`;
+请直接输出JSON，不要输出任何其他内容，不要使用markdown代码块包裹。`;
 
   const response = await fetch(`${endpoint}/chat/completions`, {
     method: 'POST',
@@ -171,15 +171,8 @@ ${postContent.slice(0, 6000)}  <!-- 截断以避免token过多 -->
 
   const data = await response.json();
   const resultText = data.choices[0].message.content.trim();
-  
-  // Extract JSON from response (handle markdown code blocks)
-  let jsonStr = resultText;
-  const jsonMatch = resultText.match(/```(?:json)?\s*([\s\S]*?)```/);
-  if (jsonMatch) {
-    jsonStr = jsonMatch[1].trim();
-  }
 
-  return JSON.parse(jsonStr);
+  return JSON.parse(resultText);
 }
 
 // Process a single post
