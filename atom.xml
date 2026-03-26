@@ -6,7 +6,7 @@
   <link href="https://blog.rimuru.work/atom.xml" rel="self"/>
   
   <link href="https://blog.rimuru.work/"/>
-  <updated>2026-03-26T22:22:15.000Z</updated>
+  <updated>2026-03-26T22:26:57.000Z</updated>
   <id>https://blog.rimuru.work/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/"/>
     <id>https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/</id>
     <published>2026-03-26T21:40:12.000Z</published>
-    <updated>2026-03-26T22:22:15.000Z</updated>
+    <updated>2026-03-26T22:26:57.000Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在Google Search Console中提交站点地图<code>sitemap.xml</code>后，出现无法抓取的错误提示，导致站点地图无法被Google索引。参考了多篇文章，尝试了各种方法，但问题依旧存在。包括检查<code>sitemap.xml</code>的格式，域名是否曾被滥用，服务器是否正确响应sitemap.xml请求，在sitemap地址前多加一个<code>/</code>等方法，但都没有解决问题。与此同时，Bing Webmaster Tools能够成功抓取<code>sitemap.xml</code>，说明服务器和sitemap本身没有问题。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>虽然Google Search Console无法抓取sitemap.xml，但通过以下方法成功解决了问题：</p><ol><li>生成了新的站点地图文件<code>atom.xml</code>和<code>baidusitemap.xml</code>，并在Google Search Console中提交了这两个文件。这两个文件也包含了站点的URL信息，Google Search Console能够成功抓取它们，从而间接解决了无法抓取<code>sitemap.xml</code>的问题。</li><li>放弃提交sitemap.xml，在Google Search Console中提交<code>atom.xml</code>和<code>baidusitemap.xml</code>。</li><li>提交后，Google Search Console 的状态立即显示“成功”，并且能够正常抓取和索引站点的URL。</li></ol><h2 id="修复展示"><a href="#修复展示" class="headerlink" title="修复展示"></a>修复展示</h2><p>最后，展示一下修复后的Google Search Console界面，显示成功抓取<code>atom.xml</code>和<code>baidusitemap.xml</code>，并且站点的URL被正确索引。<br><img src="/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/console.png" alt="Google Search Console成功抓取站点地图"><br>可以看到，<code>sitemap.xml</code>在提交很长事件后依然显示<code>无法抓取</code>，顺带一提<code>robots.txt</code>虽然有一定的指向作用，但Google Search Console并不支持将此作为站点地图提交。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在Google Search Console中提交站点地图<code>sitemap.xml</code>后，出现无法抓取的错误提示，导致站点地图无法被Google索引。参考了多篇文章，尝试了各种方法，但问题依旧存在。包括检查<code>sitemap.xml</code>的格式，域名是否曾被滥用，服务器是否正确响应sitemap.xml请求，在sitemap地址前多加一个<code>/</code>等方法，但都没有解决问题。与此同时，Bing Webmaster Tools能够成功抓取<code>sitemap.xml</code>，说明服务器和sitemap本身没有问题。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>虽然Google Search Console无法抓取sitemap.xml，但通过以下方法成功解决了问题：</p><ol><li>生成了新的站点地图文件<code>atom.xml</code>和<code>baidusitemap.xml</code>，并在Google Search Console中提交了这两个文件。这两个文件也包含了站点的URL信息，Google Search Console能够成功抓取它们，从而间接解决了无法抓取<code>sitemap.xml</code>的问题。其中<code>atom.xml</code>是基于Atom格式的站点地图，<code>baidusitemap.xml</code>是针对百度搜索引擎优化的站点地图。也算是曲线救国了。</li><li>放弃提交sitemap.xml，在Google Search Console中提交<code>atom.xml</code>和<code>baidusitemap.xml</code>。</li><li>提交后，Google Search Console 的状态立即显示“成功”，并且能够正常抓取和索引站点的URL。</li></ol><h2 id="修复展示"><a href="#修复展示" class="headerlink" title="修复展示"></a>修复展示</h2><p>最后，展示一下修复后的Google Search Console界面，显示成功抓取<code>atom.xml</code>和<code>baidusitemap.xml</code>，并且站点的URL被正确索引。<br><img src="/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/console.png" alt="Google Search Console成功抓取站点地图"><br>可以看到，<code>sitemap.xml</code>在提交很长事件后依然显示<code>无法抓取</code>，顺带一提<code>robots.txt</code>虽然有一定的指向作用，但Google Search Console并不支持将此作为站点地图提交。</p>]]></content>
     
     
     <summary type="html">解决Google Search Console无法抓取sitemap.xml的问题。文章分析了GSC报错原因，提供了使用atom.xml替代提交的有效方案，帮助站长修复站点地图抓取失败错误，确保网站正常索引。</summary>
@@ -147,9 +147,9 @@
     
     <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
     
-    <category term="自托管服务" scheme="https://blog.rimuru.work/tags/self-hosted-services/"/>
-    
     <category term="数据备份" scheme="https://blog.rimuru.work/tags/data-backup/"/>
+    
+    <category term="自托管服务" scheme="https://blog.rimuru.work/tags/self-hosted-services/"/>
     
     <category term="硬件选购" scheme="https://blog.rimuru.work/tags/hardware-purchase/"/>
     
@@ -251,13 +251,13 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
+    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
+    
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
     
     <category term="CDN加速" scheme="https://blog.rimuru.work/tags/cdn/"/>
     
     <category term="问题解决" scheme="https://blog.rimuru.work/tags/problem-solving/"/>
-    
-    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
     
     <category term="网络优化" scheme="https://blog.rimuru.work/tags/network-optimization/"/>
     
@@ -327,13 +327,13 @@
     
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
-    <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
-    
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
     <category term="运维命令" scheme="https://blog.rimuru.work/tags/om-orders/"/>
     
     <category term="系统监控" scheme="https://blog.rimuru.work/tags/system-monitoring/"/>
+    
+    <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
     <category term="OpenVPN" scheme="https://blog.rimuru.work/tags/openvpn/"/>
     
@@ -358,13 +358,13 @@
     <category term="技术分享" scheme="https://blog.rimuru.work/categories/tech/"/>
     
     
-    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
-    
     <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
     
     <category term="JavaScript" scheme="https://blog.rimuru.work/tags/javascript/"/>
     
     <category term="OpenAI" scheme="https://blog.rimuru.work/tags/openai/"/>
+    
+    <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
     
   </entry>
   
@@ -426,9 +426,9 @@
     
     <category term="Linux" scheme="https://blog.rimuru.work/tags/linux/"/>
     
-    <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
-    
     <category term="Overleaf" scheme="https://blog.rimuru.work/tags/overleaf/"/>
+    
+    <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
     
     <category term="ShareLaTeX" scheme="https://blog.rimuru.work/tags/sharelatex/"/>
     
@@ -453,9 +453,9 @@
     
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
     
-    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
-    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
@@ -515,15 +515,15 @@
     
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
     
-    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
-    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
-    <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
-    
     <category term="Serverless" scheme="https://blog.rimuru.work/tags/serverless/"/>
+    
+    <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
     
   </entry>
   

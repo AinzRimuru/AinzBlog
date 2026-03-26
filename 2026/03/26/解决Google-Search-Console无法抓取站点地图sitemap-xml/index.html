@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/cover.png">
 <meta property="article:published_time" content="2026-03-26T21:40:12.000Z">
-<meta property="article:modified_time" content="2026-03-26T22:22:15.000Z">
+<meta property="article:modified_time" content="2026-03-26T22:26:57.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Google Search Console">
 <meta property="article:tag" content="SEO">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"解决Google Search Console无法抓取站点地图sitemap.xml","description":"解决Google Search Console无法抓取sitemap.xml的问题。文章分析了GSC报错原因，提供了使用atom.xml替代提交的有效方案，帮助站长修复站点地图抓取失败错误，确保网站正常索引。","image":"https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-26T21:40:12.000Z","dateModified":"2026-03-26T22:22:15.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"解决Google Search Console无法抓取站点地图sitemap.xml","description":"解决Google Search Console无法抓取sitemap.xml的问题。文章分析了GSC报错原因，提供了使用atom.xml替代提交的有效方案，帮助站长修复站点地图抓取失败错误，确保网站正常索引。","image":"https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-26T21:40:12.000Z","dateModified":"2026-03-26T22:26:57.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -282,7 +282,7 @@
                         <i class="fa fa-edit"></i> 
                         
                         
-                            756
+                            823
                         
                         字
                     </li>
@@ -299,7 +299,7 @@
             <div itemprop="articleBody"><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>在Google Search Console中提交站点地图<code>sitemap.xml</code>后，出现无法抓取的错误提示，导致站点地图无法被Google索引。参考了多篇文章，尝试了各种方法，但问题依旧存在。包括检查<code>sitemap.xml</code>的格式，域名是否曾被滥用，服务器是否正确响应sitemap.xml请求，在sitemap地址前多加一个<code>/</code>等方法，但都没有解决问题。与此同时，Bing Webmaster Tools能够成功抓取<code>sitemap.xml</code>，说明服务器和sitemap本身没有问题。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>虽然Google Search Console无法抓取sitemap.xml，但通过以下方法成功解决了问题：</p>
 <ol>
-<li>生成了新的站点地图文件<code>atom.xml</code>和<code>baidusitemap.xml</code>，并在Google Search Console中提交了这两个文件。这两个文件也包含了站点的URL信息，Google Search Console能够成功抓取它们，从而间接解决了无法抓取<code>sitemap.xml</code>的问题。</li>
+<li>生成了新的站点地图文件<code>atom.xml</code>和<code>baidusitemap.xml</code>，并在Google Search Console中提交了这两个文件。这两个文件也包含了站点的URL信息，Google Search Console能够成功抓取它们，从而间接解决了无法抓取<code>sitemap.xml</code>的问题。其中<code>atom.xml</code>是基于Atom格式的站点地图，<code>baidusitemap.xml</code>是针对百度搜索引擎优化的站点地图。也算是曲线救国了。</li>
 <li>放弃提交sitemap.xml，在Google Search Console中提交<code>atom.xml</code>和<code>baidusitemap.xml</code>。</li>
 <li>提交后，Google Search Console 的状态立即显示“成功”，并且能够正常抓取和索引站点的URL。</li>
 </ol>
@@ -324,7 +324,7 @@
                     <a class="tag-none-link" href="/tags/google-search-console/" rel="tag">Google Search Console</a>, <a class="tag-none-link" href="/tags/seo/" rel="tag">SEO</a>, <a class="tag-none-link" href="/tags/sitemaps/" rel="tag">站点地图</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-03-26T22:22:15.000Z" itemprop="dateModified">最后编辑：2026-03-26</time>
+                    <time datetime="2026-03-26T22:26:57.000Z" itemprop="dateModified">最后编辑：2026-03-26</time>
                 </div>
             </div>
         </footer>
