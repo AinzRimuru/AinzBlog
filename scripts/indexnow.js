@@ -9,12 +9,11 @@
 
 const https = require('https');
 
-function pingIndexNow(url, key, keyLocation, urlList) {
+function pingIndexNow(url, key, urlList) {
   return new Promise((resolve) => {
     const postData = JSON.stringify({
       host: new URL(url).hostname,
       key: key,
-      keyLocation: keyLocation,
       urlList: urlList
     });
 
@@ -56,7 +55,6 @@ hexo.extend.generator.register('indexnow', async function(locals) {
 
   const siteUrl = hexo.config.url.replace(/\/+$/, '');
   const key = config.key;
-  const keyLocation = `${siteUrl}/${key}.txt`;
   const pingUrls = config.ping_urls || ['https://api.indexnow.org/indexnow'];
 
   // 获取所有已发布文章的 URL
@@ -89,7 +87,7 @@ ${xmlItems}
 
   for (const pingUrl of pingUrls) {
     try {
-      const result = await pingIndexNow(pingUrl, key, keyLocation, urlsToPing);
+      const result = await pingIndexNow(pingUrl, key, urlsToPing);
       if (result.statusCode === 200 || result.statusCode === 202) {
         log.info(`[IndexNow] Ping sent to ${pingUrl}: HTTP ${result.statusCode}`);
       } else {
