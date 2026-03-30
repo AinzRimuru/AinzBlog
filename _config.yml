@@ -158,3 +158,12 @@ cloudflare_image:
   exclude_paths:
     - .ico
     - .svg
+
+# IndexNow
+# Docs: https://www.indexnow.org/documentation
+indexnow:
+  enable: true
+  key: ef9e736ebb984053bdc3d18cf250bfa0
+  # 向哪些搜索引擎推送（api.indexnow.org 会自动分发到所有支持的引擎）
+  ping_urls:
+    - https://api.indexnow.org/indexnow
