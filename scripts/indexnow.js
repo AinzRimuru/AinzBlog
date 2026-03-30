@@ -9,15 +9,15 @@
 
 const https = require('https');
 
-function pingIndexNow(url, key, urlList) {
+function pingIndexNow(pingUrl, host, key, urlList) {
   return new Promise((resolve) => {
     const postData = JSON.stringify({
-      host: new URL(url).hostname,
+      host: host,
       key: key,
       urlList: urlList
     });
 
-    const parsedUrl = new URL(url);
+    const parsedUrl = new URL(pingUrl);
     const options = {
       method: 'POST',
       headers: {
@@ -54,6 +54,7 @@ hexo.extend.generator.register('indexnow', async function(locals) {
   }
 
   const siteUrl = hexo.config.url.replace(/\/+$/, '');
+  const host = new URL(siteUrl).hostname;
   const key = config.key;
   const pingUrls = config.ping_urls || ['https://api.indexnow.org/indexnow'];
 
@@ -87,7 +88,7 @@ ${xmlItems}
 
   for (const pingUrl of pingUrls) {
     try {
-      const result = await pingIndexNow(pingUrl, key, urlsToPing);
+      const result = await pingIndexNow(pingUrl, host, key, urlsToPing);
       if (result.statusCode === 200 || result.statusCode === 202) {
         log.info(`[IndexNow] Ping sent to ${pingUrl}: HTTP ${result.statusCode}`);
       } else {
