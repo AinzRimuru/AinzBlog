@@ -81,6 +81,8 @@ copyright_notice:
 # 额外的注入代码
 additional_injections:
   head: |
+    <!-- IndexNow -->
+    <meta name="indexnow-key" content="ef9e736ebb984053bdc3d18cf250bfa0">
     <!-- Preconnect hints for faster resource loading -->
     <link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.rimuru.work">
