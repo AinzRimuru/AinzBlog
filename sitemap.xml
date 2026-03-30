@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.rimuru.work/tags/</loc>
-    
-    <lastmod>2026-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/terms/</loc>
     
     <lastmod>2026-03-30</lastmod>
@@ -20,16 +11,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/friends/</loc>
-    
-    <lastmod>2026-03-30</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/contact/</loc>
+    <loc>https://blog.rimuru.work/tags/</loc>
     
     <lastmod>2026-03-30</lastmod>
     
@@ -56,6 +38,24 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/contact/</loc>
+    
+    <lastmod>2026-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/friends/</loc>
+    
+    <lastmod>2026-03-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/2026/03/26/%E8%A7%A3%E5%86%B3Google-Search-Console%E6%97%A0%E6%B3%95%E6%8A%93%E5%8F%96%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BEsitemap-xml/</loc>
     
     <lastmod>2026-03-26</lastmod>
@@ -65,25 +65,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -101,7 +83,34 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</loc>
+    
+    <lastmod>2026-03-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -138,15 +147,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2026-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/</loc>
     
     <lastmod>2026-03-22</lastmod>
     
@@ -290,62 +290,6 @@
 
   
   <url>
-    <loc>https://blog.rimuru.work/tags/cloudflare/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/cdn/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/problem-solving/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/blog-optimization/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/network-optimization/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/speed-brain/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/503-error/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/page-preloader/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/tags/hexo/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -361,6 +305,20 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/openai/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/blog-optimization/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/cloudflare/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -409,6 +367,13 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/problem-solving/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/educational-discount/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -417,48 +382,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/account-linking/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/linux/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/docker/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/managing-disks/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/om-orders/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/kubernetes/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/system-monitoring/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -500,6 +423,69 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/cdn/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/network-optimization/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/speed-brain/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/503-error/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/page-preloader/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/linux/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/overleaf/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/docker/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/sharelatex/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/wallpaper-engine/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -535,6 +521,118 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/managing-disks/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/om-orders/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/kubernetes/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/system-monitoring/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/cybersecurity/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/nas/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/docker-compose/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/containerization/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/data-backup/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/self-hosted-services/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/hardware-purchase/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/cmr-hard-drive/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/storage-scenarios/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/raid/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/intranet-penetration/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/ms/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/ai-tools/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -557,69 +655,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/proxy-configuration/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/cybersecurity/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/data-backup/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/nas/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/raid/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/docker-compose/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/containerization/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/self-hosted-services/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/intranet-penetration/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/ms/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -655,27 +690,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/static-blog/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/hardware-purchase/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/cmr-hard-drive/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/storage-scenarios/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -759,20 +773,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/tags/overleaf/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/sharelatex/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/tags/virtualization/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
@@ -795,6 +795,27 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/partition-expansion/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/google-search-console/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/seo/</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/sitemaps/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -844,27 +865,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/smart-spectrum-ai/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/google-search-console/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/seo/</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/sitemaps/</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
