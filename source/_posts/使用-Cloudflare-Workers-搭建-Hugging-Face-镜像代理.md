@@ -15,8 +15,6 @@ categories:
 cover: cover.png
 ---
 
-# 使用 Cloudflare Workers 搭建 Hugging Face 镜像代理
-
 在进行 AI 模型开发时，Hugging Face 是绕不开的资源库。然而，直接访问 `huggingface.co` 及其 CDN 资源有时会遇到速度缓慢甚至连接失败的问题。
 
 为了解决这个问题，我开发了一个基于 Cloudflare Workers 的轻量级反向代理项目 —— **HuggingfaceProxy**。
