@@ -167,3 +167,10 @@ indexnow:
   # 向哪些搜索引擎推送（api.indexnow.org 会自动分发到所有支持的引擎）
   ping_urls:
     - https://api.indexnow.org/indexnow
+
+# Google Indexing API
+# Docs: https://developers.google.com/webmaster-tools/v3/api-reference/rest/v3/urlNotifications/publish
+google_indexing:
+  enable: true
+  # 每次构建最多推送的 URL 数量（Google API 配额：每天 200 次）
+  max_urls: 200

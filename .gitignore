@@ -22,3 +22,7 @@ public
 .deploy_git
 db.json
 _multiconfig.yml
+
+# Google Cloud service account keys
+*_sa_key.json
+alpine-air-*.json
