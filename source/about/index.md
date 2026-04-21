@@ -44,6 +44,7 @@ comments: false
 
 ### 联系方式
 
+- **Email**: [admin@rimuru.work](mailto:admin@rimuru.work)
 - **GitHub**: [AinzRimuru](https://github.com/AinzRimuru)
 - **Issues**: [提交问题或建议](https://github.com/AinzRimuru/AinzBlog/issues)
 
