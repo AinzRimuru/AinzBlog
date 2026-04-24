@@ -12,3 +12,7 @@ friends:
     description: "人生近看是悲剧，远看是喜剧"
     image: "/images/friend_link/龙星划空.png"
     link: "https://blog.245179.xyz/"
+  - title: "Charol的博客"
+    description: "使用 Astro + ShokaX 搭建的个人博客，分享建站记录与技术探索。"
+    image: "/images/friend_link/Charol.avif"
+    link: "https://blog.charolron.top/"
