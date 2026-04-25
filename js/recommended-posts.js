@@ -398,8 +398,12 @@
       return false;
     }
     
-    // 排除关于页面等独立页面（可根据需要调整）
-    if (path === '/about/' || path === '/about') {
+    // 排除独立页面
+    if (path === '/about/' || path === '/about' ||
+        path === '/friends/' || path === '/friends' ||
+        path === '/contact/' || path === '/contact' ||
+        path === '/privacy/' || path === '/privacy' ||
+        path === '/terms/' || path === '/terms') {
       return false;
     }
     

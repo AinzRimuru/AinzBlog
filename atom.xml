@@ -6,7 +6,7 @@
   <link href="https://blog.rimuru.work/atom.xml" rel="self"/>
   
   <link href="https://blog.rimuru.work/"/>
-  <updated>2026-04-24T15:14:47.355Z</updated>
+  <updated>2026-04-25T11:43:33.128Z</updated>
   <id>https://blog.rimuru.work/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://blog.rimuru.work/2026/04/24/FriendFlow-%E8%AE%A9%E5%8F%8B%E9%93%BE%E6%B4%BB%E8%B5%B7%E6%9D%A5%E7%9A%84%E4%BA%92%E5%8A%A9%E7%B3%BB%E7%BB%9F/"/>
     <id>https://blog.rimuru.work/2026/04/24/FriendFlow-%E8%AE%A9%E5%8F%8B%E9%93%BE%E6%B4%BB%E8%B5%B7%E6%9D%A5%E7%9A%84%E4%BA%92%E5%8A%A9%E7%B3%BB%E7%BB%9F/</id>
     <published>2026-04-24T15:00:00.000Z</published>
-    <updated>2026-04-24T15:14:47.355Z</updated>
+    <updated>2026-04-25T11:43:33.128Z</updated>
     
     <content type="html"><![CDATA[<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p>友链（友情链接）是博客之间互相推荐的重要方式。但传统的友链只是一个静态的链接列表，访客需要逐个点击才能了解朋友的最新动态。</p><p><strong>Friend Flow</strong> 是一个友链互助系统，自动抓取友链博客的最新文章，提供 API 和展示页面。让你的友链页面从一成不变的链接列表，变成一个充满活力的内容聚合站。</p><p>在线体验：<a href="https://friend.rimuru.work/">https://friend.rimuru.work</a></p><p>项目地址：<a href="https://github.com/AinzRimuru/friend-flow">https://github.com/AinzRimuru/friend-flow</a></p><h2 id="功能特色"><a href="#功能特色" class="headerlink" title="功能特色"></a>功能特色</h2><ul><li><strong>自动抓取</strong> - 自动从友链博客的 Atom&#x2F;RSS Feed 获取最近 10 篇文章，无需手动维护</li><li><strong>智能缓存</strong> - 5 分钟 TTL 缓存，10 秒抓取超时，在实时性和性能之间取得平衡</li><li><strong>容错机制</strong> - 连续失败 3 次冷却 1 小时，30 次停止刷新，每天凌晨自动重试已停止的站点</li><li><strong>图片代理</strong> - 通过 Worker 重定向透传图片资源，跨域展示零障碍</li><li><strong>灵活 API</strong> - 支持排除指定站点、随机选取数量等参数，满足不同场景需求</li><li><strong>现代前端</strong> - 基于 React + TailwindCSS 的卡片式 SPA 展示页面</li></ul><h2 id="在线体验"><a href="#在线体验" class="headerlink" title="在线体验"></a>在线体验</h2><p>访问 <a href="https://friend.rimuru.work/">friend.rimuru.work</a> 即可直接查看所有友链博客及其最新文章。页面会展示每个友链的基本信息、抓取状态和最近发布的文章列表。</p><h2 id="API-使用"><a href="#API-使用" class="headerlink" title="API 使用"></a>API 使用</h2><p>Friend Flow 提供了简洁的 REST API，方便你将友链数据集成到自己的博客或任何平台。</p><h3 id="获取全部友链"><a href="#获取全部友链" class="headerlink" title="获取全部友链"></a>获取全部友链</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://friend.rimuru.work/api/friend-links</span><br></pre></td></tr></table></figure><p>返回所有友链及其最近 10 篇文章。</p><h3 id="排除自己的博客"><a href="#排除自己的博客" class="headerlink" title="排除自己的博客"></a>排除自己的博客</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://friend.rimuru.work/api/friend-links?exclude=https://blog.example.com</span><br></pre></td></tr></table></figure><p>使用 <code>exclude</code> 参数排除指定 URL，支持多次传参：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://friend.rimuru.work/api/friend-links?exclude=https://a.com&amp;exclude=https://b.com</span><br></pre></td></tr></table></figure><h3 id="随机选取友链"><a href="#随机选取友链" class="headerlink" title="随机选取友链"></a>随机选取友链</h3><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://friend.rimuru.work/api/friend-links?limit=5&amp;exclude=https://blog.example.com</span><br></pre></td></tr></table></figure><p>使用 <code>limit</code> 参数控制返回数量，超出时随机选取。</p><h3 id="返回数据格式"><a href="#返回数据格式" class="headerlink" title="返回数据格式"></a>返回数据格式</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">[</span></span><br><span class="line">  <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;博客名称&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://example.com&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;博客描述&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;icon&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/images/icons/blog.png&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;lastFetchTime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2026-04-24T12:00:00Z&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;fetchStatus&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ok&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;recentArticles&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">      <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;title&quot;</span><span class="punctuation">:</span> <span class="string">&quot;文章标题&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://example.com/post-1&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;publishTime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2026-04-20&quot;</span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">]</span></span><br></pre></td></tr></table></figure><h3 id="图片代理"><a href="#图片代理" class="headerlink" title="图片代理"></a>图片代理</h3><p>友链头像等图片资源通过 Worker 自动代理：</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET https://friend.rimuru.work/images/icons/blog.png</span><br></pre></td></tr></table></figure><p>返回 302 重定向到图片的实际地址，无需额外配置。</p><h2 id="如何接入你的博客"><a href="#如何接入你的博客" class="headerlink" title="如何接入你的博客"></a>如何接入你的博客</h2><p>以 Hexo 博客为例，只需在友链页面添加一段 JavaScript 即可从 Friend Flow API 获取数据并展示。</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;friend-links-container&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">(<span class="title function_">async</span> () =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> <span class="variable constant_">API</span> = <span class="string">&#x27;https://friend.rimuru.work&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> <span class="variable constant_">SELF</span> = <span class="string">&#x27;https://your-blog.com&#x27;</span>; <span class="comment">// 替换为你的博客地址</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(</span></span><br><span class="line"><span class="language-javascript">    <span class="string">`<span class="subst">$&#123;API&#125;</span>/api/friend-links?exclude=<span class="subst">$&#123;<span class="built_in">encodeURIComponent</span>(SELF)&#125;</span>`</span></span></span><br><span class="line"><span class="language-javascript">  );</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> data = <span class="keyword">await</span> res.<span class="title function_">json</span>();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 随机排列</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> shuffled = data.<span class="title function_">sort</span>(<span class="function">() =&gt;</span> <span class="title class_">Math</span>.<span class="title function_">random</span>() - <span class="number">0.5</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;friend-links-container&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  container.<span class="property">innerHTML</span> = shuffled.<span class="title function_">map</span>(<span class="function"><span class="params">f</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> icon = f.<span class="property">icon</span>.<span class="title function_">startsWith</span>(<span class="string">&#x27;http&#x27;</span>) ? f.<span class="property">icon</span> : <span class="variable constant_">API</span> + f.<span class="property">icon</span>;</span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">      &lt;a target=&quot;_blank&quot; href=&quot;<span class="subst">$&#123;f.url&#125;</span>&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">        &lt;img src=&quot;<span class="subst">$&#123;icon&#125;</span>&quot; alt=&quot;<span class="subst">$&#123;f.name&#125;</span>&quot; /&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">        &lt;span&gt;<span class="subst">$&#123;f.name&#125;</span>&lt;/span&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">        &lt;p&gt;<span class="subst">$&#123;f.description&#125;</span>&lt;/p&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">      &lt;/a&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">    `</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;).<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">&#125;)();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure><blockquote><p><strong>提示</strong>: 完整的集成示例（包含最新文章展示、加载状态和错误处理）可以参考项目的 <a href="https://github.com/AinzRimuru/friend-flow">GitHub 仓库</a>。</p></blockquote><h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────┐     抓取 Atom/RSS     ┌──────────────────┐</span><br><span class="line">│  友链博客 A  │ ◄────────────────── │                  │</span><br><span class="line">│  友链博客 B  │ ◄────────────────── │  Friend Flow     │</span><br><span class="line">│  友链博客 C  │ ◄────────────────── │  (CF Workers+D1) │</span><br><span class="line">└─────────────┘                      │                  │</span><br><span class="line">                                     └────────┬─────────┘</span><br><span class="line">                                              │</span><br><span class="line">                              ┌────────────────┼────────────────┐</span><br><span class="line">                              ▼                ▼                ▼</span><br><span class="line">                        友链展示页面      REST API          图片代理</span><br><span class="line">                     friend.rimuru.work  /api/...         /images/...</span><br></pre></td></tr></table></figure><p>Friend Flow 后端基于 <strong>Cloudflare Workers + Hono</strong>，数据存储在 <strong>Cloudflare D1</strong>。配置文件和图标资源托管在 GitHub Pages 上，Worker 启动时自动拉取。</p><p>每当有请求到达时，Worker 会检查缓存是否过期（TTL 5 分钟），如果过期则并发刷新最多 10 个站点的 Feed 数据。对于持续抓取失败的站点，系统会逐步降级：3 次失败冷却 1 小时，30 次失败停止请求时刷新，等待每天凌晨的定时任务重试。</p><h2 id="技术栈"><a href="#技术栈" class="headerlink" title="技术栈"></a>技术栈</h2><table><thead><tr><th>组件</th><th>技术</th></tr></thead><tbody><tr><td>后端</td><td>Cloudflare Workers + Hono</td></tr><tr><td>数据库</td><td>Cloudflare D1</td></tr><tr><td>前端</td><td>React + Vite + TailwindCSS</td></tr><tr><td>配置托管</td><td>GitHub Pages（YAML + 图标）</td></tr></tbody></table><hr><p>项目地址：<a href="https://github.com/AinzRimuru/friend-flow">https://github.com/AinzRimuru/friend-flow</a></p><p>在线体验：<a href="https://friend.rimuru.work/">https://friend.rimuru.work</a></p>]]></content>
     
@@ -145,9 +145,9 @@
     
     <category term="网络安全" scheme="https://blog.rimuru.work/tags/cybersecurity/"/>
     
-    <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
-    
     <category term="数据备份" scheme="https://blog.rimuru.work/tags/data-backup/"/>
+    
+    <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
     
     <category term="RAID" scheme="https://blog.rimuru.work/tags/raid/"/>
     
@@ -172,9 +172,9 @@
     
     <category term="Docker" scheme="https://blog.rimuru.work/tags/docker/"/>
     
-    <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
-    
     <category term="数据备份" scheme="https://blog.rimuru.work/tags/data-backup/"/>
+    
+    <category term="NAS" scheme="https://blog.rimuru.work/tags/nas/"/>
     
     <category term="自托管服务" scheme="https://blog.rimuru.work/tags/self-hosted-services/"/>
     
@@ -319,9 +319,9 @@
     
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
-    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
-    
     <category term="AI工具" scheme="https://blog.rimuru.work/tags/ai-tools/"/>
+    
+    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
     
     <category term="Claude Code" scheme="https://blog.rimuru.work/tags/claude-code/"/>
     
@@ -387,9 +387,9 @@
     
     <category term="博客优化" scheme="https://blog.rimuru.work/tags/blog-optimization/"/>
     
-    <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
-    
     <category term="JavaScript" scheme="https://blog.rimuru.work/tags/javascript/"/>
+    
+    <category term="Hexo" scheme="https://blog.rimuru.work/tags/hexo/"/>
     
     <category term="OpenAI" scheme="https://blog.rimuru.work/tags/openai/"/>
     
@@ -480,9 +480,9 @@
     
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
     
-    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
-    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
@@ -511,6 +511,8 @@
     
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
     
+    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
+    
     <category term="Nextcloud" scheme="https://blog.rimuru.work/tags/nextcloud/"/>
     
     <category term="WebDAV" scheme="https://blog.rimuru.work/tags/webdav/"/>
@@ -518,8 +520,6 @@
     <category term="网络驱动器" scheme="https://blog.rimuru.work/tags/network-drives/"/>
     
     <category term="文件共享" scheme="https://blog.rimuru.work/tags/shared-files/"/>
-    
-    <category term="Windows 11" scheme="https://blog.rimuru.work/tags/windows-11/"/>
     
   </entry>
   
@@ -542,9 +542,9 @@
     
     <category term="Cloudflare" scheme="https://blog.rimuru.work/tags/cloudflare/"/>
     
-    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
-    
     <category term="教程" scheme="https://blog.rimuru.work/tags/tutorial/"/>
+    
+    <category term="Hugging Face" scheme="https://blog.rimuru.work/tags/hugging-face/"/>
     
     <category term="反向代理" scheme="https://blog.rimuru.work/tags/options/"/>
     
