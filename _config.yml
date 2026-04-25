@@ -174,3 +174,10 @@ google_indexing:
   enable: true
   # 每次构建最多推送的 URL 数量（Google API 配额：每天 200 次）
   max_urls: 200
+
+# Friend Flow 友链互助系统
+# Docs: https://github.com/AinzRimuru/friend-flow
+friend_flow:
+  api_base: https://friend.rimuru.work
+  self_url: https://blog.rimuru.work
+  articles_per_card: 5
