@@ -5,7 +5,13 @@ comments: false
 description: "好伙伴们在哪里~"
 ---
 
-## 友链列表
+## 常驻友链
+
+{% linklist friends random %}
+
+---
+
+## 友链联盟
 
 {% friendflow %}
 
