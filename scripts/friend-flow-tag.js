@@ -1,10 +1,11 @@
 'use strict';
 
-/**
- * Friend Flow Tag Plugin
- * Usage: {% friendflow %}
- * Config: _config.yml -> friend_flow
- */
+var fs = require('fs');
+var path = require('path');
+
+var DIR = path.join(__dirname, 'friend-flow');
+var CSS = fs.readFileSync(path.join(DIR, 'style.css'), 'utf8');
+var JS_TEMPLATE = fs.readFileSync(path.join(DIR, 'template.js'), 'utf8');
 
 hexo.extend.tag.register('friendflow', function () {
   var config = hexo.config.friend_flow || {};
@@ -19,64 +20,12 @@ hexo.extend.tag.register('friendflow', function () {
 
   var id = 'ff-' + Math.random().toString(36).substr(2, 8);
 
-  var css = [
-    '.ff-container{margin:16px 0}',
-    '.ff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}',
-    '.ff-card{background:var(--ff-bg,#fff);border-radius:0;overflow:hidden;transition:all .3s ease-in-out;box-shadow:0 1px 2px rgba(0,0,0,.1)}',
-    '.ff-card:hover{box-shadow:0 8px 15px rgba(146,146,146,.39)}',
-    '.ff-card-header{display:flex;align-items:center;padding:10px 12px;gap:10px}',
-    '.ff-card-avatar{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}',
-    '.ff-card-info{flex:1;min-width:0;overflow:hidden}',
-    '.ff-card-name{display:block;font-size:14px;font-weight:600;color:var(--ff-text,#000);text-decoration:none}',
-    '.ff-card-name:hover{color:var(--ff-link-hover,#6ec3f5)}',
-    '.ff-card-desc{font-size:12px;color:var(--ff-text-alt,#666);line-height:1.3;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
-    '.ff-card-articles{border-top:1px solid var(--ff-border,#eaecef);padding:6px 12px 8px}',
-    '.ff-article-item{display:flex;align-items:baseline;padding:2px 0;text-decoration:none;color:var(--ff-text-alt,#666);font-size:13px;line-height:1.5}',
-    '.ff-article-item:hover{color:var(--ff-link-hover,#6ec3f5)}',
-    '.ff-article-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-right:8px}',
-    '.ff-article-time{font-size:11px;color:var(--ff-muted,#999);flex-shrink:0;white-space:nowrap}',
-    '.ff-spinner{display:inline-block;width:24px;height:24px;border:3px solid var(--ff-border,#eaecef);border-top-color:var(--ff-text-alt,#666);border-radius:50%;animation:ff-spin .8s linear infinite}',
-    '@keyframes ff-spin{to{transform:rotate(360deg)}}',
-    '.ff-loading{display:flex;justify-content:center;align-items:center;min-height:120px}',
-    '.ff-error{text-align:center;padding:40px 0;color:var(--ff-muted,#999)}',
-    // 自动适配 Kratos-Rebirth 主题的 CSS 自定义属性
-    '.ff-container{--ff-bg:var(--kr-theme-card-bg,#fff);--ff-text:var(--kr-theme-text,#000);--ff-text-alt:var(--kr-theme-text-alt,#666);--ff-link-hover:var(--kr-theme-link-hover,#6ec3f5);--ff-border:var(--kr-theme-border,#eaecef);--ff-muted:var(--kr-theme-text-alt,#999)}',
-  ].join('');
+  // 将模板 IIFE 转为立即执行，注入运行时参数
+  var js = JS_TEMPLATE
+    .replace(/^\(function\s*/, '(function ')
+    .replace(/\}\);$/, '})("' + id + '","' + apiBase + '","' + selfUrl + '",' + maxArticles + ');');
 
-  var js = '(function(id,api,self,max){' +
-    'var c=document.getElementById(id);' +
-    'if(!c)return;' +
-    'function esc(s){if(!s)return"";var d=document.createElement("div");d.textContent=s;return d.innerHTML}' +
-    'function resIcon(i){if(!i)return"";if(i.indexOf("http")===0)return i;return api+i}' +
-    'function fmtDate(s){try{return new Date(s).toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"})}catch(e){return s}}' +
-    'function render(data){' +
-    'var list=data.slice().sort(function(){return Math.random()-0.5});' +
-    'var h="<div class=\\"ff-grid\\">";' +
-    'for(var i=0;i<list.length;i++){' +
-    'var f=list[i];var ic=resIcon(f.icon);var arts=f.recentArticles||[];' +
-    'h+="<div class=\\"ff-card\\"><div class=\\"ff-card-header\\">";' +
-    'h+="<a target=\\"_blank\\" href=\\""+esc(f.url)+"\\" rel=\\"noopener\\"><img class=\\"ff-card-avatar\\" src=\\""+esc(ic)+"\\" alt=\\""+esc(f.name)+"\\" loading=\\"lazy\\"/></a>";' +
-    'h+="<div class=\\"ff-card-info\\"><a class=\\"ff-card-name\\" target=\\"_blank\\" href=\\""+esc(f.url)+"\\" rel=\\"noopener\\">"+esc(f.name)+"</a>";' +
-    'h+="<div class=\\"ff-card-desc\\">"+esc(f.description)+"</div></div></div>";' +
-    'if(arts.length>0){' +
-    'h+="<div class=\\"ff-card-articles\\">";' +
-    'var n=Math.min(arts.length,max);' +
-    'for(var j=0;j<n;j++){var a=arts[j];var t=a.publishTime?fmtDate(a.publishTime):"";' +
-    'h+="<a class=\\"ff-article-item\\" target=\\"_blank\\" href=\\""+esc(a.url)+"\\" rel=\\"noopener\\"><span class=\\"ff-article-title\\">"+esc(a.title)+"</span>";' +
-    'if(t)h+="<span class=\\"ff-article-time\\">"+t+"</span>";' +
-    'h+="</a>";}' +
-    'h+="</div>";}' +
-    'h+="</div>";}' +
-    'h+="</div>";c.innerHTML=h;}' +
-    'var url=api+"/api/friend-links";' +
-    'if(self)url+="?exclude="+encodeURIComponent(self);' +
-    'fetch(url)' +
-    '.then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json()})' +
-    '.then(render)' +
-    '.catch(function(e){console.error("Friend Flow:",e);c.innerHTML="<div class=\\"ff-error\\">"+(e.message||"Fetch failed")+"</div>"});' +
-    '})("' + id + '","' + apiBase + '","' + selfUrl + '",' + maxArticles + ');';
-
-  return '<style>' + css + '</style>' +
+  return '<style>' + CSS + '</style>' +
     '<div id="' + id + '" class="ff-container">' +
     '<div class="ff-loading"><span class="ff-spinner"></span></div>' +
     '</div>' +
