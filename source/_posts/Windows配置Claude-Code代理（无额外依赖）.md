@@ -13,7 +13,7 @@ tags:
   - 环境变量
   - 代理配置
 categories:
-  - 疑难杂症
+  - 疑难排查
 description: 本文详细介绍了在 Windows 环境下为 Claude Code 配置网络代理的实操教程。通过修改 Claude 安装目录下的启动脚本并结合 TUN 模式，解决因网络环境导致的连接失败问题。无需额外依赖，步骤简单明了，涵盖 npm 安装、环境变量配置及代理生效测试，是开发者优化 Claude Code 使用体验的必备指南。
 ---
 ## 安装Claude Code (已安装的自行跳过)

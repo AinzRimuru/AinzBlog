@@ -11,7 +11,7 @@ tags:
   - Kubernetes
   - 系统监控
 categories:
-  - 技术分享
+  - 技术随笔
 description: 本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。
 cover: cover.png
 ---

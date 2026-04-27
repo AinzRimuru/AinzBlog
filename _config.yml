@@ -71,11 +71,14 @@ index_generator:
   order_by: -date
 
 # Category & Tag
-default_category: 技术分享
+default_category: 技术随笔
 category_map:
-  疑难杂症: troubleshooting
-  技术分享: tech
-  游戏: gaming
+  建站手记: blogging
+  自建服务: self-hosted
+  网络杂谈: networking
+  疑难排查: troubleshooting
+  技术随笔: tech-notes
+  游戏攻略: gaming
 # tag_map 已抽离到 _config.tag_map.yml
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta

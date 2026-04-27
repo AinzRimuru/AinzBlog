@@ -14,7 +14,7 @@ tags:
   - 网络优化
   - BBR
 categories:
-  - 技术分享
+  - 疑难排查
 description: 针对高延迟场景下的OpenVPN速度缓慢问题，本文提供了全方位的性能调优方案。涵盖了强制UDP协议、计算并优化sndbuf/rcvbuf缓冲区、调整Linux内核sysctl参数以及启用BBR拥塞控制算法。此外还介绍了如何通过Nginx配置HTTP/3和QUIC缓冲区，以显著提升高延迟网络环境下的吞吐量和稳定性。
 ---
 ## 连接协议选择

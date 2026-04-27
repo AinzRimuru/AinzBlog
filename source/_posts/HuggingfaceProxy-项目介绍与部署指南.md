@@ -10,7 +10,7 @@ tags:
   - 反向代理
   - 模型下载
 categories:
-  - 技术分享
+  - 自建服务
 cover: cover.png
 ---
 

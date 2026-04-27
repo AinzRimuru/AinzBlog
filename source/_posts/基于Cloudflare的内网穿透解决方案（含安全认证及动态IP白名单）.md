@@ -8,7 +8,7 @@ tags:
   - 网络安全
 cover: cover.png
 categories:
-  - 技术分享
+  - 网络杂谈
 toc: true
 description: 本文详细介绍了基于Cloudflare Zero Trust和Tunnel实现的内网穿透方案。通过配置Cloudflared隧道、Access安全认证以及利用Cloudflare Worker构建动态IP白名单，有效解决了传统穿透工具在安全性与易用性上的痛点，为内网资源提供企业级的防火墙保护与灵活的访问控制。
 ---

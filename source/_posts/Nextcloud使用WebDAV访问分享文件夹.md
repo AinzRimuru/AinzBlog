@@ -12,7 +12,7 @@ tags:
   - 文件共享
   - Windows 11
 categories:
-  - 技术分享
+  - 自建服务
 cover: cover.png
 ---
 ## 1. 新建分享链接

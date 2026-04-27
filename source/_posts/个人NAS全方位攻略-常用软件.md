@@ -9,7 +9,7 @@ tags:
   - 内网穿透
   - 媒体服务器
 categories:
-  - 技术分享
+  - 自建服务
 cover: cover.png
 description: 本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin/Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。
 ---

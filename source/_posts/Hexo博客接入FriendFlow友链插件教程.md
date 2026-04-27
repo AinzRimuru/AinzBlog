@@ -8,7 +8,7 @@ tags:
   - 教程
   - JavaScript
 categories:
-  - 技术分享
+  - 建站手记
 cover: cover.png
 ---
 

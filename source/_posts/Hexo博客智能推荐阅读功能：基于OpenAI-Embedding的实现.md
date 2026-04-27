@@ -4,7 +4,7 @@ date: 2026-01-03T18:45:00.000Z
 updated: 2026-01-04T09:12:40.000Z
 cover: cover.png
 categories:
-  - 技术分享
+  - 建站手记
 tags:
   - Hexo
   - JavaScript

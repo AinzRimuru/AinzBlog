@@ -11,7 +11,7 @@ tags:
   - Serverless
   - AI工具
 categories:
-  - 技术分享
+  - 网络杂谈
 cover: cover.png
 ---
 

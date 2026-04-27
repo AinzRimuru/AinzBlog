@@ -8,7 +8,7 @@ tags:
   - Docker Compose
   - 容器化
 categories:
-  - 技术分享
+  - 自建服务
 cover: cover.png
 description: 本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。
 ---
