@@ -3,9 +3,9 @@
 var fs = require('fs');
 var path = require('path');
 
-var DIR = path.join(__dirname, 'friend-flow');
-var CSS = fs.readFileSync(path.join(DIR, 'style.css'), 'utf8');
-var JS_TEMPLATE = fs.readFileSync(path.join(DIR, 'template.js'), 'utf8');
+var DIR = path.join(hexo.base_dir, 'source', '_data', 'friend-flow');
+var CSS = fs.readFileSync(path.join(DIR, 'style.css'), 'utf8').trim();
+var JS_TEMPLATE = fs.readFileSync(path.join(DIR, 'template.js'), 'utf8').trim();
 
 hexo.extend.tag.register('friendflow', function () {
   var config = hexo.config.friend_flow || {};
