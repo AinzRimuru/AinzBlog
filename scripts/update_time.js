@@ -10,20 +10,73 @@ const EXCLUDED_COMMIT_PATTERN = 'chore:';
  * 获取文件的 git commit 历史（排除自动提交）
  * @param {string} filePath - 文件路径
  * @param {string} baseDir - git 仓库根目录
- * @returns {string[]} - commit 列表 (ISO 格式时间戳)
+ * @returns {{ hash: string, date: string }[]} - commit 列表（从新到旧）
  */
 function getGitCommitHistory(filePath, baseDir) {
   try {
-    // 使用 --invert-grep 和 --fixed-strings 来精确排除 chore: 开头的提交
-    // 这样可以避免正则表达式匹配问题
     const result = execSync(
-      `git log --follow --format="%aI" --invert-grep --fixed-strings --grep="${EXCLUDED_COMMIT_PATTERN}" -- "${filePath}"`,
+      `git log --follow --format="%H %aI" --invert-grep --fixed-strings --grep="${EXCLUDED_COMMIT_PATTERN}" -- "${filePath}"`,
       { cwd: baseDir, encoding: 'utf-8' }
     );
-    return result.trim().split('\n').filter(line => line.length > 0);
+    return result.trim().split('\n').filter(line => line.length > 0).map(line => {
+      const spaceIndex = line.indexOf(' ');
+      return {
+        hash: line.slice(0, spaceIndex),
+        date: line.slice(spaceIndex + 1)
+      };
+    });
   } catch (error) {
     return [];
   }
+}
+
+/**
+ * 获取指定 commit 中文件的正文内容（排除 front-matter）
+ * @param {string} filePath - 文件绝对路径
+ * @param {string} commitHash - commit 哈希
+ * @param {string} baseDir - git 仓库根目录
+ * @returns {string | null}
+ */
+function getFileBodyAtCommit(filePath, commitHash, baseDir) {
+  try {
+    const relativePath = path.relative(baseDir, filePath).replace(/\\/g, '/');
+    const content = execSync(
+      `git show "${commitHash}:${relativePath}"`,
+      { cwd: baseDir, encoding: 'utf-8' }
+    );
+    const parsed = parseFrontMatter(content);
+    return parsed ? parsed.body : content;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * 查找最后一次修改正文的 commit
+ * 通过逐个对比相邻 commit 的正文内容，找到最新的正文变更
+ * @param {string} filePath - 文件路径
+ * @param {{ hash: string, date: string }[]} commits - commit 列表（从新到旧）
+ * @param {string} baseDir - git 仓库根目录
+ * @returns {{ hash: string, date: string } | null}
+ */
+function findLastBodyChangeCommit(filePath, commits, baseDir) {
+  if (commits.length <= 1) return null;
+
+  let prevBody = null;
+  let lastBodyChangeCommit = null;
+
+  // 从最旧的 commit 向最新的遍历，记录每次正文变更
+  for (let i = commits.length - 1; i >= 0; i--) {
+    const body = getFileBodyAtCommit(filePath, commits[i].hash, baseDir);
+    if (prevBody !== null && body !== null && body !== prevBody) {
+      lastBodyChangeCommit = commits[i];
+    }
+    if (body !== null) {
+      prevBody = body;
+    }
+  }
+
+  return lastBodyChangeCommit;
 }
 
 /**
@@ -129,52 +182,54 @@ function removeFrontMatterUpdated(frontMatter, lineEnding) {
  */
 function processFile(filePath, baseDir, log) {
   const commits = getGitCommitHistory(filePath, baseDir);
-  
+
   if (commits.length === 0) {
     log.debug(`[Update Time] 跳过 ${path.basename(filePath)}: 未找到 git 历史`);
     return false;
   }
-  
+
   const content = fs.readFileSync(filePath, 'utf-8');
   const lineEnding = content.includes('\r\n') ? '\r\n' : '\n';
-  
+
   const parsed = parseFrontMatter(content);
   if (!parsed) {
     log.warn(`[Update Time] 跳过 ${path.basename(filePath)}: 无法解析 front-matter`);
     return false;
   }
-  
+
   const hasExistingUpdated = /^updated:/m.test(parsed.frontMatter);
-  
-  if (commits.length === 1) {
-    // 只有一个 commit，不需要 update
+
+  // 查找最后一次修改正文的 commit
+  const lastBodyChangeCommit = findLastBodyChangeCommit(filePath, commits, baseDir);
+
+  if (!lastBodyChangeCommit) {
+    // 正文从未被修改过（或只有一次提交），不需要 update
     if (hasExistingUpdated) {
-      // 但如果已存在 updated 字段，应该移除它
       const newFrontMatter = removeFrontMatterUpdated(parsed.frontMatter, lineEnding);
       const newContent = `---${lineEnding}${newFrontMatter}${lineEnding}---${parsed.body}`;
       fs.writeFileSync(filePath, newContent, 'utf-8');
-      log.info(`[Update Time] ${path.basename(filePath)}: 移除了 updated 字段（只有一次提交）`);
+      log.info(`[Update Time] ${path.basename(filePath)}: 移除了 updated 字段（正文未修改）`);
       return true;
     }
-    log.debug(`[Update Time] 跳过 ${path.basename(filePath)}: 只有一次提交，无需 updated`);
+    log.debug(`[Update Time] 跳过 ${path.basename(filePath)}: 正文从未修改，无需 updated`);
     return false;
   }
-  
-  // 多个 commit，取最新的 commit 时间作为 updated
-  const latestCommitTime = commits[0];
-  
+
+  // 使用最后一次修改正文的 commit 时间作为 updated
+  const updateTime = lastBodyChangeCommit.date;
+
   // 更新 front-matter
-  const newFrontMatter = updateFrontMatterWithTime(parsed.frontMatter, latestCommitTime, lineEnding);
+  const newFrontMatter = updateFrontMatterWithTime(parsed.frontMatter, updateTime, lineEnding);
   const newContent = `---${lineEnding}${newFrontMatter}${lineEnding}---${parsed.body}`;
-  
+
   // 只有内容不同时才写入
   if (content !== newContent) {
     fs.writeFileSync(filePath, newContent, 'utf-8');
     const action = hasExistingUpdated ? '更新' : '添加';
-    log.info(`[Update Time] ${path.basename(filePath)}: ${action} updated 为 ${formatTime(latestCommitTime)}`);
+    log.info(`[Update Time] ${path.basename(filePath)}: ${action} updated 为 ${formatTime(updateTime)}（正文最后修改）`);
     return true;
   }
-  
+
   return false;
 }
 
