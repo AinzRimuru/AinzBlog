@@ -55,6 +55,9 @@ source/_data/
 ```css
 .ff-container {
   margin: 16px 0;
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
 
   /* 变量映射：优先使用 Kratos-Rebirth 主题变量，回退到内置默认值 */
   --ff-bg: var(--kr-theme-card-bg, #fff);
@@ -65,34 +68,38 @@ source/_data/
   --ff-muted: var(--kr-theme-text-alt, #999);
 }
 
-.ff-grid {
+.ff-container .ff-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 /* 卡片 */
-.ff-card {
+.ff-container .ff-card {
   background: var(--ff-bg);
   border-radius: 0;
   overflow: hidden;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
   transition: all 0.3s ease-in-out;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.ff-card:hover {
+.ff-container .ff-card:hover {
   box-shadow: 0 8px 15px rgba(146, 146, 146, 0.39);
 }
 
 /* 卡片头部 - 头像 + 名称 */
-.ff-card-header {
+.ff-container .ff-card-header {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  gap: 10px;
+  padding: 6px 12px;
+  gap: 8px;
 }
 
-.ff-card-avatar {
+.ff-container .ff-card-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -100,13 +107,13 @@ source/_data/
   flex-shrink: 0;
 }
 
-.ff-card-info {
+.ff-container .ff-card-info {
   flex: 1;
   min-width: 0;
   overflow: hidden;
 }
 
-.ff-card-name {
+.ff-container .ff-card-name {
   display: block;
   font-size: 14px;
   font-weight: 600;
@@ -114,27 +121,29 @@ source/_data/
   text-decoration: none;
 }
 
-.ff-card-name:hover {
+.ff-container .ff-card-name:hover {
   color: var(--ff-link-hover);
 }
 
-.ff-card-desc {
+.ff-container .ff-card-desc {
   font-size: 12px;
   color: var(--ff-text-alt);
   line-height: 1.3;
-  margin-top: 2px;
-  white-space: nowrap;
+  margin-top: 0;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* 文章列表 */
-.ff-card-articles {
+.ff-container .ff-card-articles {
   border-top: 1px solid var(--ff-border);
   padding: 6px 12px 8px;
 }
 
-.ff-article-item {
+.ff-container .ff-article-item {
   display: flex;
   align-items: baseline;
   padding: 2px 0;
@@ -144,11 +153,11 @@ source/_data/
   line-height: 1.5;
 }
 
-.ff-article-item:hover {
+.ff-container .ff-article-item:hover {
   color: var(--ff-link-hover);
 }
 
-.ff-article-title {
+.ff-container .ff-article-title {
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -156,7 +165,7 @@ source/_data/
   margin-right: 8px;
 }
 
-.ff-article-time {
+.ff-container .ff-article-time {
   font-size: 11px;
   color: var(--ff-muted);
   flex-shrink: 0;
@@ -164,7 +173,7 @@ source/_data/
 }
 
 /* 加载状态 */
-.ff-spinner {
+.ff-container .ff-spinner {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -178,14 +187,14 @@ source/_data/
   to { transform: rotate(360deg); }
 }
 
-.ff-loading {
+.ff-container .ff-loading {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 120px;
 }
 
-.ff-error {
+.ff-container .ff-error {
   text-align: center;
   padding: 40px 0;
   color: var(--ff-muted);
@@ -216,11 +225,15 @@ source/_data/
 
   function fmtDate(s) {
     try {
-      return new Date(s).toLocaleDateString("zh-CN", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      });
+      var d = new Date(s);
+      var cur = new Date().getFullYear();
+      return d.getFullYear() === cur
+        ? (d.getMonth() + 1) + '/' + d.getDate()
+        : d.toLocaleDateString("zh-CN", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
     } catch (e) {
       return s;
     }
@@ -250,12 +263,6 @@ source/_data/
         '" loading="lazy"/></a>';
       h +=
         '<div class="ff-card-info">' +
-        '<a class="ff-card-name" target="_blank" href="' +
-        esc(f.url) +
-        '" rel="noopener">' +
-        esc(f.name) +
-        "</a>";
-      h +=
         '<div class="ff-card-desc">' + esc(f.description) + "</div></div></div>";
 
       if (arts.length > 0) {
@@ -285,7 +292,7 @@ source/_data/
   }
 
   var url = api + "/api/friend-links";
-  if (self) url += "?exclude=" + encodeURIComponent(self);
+  // if (self) url += "?exclude=" + encodeURIComponent(self);
 
   fetch(url)
     .then(function (r) {
