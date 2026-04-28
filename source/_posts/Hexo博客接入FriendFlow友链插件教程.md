@@ -1,6 +1,7 @@
 ---
 title: Hexo 博客一行代码接入 Friend Flow 友链联盟
 date: 2026-04-27T12:00:00.000Z
+updated: 2026-04-28T18:35:16.000Z
 description: 通过一个 Hexo 标签插件，在友链页面中嵌入 Friend Flow 友链联盟卡片，自动展示友链博客的最新文章。只需配置 API 地址，页面中写入 {% friendflow %} 即可完成接入。
 tags:
   - Hexo
