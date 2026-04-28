@@ -17,11 +17,15 @@
 
   function fmtDate(s) {
     try {
-      return new Date(s).toLocaleDateString("zh-CN", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      });
+      var d = new Date(s);
+      var cur = new Date().getFullYear();
+      return d.getFullYear() === cur
+        ? (d.getMonth() + 1) + '/' + d.getDate()
+        : d.toLocaleDateString("zh-CN", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
     } catch (e) {
       return s;
     }
@@ -51,12 +55,6 @@
         '" loading="lazy"/></a>';
       h +=
         '<div class="ff-card-info">' +
-        '<a class="ff-card-name" target="_blank" href="' +
-        esc(f.url) +
-        '" rel="noopener">' +
-        esc(f.name) +
-        "</a>";
-      h +=
         '<div class="ff-card-desc">' + esc(f.description) + "</div></div></div>";
 
       if (arts.length > 0) {
@@ -86,7 +84,7 @@
   }
 
   var url = api + "/api/friend-links";
-  if (self) url += "?exclude=" + encodeURIComponent(self);
+  // if (self) url += "?exclude=" + encodeURIComponent(self);
 
   fetch(url)
     .then(function (r) {
