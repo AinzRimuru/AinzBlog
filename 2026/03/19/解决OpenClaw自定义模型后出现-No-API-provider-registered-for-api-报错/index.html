@@ -7,6 +7,7 @@
     <link rel="icon" href="/cdn-cgi/image/format=auto,quality=85,fit=contain,width=128,height=128/images/favicon.png">
   
   
+  
   <title>解决OpenClaw自定义模型后出现&#34;No API provider registered for api&#34;报错 | Rimuru&#39;s Blog</title>
   <link rel="canonical" href="https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/">
   <meta name="author" content="Rimuru" />
@@ -28,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/cover.png">
 <meta property="article:published_time" content="2026-03-19T22:05:44.000Z">
-<meta property="article:modified_time" content="2026-04-28T10:35:41.235Z">
+<meta property="article:modified_time" content="2026-05-10T01:34:50.935Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="OpenClaw">
@@ -42,7 +43,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"解决OpenClaw自定义模型后出现\"No API provider registered for api\"报错","description":"本文详解OpenClaw自定义模型时报错'No API provider registered for api'的解决办法。通过升级Docker镜像至最新版本修复此问题，并补充了智谱AI GLM-5-turbo模型中baseUrl的配置要点，确保编码套餐额度正常使用，帮助开发者快速排除故障。","image":"https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-19T22:05:44.000Z","dateModified":"2026-04-28T10:35:41.235Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"解决OpenClaw自定义模型后出现\"No API provider registered for api\"报错","description":"本文详解OpenClaw自定义模型时报错'No API provider registered for api'的解决办法。通过升级Docker镜像至最新版本修复此问题，并补充了智谱AI GLM-5-turbo模型中baseUrl的配置要点，确保编码套餐额度正常使用，帮助开发者快速排除故障。","image":"https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-19T22:05:44.000Z","dateModified":"2026-05-10T01:34:50.935Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/19/%E8%A7%A3%E5%86%B3OpenClaw%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B%E5%90%8E%E5%87%BA%E7%8E%B0-No-API-provider-registered-for-api-%E6%8A%A5%E9%94%99/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -126,6 +127,7 @@
 </script>
 <!-- Cookie Consent Banner CSS -->
 <style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   #cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color,#fff);color:var(--text-color,#333);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:99999;font-size:14px;flex-wrap:wrap;transition:transform .3s ease}#cookie-consent.hidden{transform:translateY(100%);pointer-events:none}#cookie-consent p{margin:0;flex:1;min-width:200px;line-height:1.6}#cookie-consent a{color:var(--theme-color,#4a9eff);text-decoration:underline}#cookie-consent .btn-group{display:flex;gap:8px;flex-shrink:0}#cookie-consent button{padding:8px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:opacity .2s}#cookie-consent button:hover{opacity:.85}#cookie-consent .btn-accept{background:var(--theme-color,#4a9eff);color:#fff}#cookie-consent .btn-reject{background:transparent;color:var(--text-color,#666);border:1px solid var(--border-color,#ddd)}@media(max-width:600px){#cookie-consent{flex-direction:column;align-items:stretch;text-align:center}#cookie-consent .btn-group{justify-content:center}}
 </style>
 <script type="text/javascript">
@@ -329,7 +331,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/openclaw/" rel="tag">OpenClaw</a>, <a class="tag-none-link" href="/tags/smart-spectrum-ai/" rel="tag">智谱AI</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-04-28T10:35:41.235Z" itemprop="dateModified">最后编辑：2026-04-28</time>
+                    <time datetime="2026-05-10T01:34:50.935Z" itemprop="dateModified">最后编辑：2026-05-10</time>
                 </div>
             </div>
         </footer>
@@ -370,7 +372,7 @@
         </div>
     </div>
     <div class="textwidget">
-        <p class="text-center">分享 DevOps、AI 工具、Linux 运维及游戏攻略。</p>
+        <p class="text-center">Rimuru的个人技术博客，分享原创的DevOps实践、AI工具评测、Linux运维经验、网络配置教程及游戏攻略。所有文章基于真实环境验证。</p>
     </div>
     <div class="site-meta">
         <a class="meta-item" href="/archives/">

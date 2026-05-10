@@ -7,6 +7,7 @@
     <link rel="icon" href="/cdn-cgi/image/format=auto,quality=85,fit=contain,width=128,height=128/images/favicon.png">
   
   
+  
   <title>Linux 系统管理：高频运维场景的一键命令合集 | Rimuru&#39;s Blog</title>
   <link rel="canonical" href="https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/">
   <meta name="author" content="Rimuru" />
@@ -28,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png">
 <meta property="article:published_time" content="2025-12-27T16:45:03.000Z">
-<meta property="article:modified_time" content="2026-04-28T10:35:40.994Z">
+<meta property="article:modified_time" content="2026-05-10T01:34:50.692Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Kubernetes">
@@ -47,7 +48,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Linux 系统管理：高频运维场景的一键命令合集","description":"本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。","image":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-27T16:45:03.000Z","dateModified":"2026-04-28T10:35:40.994Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Linux 系统管理：高频运维场景的一键命令合集","description":"本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。","image":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-27T16:45:03.000Z","dateModified":"2026-05-10T01:34:50.692Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -131,6 +132,7 @@
 </script>
 <!-- Cookie Consent Banner CSS -->
 <style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   #cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color,#fff);color:var(--text-color,#333);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:99999;font-size:14px;flex-wrap:wrap;transition:transform .3s ease}#cookie-consent.hidden{transform:translateY(100%);pointer-events:none}#cookie-consent p{margin:0;flex:1;min-width:200px;line-height:1.6}#cookie-consent a{color:var(--theme-color,#4a9eff);text-decoration:underline}#cookie-consent .btn-group{display:flex;gap:8px;flex-shrink:0}#cookie-consent button{padding:8px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:opacity .2s}#cookie-consent button:hover{opacity:.85}#cookie-consent .btn-accept{background:var(--theme-color,#4a9eff);color:#fff}#cookie-consent .btn-reject{background:transparent;color:var(--text-color,#666);border:1px solid var(--border-color,#ddd)}@media(max-width:600px){#cookie-consent{flex-direction:column;align-items:stretch;text-align:center}#cookie-consent .btn-group{justify-content:center}}
 </style>
 <script type="text/javascript">
@@ -352,7 +354,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/kubernetes/" rel="tag">Kubernetes</a>, <a class="tag-none-link" href="/tags/linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>, <a class="tag-none-link" href="/tags/managing-disks/" rel="tag">磁盘管理</a>, <a class="tag-none-link" href="/tags/system-monitoring/" rel="tag">系统监控</a>, <a class="tag-none-link" href="/tags/om-orders/" rel="tag">运维命令</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-04-28T10:35:40.994Z" itemprop="dateModified">最后编辑：2026-04-28</time>
+                    <time datetime="2026-05-10T01:34:50.692Z" itemprop="dateModified">最后编辑：2026-05-10</time>
                 </div>
             </div>
         </footer>
@@ -393,7 +395,7 @@
         </div>
     </div>
     <div class="textwidget">
-        <p class="text-center">分享 DevOps、AI 工具、Linux 运维及游戏攻略。</p>
+        <p class="text-center">Rimuru的个人技术博客，分享原创的DevOps实践、AI工具评测、Linux运维经验、网络配置教程及游戏攻略。所有文章基于真实环境验证。</p>
     </div>
     <div class="site-meta">
         <a class="meta-item" href="/archives/">

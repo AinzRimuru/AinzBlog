@@ -7,6 +7,7 @@
     <link rel="icon" href="/cdn-cgi/image/format=auto,quality=85,fit=contain,width=128,height=128/images/favicon.png">
   
   
+  
   <title>Cloudflare代理网页导致页面跳转出现503的解决办法 | Rimuru&#39;s Blog</title>
   <link rel="canonical" href="https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
   <meta name="author" content="Rimuru" />
@@ -28,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/cover.png">
 <meta property="article:published_time" content="2026-01-05T22:35:22.000Z">
-<meta property="article:modified_time" content="2026-04-28T10:35:40.958Z">
+<meta property="article:modified_time" content="2026-05-10T01:34:50.657Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="503错误">
 <meta property="article:tag" content="CDN加速">
@@ -47,7 +48,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare代理网页导致页面跳转出现503的解决办法","description":"解决Cloudflare代理网页时出现503错误及cf-speculation-refused响应头的问题。本文深入分析了Cloudflare Speed Brain智能加速功能导致的prefetch请求失败原因，并提供了关闭该功能以消除503报错的详细步骤，适合使用Cloudflare进行CDN加速和网站优化的开发者参考。","image":"https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-05T22:35:22.000Z","dateModified":"2026-04-28T10:35:40.958Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare代理网页导致页面跳转出现503的解决办法","description":"解决Cloudflare代理网页时出现503错误及cf-speculation-refused响应头的问题。本文深入分析了Cloudflare Speed Brain智能加速功能导致的prefetch请求失败原因，并提供了关闭该功能以消除503报错的详细步骤，适合使用Cloudflare进行CDN加速和网站优化的开发者参考。","image":"https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-05T22:35:22.000Z","dateModified":"2026-05-10T01:34:50.657Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/05/Cloudflare%E4%BB%A3%E7%90%86%E7%BD%91%E9%A1%B5%E5%AF%BC%E8%87%B4%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%87%BA%E7%8E%B0503%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -131,6 +132,7 @@
 </script>
 <!-- Cookie Consent Banner CSS -->
 <style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   #cookie-consent{position:fixed;bottom:0;left:0;right:0;background:var(--bg-color,#fff);color:var(--text-color,#333);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -2px 12px rgba(0,0,0,.1);z-index:99999;font-size:14px;flex-wrap:wrap;transition:transform .3s ease}#cookie-consent.hidden{transform:translateY(100%);pointer-events:none}#cookie-consent p{margin:0;flex:1;min-width:200px;line-height:1.6}#cookie-consent a{color:var(--theme-color,#4a9eff);text-decoration:underline}#cookie-consent .btn-group{display:flex;gap:8px;flex-shrink:0}#cookie-consent button{padding:8px 20px;border:none;border-radius:4px;cursor:pointer;font-size:14px;transition:opacity .2s}#cookie-consent button:hover{opacity:.85}#cookie-consent .btn-accept{background:var(--theme-color,#4a9eff);color:#fff}#cookie-consent .btn-reject{background:transparent;color:var(--text-color,#666);border:1px solid var(--border-color,#ddd)}@media(max-width:600px){#cookie-consent{flex-direction:column;align-items:stretch;text-align:center}#cookie-consent .btn-group{justify-content:center}}
 </style>
 <script type="text/javascript">
@@ -333,7 +335,7 @@
                     <a class="tag-none-link" href="/tags/503-error/" rel="tag">503错误</a>, <a class="tag-none-link" href="/tags/cdn/" rel="tag">CDN加速</a>, <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/speed-brain/" rel="tag">Speed Brain</a>, <a class="tag-none-link" href="/tags/blog-optimization/" rel="tag">博客优化</a>, <a class="tag-none-link" href="/tags/network-optimization/" rel="tag">网络优化</a>, <a class="tag-none-link" href="/tags/page-preloader/" rel="tag">网页预加载</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-04-28T10:35:40.958Z" itemprop="dateModified">最后编辑：2026-04-28</time>
+                    <time datetime="2026-05-10T01:34:50.657Z" itemprop="dateModified">最后编辑：2026-05-10</time>
                 </div>
             </div>
         </footer>
@@ -374,7 +376,7 @@
         </div>
     </div>
     <div class="textwidget">
-        <p class="text-center">分享 DevOps、AI 工具、Linux 运维及游戏攻略。</p>
+        <p class="text-center">Rimuru的个人技术博客，分享原创的DevOps实践、AI工具评测、Linux运维经验、网络配置教程及游戏攻略。所有文章基于真实环境验证。</p>
     </div>
     <div class="site-meta">
         <a class="meta-item" href="/archives/">
