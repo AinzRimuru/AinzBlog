@@ -3,6 +3,7 @@ title: 服务条款
 date: 2025-12-24 22:20:00
 type: "page"
 comments: false
+description: "Rimuru's Blog服务条款，规定本站内容的使用规范、知识产权声明、评论规则及免责声明。"
 ---
 
 ## 服务条款

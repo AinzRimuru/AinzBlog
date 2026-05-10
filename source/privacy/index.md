@@ -4,6 +4,7 @@ date: 2025-12-24 22:20:00
 updated: 2026-03-22 22:20:00
 type: "page"
 comments: false
+description: "Rimuru's Blog隐私政策，说明本站如何收集、使用和保护访客信息，涵盖Cookie策略、Analytics数据收集及用户权利。"
 ---
 
 ## 隐私政策

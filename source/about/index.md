@@ -3,6 +3,7 @@ title: 关于
 date: 2025-12-24 22:20:00
 type: "page"
 comments: false
+description: "关于Rimuru's Blog和博主个人的介绍页面，分享技术背景、开源项目与联系方式，涵盖网络基础设施、Linux运维及Cloudflare生态使用经验。"
 ---
 
 ## 关于 Rimuru's Blog

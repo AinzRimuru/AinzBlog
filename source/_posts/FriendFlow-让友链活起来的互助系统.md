@@ -1,7 +1,7 @@
 ---
 title: Friend Flow：让友链活起来的互助系统
 date: 2026-04-24T15:00:00.000Z
-description: 一个基于 Cloudflare Workers 的友链互助系统，自动抓取友链博客的最新文章并提供 API 和展示页面。让你的友链不再是一成不变的静态列表，而是充满活力的内容聚合站。
+description: 一个基于 Cloudflare Workers 的友链互助系统，自动抓取友链博客的最新文章并提供 REST API 和展示页面。让你的友链不再是一成不变的静态列表，而是充满活力的内容聚合站。支持 RSS/Atom 订阅解析，零成本部署。
 tags:
   - Cloudflare
   - 博客优化
