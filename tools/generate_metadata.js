@@ -391,8 +391,9 @@ async function main() {
       results.skipped++;
     }
 
-    // Add a small delay between API calls to avoid rate limiting
-    if (filesToProcess.indexOf(filePath) < filesToProcess.length - 1) {
+    // Add a small delay between API calls to avoid rate limiting.
+    // 仅在本次真正触发了模型调用时才延时：被 skip 的文章没有产生 API 请求，无需等待。
+    if (result.status !== 'skipped' && filesToProcess.indexOf(filePath) < filesToProcess.length - 1) {
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
   }
