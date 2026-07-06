@@ -88,3 +88,7 @@ tag_map:
   Google Search Console: google-search-console
   SEO: seo
   站点地图: sitemaps
+  Cloudflare Worker: cloudflare-worker
+  Docker Hub: docker-hub
+  镜像加速: mirror-acceleration
+  Cloudflare D1: cloudflare-d1
