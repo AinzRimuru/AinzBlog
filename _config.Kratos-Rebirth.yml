@@ -87,7 +87,8 @@ copyright_notice:
 comments:
   core: # 评论挂件
     enable_at:
-      - post # 文章页展示评论区（如需在独立页面也展示，可加上 page）
+      - post # 文章页展示评论区
+      - page # 独立页面展示评论区（仅对 front matter 中 comments: true 的页面生效）
     template:
       _shared: '<div id="cwd-comments" class="kr-comments" data-post-slug="$PATH"></div>'
   count: # 评论数（文章元信息）

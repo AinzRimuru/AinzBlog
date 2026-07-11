@@ -2,7 +2,7 @@
 title: 联系我
 date: 2025-12-24 22:20:00
 type: "page"
-comments: false
+comments: true
 description: "Rimuru's Blog联系方式页面，提供GitHub Issues和博客评论等渠道，欢迎提交问题、建议或合作意向。"
 ---
 
