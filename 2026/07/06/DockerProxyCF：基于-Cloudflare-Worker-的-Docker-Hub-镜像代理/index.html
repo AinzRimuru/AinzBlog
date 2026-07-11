@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png">
 <meta property="article:published_time" content="2026-07-06T18:14:38.000Z">
-<meta property="article:modified_time" content="2026-07-06T10:37:25.259Z">
+<meta property="article:modified_time" content="2026-07-11T08:11:07.014Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare D1">
 <meta property="article:tag" content="Cloudflare Worker">
@@ -46,7 +46,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-07-06T10:37:25.259Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-07-11T08:11:07.014Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -109,6 +109,11 @@
 <!-- Preconnect hints for faster resource loading -->
 <link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.rimuru.work">
+<!-- CWD 评论系统资源预连接 -->
+<link rel="preconnect" href="https://cwd-api.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://cwd-api.rimuru.work">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
 <link rel="dns-prefetch" href="https://analytics.rimuru.work">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +308,11 @@
                 
                 
                 
+                    <li>
+                        <i class="fa fa-commenting-o"></i>
+                        <span class="cwd-comment-count" data-path="/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/">0</span> 条评论
+                    </li>
+                
             </ul>
         </header>
         <div class="kratos-page-content kr-post">
@@ -427,7 +437,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare-d1/" rel="tag">Cloudflare D1</a>, <a class="tag-none-link" href="/tags/cloudflare-worker/" rel="tag">Cloudflare Worker</a>, <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-hub/" rel="tag">Docker Hub</a>, <a class="tag-none-link" href="/tags/options/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/mirror-acceleration/" rel="tag">镜像加速</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-07-06T10:37:25.259Z" itemprop="dateModified">最后编辑：2026-07-06</time>
+                    <time datetime="2026-07-11T08:11:07.014Z" itemprop="dateModified">最后编辑：2026-07-11</time>
                 </div>
             </div>
         </footer>
@@ -442,6 +452,10 @@
             
         </nav>
     
+    
+        <div class="comment-post">
+            <div id="cwd-comments" class="kr-comments" data-post-slug="/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"></div>
+        </div>
     
 </article>
 
@@ -725,7 +739,9 @@
 
 <!-- 额外的追加注入项 -->
 
-  <!-- 推荐阅读功能 -->
+  <!-- CWD 评论系统加载器 -->
+<script defer src="/js/cwd-loader.js"></script>
+<!-- 推荐阅读功能 -->
 <script defer src="/js/recommended-posts.js"></script>
 <!-- Self-hosted analytics -->
 <script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>

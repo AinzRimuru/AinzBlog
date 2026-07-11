@@ -112,6 +112,11 @@
 <!-- Preconnect hints for faster resource loading -->
 <link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.rimuru.work">
+<!-- CWD 评论系统资源预连接 -->
+<link rel="preconnect" href="https://cwd-api.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://cwd-api.rimuru.work">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
 <link rel="dns-prefetch" href="https://analytics.rimuru.work">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -306,6 +311,11 @@
                 
                 
                 
+                    <li>
+                        <i class="fa fa-commenting-o"></i>
+                        <span class="cwd-comment-count" data-path="/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/">0</span> 条评论
+                    </li>
+                
             </ul>
         </header>
         <div class="kratos-page-content kr-post">
@@ -362,6 +372,10 @@
             
         </nav>
     
+    
+        <div class="comment-post">
+            <div id="cwd-comments" class="kr-comments" data-post-slug="/2026/01/03/%E8%A7%A3%E5%86%B3%E9%AB%98%E5%BB%B6%E8%BF%9F%E5%9C%BA%E6%99%AF%E4%B8%ADOpenVPN%E9%80%9F%E5%BA%A6%E7%BC%93%E6%85%A2%E7%9A%84%E9%97%AE%E9%A2%98/"></div>
+        </div>
     
 </article>
 
@@ -645,7 +659,9 @@
 
 <!-- 额外的追加注入项 -->
 
-  <!-- 推荐阅读功能 -->
+  <!-- CWD 评论系统加载器 -->
+<script defer src="/js/cwd-loader.js"></script>
+<!-- 推荐阅读功能 -->
 <script defer src="/js/recommended-posts.js"></script>
 <!-- Self-hosted analytics -->
 <script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>
