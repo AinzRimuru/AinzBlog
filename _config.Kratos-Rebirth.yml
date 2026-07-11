@@ -78,6 +78,22 @@ copyright_notice:
   append_copy: # 在复制时追加
     enable: false # 是否启用
 
+# 评论系统（CWD）
+# 文档：https://cwd.js.org/guide/frontend-config.html
+# 加载与主题适配逻辑见 source/js/cwd-loader.js，样式见 source/css/cwd-custom.css
+comments:
+  core: # 评论挂件
+    enable_at:
+      - post # 文章页展示评论区（如需在独立页面也展示，可加上 page）
+    template:
+      _shared: '<div id="cwd-comments" class="kr-comments" data-post-slug="$PATH"></div>'
+  count: # 评论数（文章元信息）
+    enable_at:
+      - post # 文章页顶部显示「N 条评论」
+    template:
+      _shared: '<span class="cwd-comment-count" data-path="$PATH">0</span>'
+  path_hasher: "md5"
+
 # 额外的注入代码
 additional_injections:
   head: |
@@ -86,6 +102,11 @@ additional_injections:
     <!-- Preconnect hints for faster resource loading -->
     <link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
     <link rel="dns-prefetch" href="https://cdn.rimuru.work">
+    <!-- CWD 评论系统资源预连接 -->
+    <link rel="preconnect" href="https://cwd-api.rimuru.work" crossorigin>
+    <link rel="dns-prefetch" href="https://cwd-api.rimuru.work">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
     <link rel="dns-prefetch" href="https://analytics.rimuru.work">
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -119,6 +140,8 @@ additional_injections:
     </script>
   footer: ""
   after_footer: |
+    <!-- CWD 评论系统加载器 -->
+    <script defer src="/js/cwd-loader.js"></script>
     <!-- 推荐阅读功能 -->
     <script defer src="/js/recommended-posts.js"></script>
     <!-- Self-hosted analytics -->

@@ -1,0 +1,75 @@
+/**
+ * CWD 评论组件 - Kratos-Rebirth 主题适配样式
+ *
+ * 原理：CWD 组件使用 Shadow DOM 隔离样式，但 CSS 自定义属性（变量）
+ * 会沿继承链穿透 Shadow DOM 边界。Kratos 主题在 :root 上定义了
+ * --kr-theme-* 一组变量，并且这些变量的值会随亮色 / 暗色主题自动切换。
+ *
+ * 因此这里只需把 CWD 组件自身的 --cwd-* 变量映射到主题的 --kr-theme-* 变量，
+ * 即可让评论区与整站主题完全一致、自动跟随深浅色切换。
+ */
+
+.cwd-comments-container {
+  /* 主色调 —— 跟随主题链接色 */
+  --cwd-primary: var(--kr-theme-link, #1e8cdb);
+  --cwd-primary-hover: var(--kr-theme-link-hover, #6ec3f5);
+
+  /* 文字颜色 —— 跟随主题正文 / 次要文字 */
+  --cwd-text: var(--kr-theme-text, #000);
+  --cwd-text-secondary: var(--kr-theme-text-alt, #666);
+
+  /* 背景色 —— 容器本体透明，融入宿主 .kr-comments 卡片背景；
+     输入框 / 次级区块使用主题的 info-bg 叠加层，保持层次感 */
+  --cwd-bg: transparent;
+  --cwd-bg-input: var(--kr-theme-info-bg, #e0e0e0aa);
+  --cwd-bg-secondary: var(--kr-theme-info-bg, #e0e0e0aa);
+  --cwd-bg-reply: var(--kr-theme-info-bg, #e0e0e0aa);
+  --cwd-bg-hover: var(--kr-theme-info-bg, #e0e0e0aa);
+  --cwd-bg-disabled: var(--kr-theme-info-bg, #e0e0e0aa);
+  --cwd-bg-avatar: var(--kr-theme-info-bg, #e0e0e0aa);
+
+  /* 边框颜色 —— 跟随主题边框色 */
+  --cwd-border: var(--kr-theme-border, #d0d7de);
+  --cwd-border-light: var(--kr-theme-border, #eaeef2);
+
+  /* 圆角与主题其它卡片（5px）保持一致 */
+  --cwd-radius: 5px;
+
+  /* 状态色（错误等）沿用组件默认，符合通用认知 */
+
+  font-family: inherit;
+}
+
+/* 内容容器：使用主题正文字号 / 字体 */
+.cwd-container {
+  font-family: inherit;
+  color: var(--kr-theme-text, inherit);
+}
+
+/* 链接、昵称跟随主题链接色 */
+.cwd-container a {
+  color: var(--kr-theme-link, var(--cwd-primary));
+}
+.cwd-container a:hover {
+  color: var(--kr-theme-link-hover, var(--cwd-primary-hover));
+}
+
+/* 主操作按钮（提交评论等）使用主题链接色作为底色 */
+.cwd-container .cwd-btn-primary,
+.cwd-container button.cwd-submit-btn {
+  background-color: var(--kr-theme-link, var(--cwd-primary));
+  border-color: var(--kr-theme-link, var(--cwd-primary));
+}
+.cwd-container .cwd-btn-primary:hover,
+.cwd-container button.cwd-submit-btn:hover {
+  background-color: var(--kr-theme-link-hover, var(--cwd-primary-hover));
+  border-color: var(--kr-theme-link-hover, var(--cwd-primary-hover));
+}
+
+/* 次级按钮（预览/取消等）使用 info-bg 背景 + 主题文字 */
+.cwd-container .cwd-btn-secondary,
+.cwd-container button:not(.cwd-submit-btn):not(.cwd-like-btn) {
+  background-color: var(--kr-theme-info-bg, var(--cwd-bg-secondary));
+  color: var(--kr-theme-text, var(--cwd-text));
+  border-color: var(--kr-theme-border, var(--cwd-border));
+}
