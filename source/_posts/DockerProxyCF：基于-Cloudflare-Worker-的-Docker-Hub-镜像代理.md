@@ -3,6 +3,8 @@ title: DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理
 date: 2026-07-06T18:14:38.000Z
 cover: cover.png
 description: Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。
+categories:
+  - 自建服务
 tags:
   - Docker
   - Cloudflare Worker
@@ -11,26 +13,23 @@ tags:
   - 反向代理
   - Cloudflare D1
 ---
-## 项目简介
-
-`docker pull` 经常卡住、超时？匿名拉取动不动就 `429 TOOMANYREQUESTS`？国内/受限网络环境下，直接从 Docker Hub 拉镜像体验很差。这个项目帮你解决。
-
-**docker_proxy_cf** 是一个基于 Cloudflare Worker 的 Docker Hub **pull-only** 反向代理。部署到自己的域名后，无论是直接 `docker pull <你的域名>/nginx`，还是把它配成 registry mirror，都能让镜像拉取走你自己的 Cloudflare 边缘网络。
+# 项目简介
+**docker_proxy_cf** 是一个基于 Cloudflare Worker 的 Docker Hub镜像代理服务，旨在解决国内无法拉取 Docker Hub 镜像以及 Docker Hub匿名拉取镜像存在次数上限的问题。
 
 项目地址：[https://github.com/AinzRimuru/docker_proxy_cf](https://github.com/AinzRimuru/docker_proxy_cf)
 
+体验地址：[https://docker.rimuru.cc](https://docker.rimuru.cc)
+
 > 仅支持 `docker pull`（GET/HEAD/OPTIONS），不支持 push 等写操作。
 
-## 特性
+# 特性
 
 - **零侵入透明代理** - 直接 `docker pull` 或配成 registry mirror，客户端无需改造
-- **透明转发 + 仅改写 auth realm** - 把 401 中的 `realm` 指回 Worker 的 `/token`，鉴权流程自然走代理
-- **blob 走代理回源** - registry 对 blob 的 307 跳转被改写回本代理，由代理统一回源 CDN，无需多域名
-- **自动补 `library/`** - `docker pull <域名>/nginx` 自动等价于 `library/nginx`
 - **账号鉴权绕开限流** - 配置 Docker Hub 账号后走账号额度（200/h），客户端无需 `docker login`
-- **账号池 + 429 自动冷却** - 绑定 Cloudflare D1 存多账号，按使用时间轮询，某号 429 自动冷却 6 小时并换号
-- **token 保护与访问控制** - 真实账号 token 绝不外发，仅签发 HMAC 签名的 proxy token；可加访问密码
-- **安全收敛** - 剥离所有泄露账号身份/额度的响应头，仅允许 Docker 自有域名回源（防 SSRF）
+- **透明转发** - 除鉴权请求以及可能泄露的账号信息的请求外，其他请求均会被透明转发到 Docker Hub
+- **账号轮换** - 绑定 Cloudflare D1 存多账号，按使用时间轮询，某号 429 自动冷却 6 小时并换号
+- **token 保护** - 真实账号 token 绝不外发，仅签发 HMAC 签名的 proxy token
+- **号池信息保护** - 剥离所有泄露账号身份/额度的响应头
 
 ## 工作原理
 
@@ -44,16 +43,6 @@ docker client ──► 你的 Worker 域名
                                           改写 Location 为 /redirect_to_<cdn>/...
                                           由 Worker 统一回源 CDN 下载大层
 ```
-
-几个关键设计点：
-
-**1. 透明转发 + 仅改写 auth realm。** 客户端首次请求 `/v2/...` 时，registry 返回 `401` 并在 `WWW-Authenticate` 里告诉客户端去哪拿 token。Worker 把其中的 `realm` 改写回自己的 `/token`，于是客户端的取 token 流程自然走代理。客户端最终拿到的是 `auth.docker.io` 签发的**真 token**，对 `registry-1.docker.io` 直接有效——Worker 内部无需自己签发/缓存 token，匿名与带认证拉取都兼容。
-
-**2. blob 下载改写回源。** registry 会把 blob（镜像大层）请求 307 到 CDN（`production.cloudfront.docker.com`）。Worker 不直接透传这个 307 让客户端直连 CDN，而是把 `Location` 改写成 `/redirect_to_<cdn-host>/...`，由 Worker 自己回源 CDN 并流式返回。这样所有流量只经过单一代理域名，无需为 CDN 域名单独配置。
-
-**3. 自动补 `library/`。** 官方镜像（如 `nginx`、`alpine`）实际存放在 `library/` 命名空间下，但客户端 `docker pull <域名>/nginx` 不会自动补全。Worker 会把单段镜像名改写为 `/v2/library/<name>/...`，与官方行为一致。
-
-**4. 仅 pull。** 只放行 `GET/HEAD/OPTIONS`，其它方法一律返回 `405`。
 
 ## 部署
 
@@ -72,13 +61,9 @@ npx wrangler deploy
 
 > 本地调试：`npm run dev`，然后 `curl -i http://127.0.0.1:8787/v2/`。
 
-### 方式二：Cloudflare Pages（单文件）
+### 方式二：GitHub Actions 自动部署
 
-`src/index.js` 已是 ES module 默认导出，把它重命名为 `_worker.js` 直接上传到 Pages 项目即可使用，内容无需改动。
-
-### 方式三：GitHub Actions 自动部署
-
-仓库自带 `.github/workflows/deploy.yml`。在仓库 **Settings → Secrets and variables → Actions** 添加 `CLOUDFLARE_API_TOKEN`（需 Workers Scripts:Edit + D1:Edit 权限）后，push 到 `deploy` 分支即自动部署。
+仓库自带 `.github/workflows/deploy.yml`。在仓库 **Settings → Secrets and variables → Actions** 添加 `CLOUDFLARE_API_TOKEN`（需 Workers Scripts:Edit + D1:Edit 权限）后，在Deploy分支手动触发`Deploy Worker`Action即可自动部署。
 
 > Worker secrets（`DH_*` / `PROXY_TOKEN_KEY` / `ACCESS_KEY`）与 D1 绑定持久存在 Cloudflare，CI 只部署代码，无需在流水线里重设密钥。
 
@@ -134,7 +119,7 @@ docker login <你的域名> -u任意用户名 -p<ACCESS_KEY>
 
 ## 进阶三：账号池与 429 自动冷却（D1）
 
-单账号额度耗尽即 429。绑定 Cloudflare D1 后可存**多个账号**，Worker 按 `last_used` 轮询选号；某账号触发 429 自动**冷却 6 小时**（写 `rate_limited_until=now+6h`），期间跳过、自动换下一个；D1 账号全部冷却时回退单账号（若有）或返回 429。
+单账号额度耗尽即 429。绑定 Cloudflare D1 后可存**多个账号**，Worker 按 `last_used` 轮询选号；某账号触发 429 自动**冷却 6 小时**，期间跳过、自动换下一个；D1 账号全部冷却时回退单账号（若有）或返回 429。
 
 **1）创建 D1 + 建表（一次性）：**
 
@@ -179,7 +164,7 @@ docker pull <你的域名>/library/nginx:1.27
 docker pull <你的域名>/user/repo:tag
 ```
 
-### 作为 registry mirror（推荐，无需改镜像名）
+### 作为 registry mirror
 
 编辑 `/etc/docker/daemon.json`（Docker Desktop 在 设置 → Docker Engine）：
 
@@ -198,36 +183,6 @@ sudo systemctl restart docker
 
 之后 `docker pull nginx` 会自动走镜像，无需在镜像名前加域名。
 
-## 安全设计
-
-这个项目在安全上做了几处针对性收敛，适合作为公开/半公开服务运行：
-
-- **真实 token 不外发** - 启用 token 保护后，Docker Hub 账号 token 仅在 Worker 内部使用，客户端只能拿到对 Docker Hub 无效的 proxy token。
-- **剥离泄露头** - 响应中 `docker-ratelimit-source`（会带出 token 所属账号用户名）、`ratelimit-*` 等头一律剥离，账号身份绝不外泄。
-- **回源域名白名单** - `/redirect_to_` 回源路径只允许 `*.docker.com` / `*.docker.io`，防止被当成开放代理或 SSRF 跳板。
-- **凭据加密存储** - 所有账号、密钥以 Worker secret 形式加密存储，不入源码、不进仓库（`dh_creds` / `token` / `accounts.txt` 均已 gitignore）。
-
-## 验证
-
-```bash
-# 1. 探活：匿名模式返回 401（realm 指向你的域名）；配置账号后返回 200
-curl -i https://<你的域名>/v2/
-
-# 2. 完整拉取一个镜像
-docker pull <你的域名>/alpine
-```
-
-## 限制与说明
-
-- **仅 pull**：所有写操作（push / delete 等）返回 `405`。
-- **匿名限流**：匿名拉取受 Docker Hub 速率限制（100/h），且 Worker 出口 IP 共享，极易 `429`。**已配置账号鉴权即不受此限**（见「进阶一」），客户端也无需 `docker login`。
-- **上游固定为 `registry-1.docker.io`**，仅代理 Docker Hub，不代理其它 registry。
-- blob 改写回源经 Worker 转发，manifest/token 走 Worker；Worker Free 计划每次请求子请求上限（50）对单次 pull 足够。
-
 ## License
 
 MIT License
-
----
-
-项目地址：[https://github.com/AinzRimuru/docker_proxy_cf](https://github.com/AinzRimuru/docker_proxy_cf)
