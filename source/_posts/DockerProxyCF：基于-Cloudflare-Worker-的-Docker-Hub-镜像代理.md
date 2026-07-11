@@ -1,6 +1,7 @@
 ---
 title: DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理
 date: 2026-07-06T18:14:38.000Z
+updated: 2026-07-11T16:33:33.000Z
 cover: cover.png
 description: Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。
 categories:
