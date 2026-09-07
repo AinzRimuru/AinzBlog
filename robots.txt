@@ -1,24 +1,17 @@
-# Robots.txt for Rimuru's Blog
-# https://blog.rimuru.work
+# robots.txt — https://blog.rimuru.work
 
 User-agent: *
-Allow: /
-
-# Sitemap locations
-Sitemap: https://blog.rimuru.work/sitemap.xml
-Sitemap: https://blog.rimuru.work/baidusitemap.xml
-
-# Disallow admin and internal paths
 Disallow: /js/
 Disallow: /css/
 Disallow: /vendors/
+Disallow: /config.json
+Disallow: /search/
+Disallow: /search-index.json
+Disallow: /images/
+Disallow: /cdn-cgi/speculation
+Disallow: /cdn-cgi/image/*width=128*
+Disallow: /cdn-cgi/image/*width=200*
+Disallow: /cdn-cgi/image/*width=1920*
 
-# Allow search engines to crawl all content
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
+Sitemap: https://blog.rimuru.work/sitemap.xml
+Sitemap: https://blog.rimuru.work/baidusitemap.xml
