@@ -7,7 +7,7 @@ tags:
   - Cloudflare
   - WAF
   - Web安全
-cover: conver.png
+cover: conver.jpg
 description: 介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。
 ---
 ## 说明
