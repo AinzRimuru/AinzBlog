@@ -92,3 +92,5 @@ tag_map:
   Docker Hub: docker-hub
   镜像加速: mirror-acceleration
   Cloudflare D1: cloudflare-d1
+  WAF: waf
+  Web安全: web-security
