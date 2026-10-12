@@ -1,6 +1,7 @@
 ---
 title: 记一次因Cloudflare域名安全规则配置错误导致的网站访问异常
 date: 2026-10-08T20:42:09.000Z
+updated: 2026-10-12T20:50:33.000Z
 cover: cover.jpg
 categories:
   - 疑难排查

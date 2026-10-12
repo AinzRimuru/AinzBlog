@@ -94,3 +94,5 @@ tag_map:
   Cloudflare D1: cloudflare-d1
   WAF: waf
   Web安全: web-security
+  Cloudflare Workers: cloudflare-workers
+  成本控制: cost-control
