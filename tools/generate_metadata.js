@@ -140,39 +140,72 @@ ${postContent.slice(0, 6000)}  <!-- 截断以避免token过多 -->
 
 请直接输出JSON，不要输出任何其他内容，不要使用markdown代码块包裹。`;
 
-  const response = await fetch(`${endpoint}/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({
-      model: model,
-      messages: [
-        {
-          role: 'system',
-          content: '你是一个专业的博客SEO专家，专注于技术博客的元数据优化。请只返回JSON格式的结果。'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 1000
-    })
-  });
+  // Reasoning models (e.g. GLM) can burn the whole token budget on chain-of-thought
+  // and return content: null. Retry with a larger budget when that happens.
+  const MAX_ATTEMPTS = 2;
+  let lastError = null;
 
-  if (!response.ok) {
-    // 不要在错误信息中包含完整响应，可能包含敏感信息
-    console.error('API response error:', await response.text());
-    throw new Error(`API request failed with status ${response.status}`);
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    const maxTokens = 2000 * attempt; // 2000, then 4000
+
+    const response = await fetch(`${endpoint}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: model,
+        messages: [
+          {
+            role: 'system',
+            content: '你是一个专业的博客SEO专家，专注于技术博客的元数据优化。请只返回JSON格式的结果。'
+          },
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: maxTokens
+      })
+    });
+
+    if (!response.ok) {
+      // 不要在错误信息中包含完整响应，可能包含敏感信息
+      console.error('API response error:', await response.text());
+      throw new Error(`API request failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    const choice = data.choices && data.choices[0];
+    const message = choice && choice.message;
+    const finishReason = choice ? choice.finish_reason : 'unknown';
+    const resultText = message && typeof message.content === 'string' ? message.content.trim() : '';
+
+    if (!resultText) {
+      lastError = new Error(
+        `API returned empty content (finish_reason: ${finishReason}); ` +
+        `reasoning may have exhausted max_tokens=${maxTokens}`
+      );
+      console.warn(`  ${lastError.message}`);
+      continue;
+    }
+
+    // 模型可能无视指令用 markdown 代码块包裹 JSON，这里做兼容提取
+    const fenceMatch = resultText.match(/```(?:json)?\s*([\s\S]*?)```/);
+    const jsonText = (fenceMatch ? fenceMatch[1] : resultText).trim();
+    const jsonStart = jsonText.indexOf('{');
+    const jsonEnd = jsonText.lastIndexOf('}');
+
+    if (jsonStart === -1 || jsonEnd <= jsonStart) {
+      throw new Error('API response does not contain a JSON object');
+    }
+
+    return JSON.parse(jsonText.slice(jsonStart, jsonEnd + 1));
   }
 
-  const data = await response.json();
-  const resultText = data.choices[0].message.content.trim();
-
-  return JSON.parse(resultText);
+  throw lastError || new Error('API returned empty content');
 }
 
 // Process a single post
