@@ -174,7 +174,7 @@ indexnow:
 # Google Indexing API
 # Docs: https://developers.google.com/webmaster-tools/v3/api-reference/rest/v3/urlNotifications/publish
 google_indexing:
-  enable: true
+  enable: false
   # 每次构建最多推送的 URL 数量（Google API 配额：每天 200 次）
   max_urls: 200
 
