@@ -30,7 +30,7 @@ faqs:
   - q: "客户端怎么使用自建镜像代理？"
     a: "把 Worker 域名配置进 Docker 的 registry-mirrors（daemon.json），或直接 docker pull 你的域名/镜像名 即可。项目做了透明代理，会自动补全官方镜像的 library/ 前缀，无需改变使用习惯。"
 ---
-# 项目简介
+## 项目简介
 **docker_proxy_cf** 是一个基于 Cloudflare Worker 的 Docker Hub镜像代理服务，旨在解决国内无法拉取 Docker Hub 镜像以及 Docker Hub匿名拉取镜像存在次数上限的问题。
 
 项目地址：[https://github.com/AinzRimuru/docker_proxy_cf](https://github.com/AinzRimuru/docker_proxy_cf)
@@ -39,7 +39,7 @@ faqs:
 
 > 仅支持 `docker pull`（GET/HEAD/OPTIONS），不支持 push 等写操作。
 
-# 特性
+## 特性
 
 - **零侵入透明代理** - 直接 `docker pull` 或配成 registry mirror，客户端无需改造
 - **账号鉴权绕开限流** - 配置 Docker Hub 账号后走账号额度（200/h），客户端无需 `docker login`
