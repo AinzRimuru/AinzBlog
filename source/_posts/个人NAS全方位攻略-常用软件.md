@@ -1,5 +1,5 @@
 ---
-title: 个人NAS全方位攻略--常用软件
+title: 个人NAS全方位攻略（四）常用软件：NAS必装Docker应用推荐
 date: 2026-03-21T23:17:49.000Z
 tags:
   - NAS
@@ -12,6 +12,20 @@ categories:
   - 自建服务
 cover: cover.png
 description: 本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin/Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。
+keywords:
+  - "NAS 必装软件"
+  - "NAS Docker 软件推荐"
+  - "Jellyfin 媒体服务器"
+  - "Nextcloud 私有云盘"
+  - "Frp 内网穿透"
+  - "家庭影音 NAS"
+faqs:
+  - q: "NAS 有哪些必装软件？"
+    a: "按需选装：文件同步用 Nextcloud，媒体管理用 Jellyfin/Plex，版本控制用 Gogs，内网穿透用 Frp，再搭配下载工具、在线办公与 LaTeX 编辑等，几乎所有应用都能用 Docker 部署。"
+  - q: "Jellyfin 和 Plex 怎么选？"
+    a: "Jellyfin 开源免费无功能墙；Plex 客户端体验和生态更好但高级功能收费。家庭自用、想零成本长期跑，Jellyfin 通常性价比更高。"
+  - q: "这些软件部署起来麻烦吗？"
+    a: "文章推荐的应用基本都有官方 Docker 镜像，用 Docker Compose 统一管理即可，配合系列前一篇的容器化部署实践可以快速上线并方便地维护升级。"
 ---
 > 本系列导航：
 > 1. [需求分析](/2026/03/21/个人NAS全方位攻略-需求分析/)
