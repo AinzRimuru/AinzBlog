@@ -26,7 +26,7 @@ tag_map:
   Hugging Face: hugging-face
   教育优惠: educational-discount
   账号关联: account-linking
-  反向代理: options
+  反向代理: reverse-proxy
   CDN加速: cdn
   模型下载: model-download
   Hexo: hexo
@@ -49,11 +49,11 @@ tag_map:
   壁纸搜索: wallpaper-search
   Word技巧: word-tips
   排版排错: typography-error
-  题注报错: the-caption-is-incorrect
+  题注报错: caption-error
   Overleaf: overleaf
   Docker: docker
   ShareLaTeX: sharelatex
-  运维命令: om-orders
+  运维命令: ops-commands
   Kubernetes: kubernetes
   系统监控: system-monitoring
   JavaScript: javascript
@@ -71,10 +71,10 @@ tag_map:
   内网穿透: intranet-penetration
   网络安全: cybersecurity
   宽带: broad-band
-  网络诊断: network-diagnostics-web
+  网络诊断: network-diagnostics
   iperf3: iperf3
   OpenClaw: openclaw
-  智谱AI: smart-spectrum-ai
+  智谱AI: zhipu-ai
   NAS: nas
   数据备份: data-backup
   RAID: raid
@@ -83,7 +83,7 @@ tag_map:
   CMR硬盘: cmr-hard-drive
   存储方案: storage-scenarios
   容器化: containerization
-  媒体服务器: ms
+  媒体服务器: media-server
   Docker Compose: docker-compose
   Google Search Console: google-search-console
   SEO: seo
