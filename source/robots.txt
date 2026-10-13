@@ -1,13 +1,11 @@
 # robots.txt — https://blog.rimuru.work
 
 User-agent: *
-Disallow: /js/
-Disallow: /css/
+# 注：/js/ /css/ 已放开 —— Google 官方建议不要屏蔽 CSS/JS，否则影响渲染质量评估
 Disallow: /vendors/
 Disallow: /config.json
 Disallow: /search/
 Disallow: /search-index.json
-Disallow: /images/
 Disallow: /cdn-cgi/speculation
 Disallow: /cdn-cgi/image/*width=128*
 Disallow: /cdn-cgi/image/*width=200*
