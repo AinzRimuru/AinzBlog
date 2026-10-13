@@ -1,5 +1,5 @@
 ---
-title: 个人NAS全方位攻略--容器化部署
+title: 个人NAS全方位攻略（三）容器化部署：Docker Compose 实践
 date: 2026-03-21T23:17:48.000Z
 tags:
   - 网络安全
@@ -11,6 +11,13 @@ categories:
   - 自建服务
 cover: cover.png
 description: 本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。
+keywords:
+  - "NAS Docker 部署"
+  - "Docker Compose 容器管理"
+  - "Docker 数据持久化"
+  - "Docker 网络隔离"
+  - "容器资源限制"
+  - "NAS 容器化 最佳实践"
 ---
 > 本系列导航：
 > 1. [需求分析](/2026/03/21/个人NAS全方位攻略-需求分析/)
