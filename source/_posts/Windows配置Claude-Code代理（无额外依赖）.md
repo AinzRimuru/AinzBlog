@@ -15,6 +15,20 @@ tags:
 categories:
   - 疑难排查
 description: 本文详细介绍了在 Windows 环境下为 Claude Code 配置网络代理的实操教程。通过修改 Claude 安装目录下的启动脚本并结合 TUN 模式，解决因网络环境导致的连接失败问题。无需额外依赖，步骤简单明了，涵盖 npm 安装、环境变量配置及代理生效测试，是开发者优化 Claude Code 使用体验的必备指南。
+keywords:
+  - "Claude Code 代理设置"
+  - "Claude Code 无法连接"
+  - "Claude Code 403"
+  - "Claude Code 环境变量 代理"
+  - "TUN 模式 代理"
+  - "Windows 代理配置"
+faqs:
+  - q: "Claude Code 在国内无法连接怎么办？"
+    a: "多为网络环境限制所致。在 Windows 下为 Claude Code 配置代理即可解决：修改安装目录下的启动脚本注入代理环境变量，配合 TUN 模式接管流量。"
+  - q: "需要安装额外的代理软件吗？"
+    a: "本方案无额外依赖，复用已有的代理端口即可：通过环境变量让 Claude Code 的流量走代理，不需要为它单独装任何工具。"
+  - q: "配置后怎么确认代理生效？"
+    a: "按文章的测试步骤验证：配置完成后重新运行 Claude Code，观察此前失败的连接是否恢复正常，即可确认代理已生效。"
 ---
 ## 安装Claude Code (已安装的自行跳过)
 

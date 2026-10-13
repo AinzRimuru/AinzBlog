@@ -13,6 +13,20 @@ tags:
 categories:
   - 网络杂谈
 cover: cover.png
+keywords:
+  - "Cloudflare Workers 搭建教程"
+  - "Hugging Face 镜像代理"
+  - "huggingface 访问不了"
+  - "自建 hf-mirror"
+  - "Cloudflare Pages 反向代理"
+  - "huggingface 下载失败"
+faqs:
+  - q: "Hugging Face 国内打不开怎么办？"
+    a: "可以自建 Hugging Face 镜像代理：把开源项目部署到 Cloudflare Workers，利用 Cloudflare 全球边缘网络转发请求，无需科学上网即可访问模型页面、下载模型文件和调用 API。"
+  - q: "Python 怎么通过镜像下载模型？"
+    a: "项目提供专用 Python 下载器，支持并行下载与断点续传，适合大模型文件；huggingface_hub、transformers 等工具链也可以通过设置 HF_ENDPOINT 环境变量指向镜像地址来使用。"
+  - q: "部署要花钱吗？"
+    a: "不用。Workers 免费额度对个人下载模型的流量完全够用，推荐 Fork 仓库后一键部署，也支持 Wrangler CLI 方式。"
 ---
 
 在进行 AI 模型开发时，Hugging Face 是绕不开的资源库。然而，直接访问 `huggingface.co` 及其 CDN 资源有时会遇到速度缓慢甚至连接失败的问题。

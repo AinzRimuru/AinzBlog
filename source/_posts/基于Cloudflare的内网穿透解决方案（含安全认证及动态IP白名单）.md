@@ -1,5 +1,5 @@
 ---
-title: 基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）
+title: Cloudflare Tunnel 免费内网穿透教程：安全认证与动态IP白名单
 date: 2026-01-11T21:29:43.000Z
 updated: 2026-01-17T22:10:08.000Z
 tags:
@@ -11,6 +11,20 @@ categories:
   - 网络杂谈
 toc: true
 description: 本文详细介绍了基于Cloudflare Zero Trust和Tunnel实现的内网穿透方案。通过配置Cloudflared隧道、Access安全认证以及利用Cloudflare Worker构建动态IP白名单，有效解决了传统穿透工具在安全性与易用性上的痛点，为内网资源提供企业级的防火墙保护与灵活的访问控制。
+keywords:
+  - "Cloudflare Tunnel 免费内网穿透"
+  - "Cloudflare Zero Trust 教程"
+  - "无公网IP 内网穿透"
+  - "免备案 内网穿透"
+  - "cloudflared 部署"
+  - "Cloudflare Access 访问控制"
+faqs:
+  - q: "Cloudflare Tunnel 内网穿透是免费的吗？"
+    a: "是。Tunnel 属于 Cloudflare Zero Trust 免费计划的一部分，个人使用零成本，你只需要一个托管在 Cloudflare 的域名。相比按带宽收费的商业穿透服务，长期使用几乎没有成本压力。"
+  - q: "没有公网 IP 可以用 Cloudflare 内网穿透吗？"
+    a: "可以。Cloudflare Tunnel 由内网侧的 cloudflared 客户端主动向 Cloudflare 建立出站连接，不需要公网 IP、不需要端口映射，也不用在路由器上开放任何入站端口，天然适合家宽无公网 IP 的场景。"
+  - q: "相比 frp 等传统内网穿透，这个方案安全在哪里？"
+    a: "方案叠加了两层防护：Cloudflare Access 为服务加上安全认证，未授权用户根本碰不到后端服务；再配合基于 Worker 的动态 IP 白名单，适配不支持认证的客户端。传统 frp 直连通常把服务端口直接暴露在公网，风险高得多。"
 ---
 
 ## 引言

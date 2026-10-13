@@ -13,6 +13,22 @@ tags:
   - 镜像加速
   - 反向代理
   - Cloudflare D1
+keywords:
+  - "Docker 镜像加速"
+  - "Docker Hub 国内镜像源"
+  - "自建 Docker 镜像代理"
+  - "docker pull 429 限流"
+  - "docker hub 拉取失败"
+  - "Cloudflare Worker 反向代理"
+faqs:
+  - q: "为什么 docker pull 总是拉取失败或 429 限流？"
+    a: "Docker Hub 存储节点在境外，国内高峰期丢包严重，公共镜像源又经常因被大量白嫖触发匿名请求限流返回 429。自建 Cloudflare Worker 反向代理走专属通道，并可配置账号池自动冷却规避限流。"
+  - q: "DockerProxyCF 支持 Docker Hub 账号鉴权吗？"
+    a: "支持。可把 Docker Hub 账号（建议用 Access Token 代替密码）写入 Worker 的 dh_creds secret 形成账号池，绕开匿名限流；公开部署时还能开启 token 保护，拉取者拿不到你的真实账号凭证。"
+  - q: "部署需要自己的服务器吗？"
+    a: "不需要。项目完全运行在 Cloudflare Workers 上，支持 Wrangler CLI 一键部署或 GitHub Actions 自动部署，个人使用免费额度即可覆盖。"
+  - q: "客户端怎么使用自建镜像代理？"
+    a: "把 Worker 域名配置进 Docker 的 registry-mirrors（daemon.json），或直接 docker pull 你的域名/镜像名 即可。项目做了透明代理，会自动补全官方镜像的 library/ 前缀，无需改变使用习惯。"
 ---
 # 项目简介
 **docker_proxy_cf** 是一个基于 Cloudflare Worker 的 Docker Hub镜像代理服务，旨在解决国内无法拉取 Docker Hub 镜像以及 Docker Hub匿名拉取镜像存在次数上限的问题。
