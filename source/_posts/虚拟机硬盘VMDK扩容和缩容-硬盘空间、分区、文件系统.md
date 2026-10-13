@@ -15,6 +15,13 @@ tags:
   - EXT4
   - 分区扩容
 cover: cover.png
+keywords:
+  - "VMDK 扩容"
+  - "虚拟机硬盘扩容"
+  - "parted 分区 扩容"
+  - "resize2fs 扩容 EXT4"
+  - "VMware 磁盘 缩容"
+  - "GPT 分区 调整"
 ---
 本教程所使用的分区格式为GPT，文件系统为EXT4。LMV的分区扩容方式与GPT方式不同。
 

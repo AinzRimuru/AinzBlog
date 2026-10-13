@@ -10,6 +10,13 @@ tags:
 categories:
   - 建站手记
 cover: cover.png
+keywords:
+  - "友链系统"
+  - "博客友链优化"
+  - "友链文章聚合"
+  - "Cloudflare Workers 开源项目"
+  - "RSS 聚合"
+  - "Friend Flow"
 ---
 
 ## 项目简介

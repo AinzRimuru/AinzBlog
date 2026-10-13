@@ -13,6 +13,13 @@ categories:
   - 自建服务
 description: 本文介绍如何在Overleaf（ShareLaTeX）本地部署环境下，通过Docker日志直接获取重置链接来修改管理员密码。该方法解决了因未配置邮件服务（SMTP）而无法通过邮箱找回密码的问题，涵盖了日志提取、链接解析及域名替换等实操步骤。
 cover: cover.png
+keywords:
+  - "Overleaf 重置管理员密码"
+  - "ShareLaTeX 本地部署"
+  - "Overleaf 忘记密码"
+  - "Overleaf 邮箱不可用"
+  - "LaTeX 自建 服务"
+  - "Overleaf Docker 部署"
 ---
 ## 概述
 通过从Overleaf的日志中获取重置密码的链接并重置密码，实现无需邮箱重置管理员密码。

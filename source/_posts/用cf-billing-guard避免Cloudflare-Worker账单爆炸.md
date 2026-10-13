@@ -9,6 +9,13 @@ tags:
   - Cloudflare Workers
   - 成本控制
 description: 介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。
+keywords:
+  - "Cloudflare Worker 账单 异常"
+  - "cf-billing-guard"
+  - "Workers 请求 限流"
+  - "Serverless 成本控制"
+  - "Cloudflare 免费额度 超出"
+  - "Worker 无限循环 防护"
 ---
 ## 介绍
 Cloudflare Worker 虽然提供了大量的免费调用额度还还配套了非常多的持久化数据库服务，的这些服务在免费额度用完之后就会产生费用。最重要的是如果服务代码中出现**无限循环**，那么可能会导致账单迅速飙升，产生高额费用。已经有了非常多的先例：

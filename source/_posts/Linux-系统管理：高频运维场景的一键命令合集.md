@@ -14,6 +14,13 @@ categories:
   - 技术随笔
 description: 本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。
 cover: cover.png
+keywords:
+  - "Linux 运维命令"
+  - "smartctl 硬盘健康检查"
+  - "PID 查找容器"
+  - "Kubernetes 排错命令"
+  - "containerd 运维技巧"
+  - "Docker 运维"
 ---
 ## 查看所有硬盘的SMART详细信息
 

@@ -9,6 +9,13 @@ cover: cover.png
 categories:
   - 疑难排查
 description: 本文详解OpenClaw自定义模型时报错'No API provider registered for api'的解决办法。通过升级Docker镜像至最新版本修复此问题，并补充了智谱AI GLM-5-turbo模型中baseUrl的配置要点，确保编码套餐额度正常使用，帮助开发者快速排除故障。
+keywords:
+  - "OpenClaw 报错"
+  - "No API provider registered for api"
+  - "OpenClaw 自定义模型"
+  - "智谱 GLM 配置"
+  - "OpenClaw Docker 升级"
+  - "OpenClaw API 配置"
 ---
 ## TL;DR
 OpenClaw版本过旧，升级到最新版本即可解决"No API provider registered for api"报错。

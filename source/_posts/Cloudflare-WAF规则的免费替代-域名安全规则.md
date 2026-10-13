@@ -9,6 +9,13 @@ tags:
   - Web安全
 cover: cover.jpg
 description: 介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。
+keywords:
+  - "Cloudflare WAF 免费规则"
+  - "Cloudflare 域名安全规则"
+  - "Cloudflare 免费版 防CC"
+  - "Cloudflare 速率限制规则"
+  - "WAF 自定义规则"
+  - "防CC 攻击 设置"
 ---
 ## 说明
 Cloudflare的WAF提供了强大的Web应用防火墙功能，本文中所使用的域名安全规则仅能够替代部分功能。本文撰写的主要目的是目前能够检索到的关于Cloudflare的几乎所有流量管理需求的解决方法都是采用Cloudflare的WAF（御三家的模型也忽略了域名安全规则的存在），缺少对域名安全规则功能的有效 ~~白嫖~~ 挖掘。

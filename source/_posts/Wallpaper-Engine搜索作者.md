@@ -14,6 +14,13 @@ tags:
   - Steam ID
   - 壁纸搜索
 cover: cover.jpg
+keywords:
+  - "Wallpaper Engine 搜索作者"
+  - "Wallpaper Engine 找不到作者"
+  - "创意工坊 作者主页"
+  - "Steam ID 查作者"
+  - "壁纸作者 搜索"
+  - "动态壁纸下载"
 ---
 ## 前言
 
