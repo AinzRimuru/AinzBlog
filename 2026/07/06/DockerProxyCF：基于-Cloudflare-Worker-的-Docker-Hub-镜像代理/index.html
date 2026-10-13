@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png">
 <meta property="article:published_time" content="2026-07-06T18:14:38.000Z">
-<meta property="article:modified_time" content="2026-07-11T16:33:33.000Z">
+<meta property="article:modified_time" content="2026-10-13T23:37:45.000Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare D1">
 <meta property="article:tag" content="Cloudflare Worker">
@@ -45,7 +45,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","keywords":"Docker 镜像加速,Docker Hub 国内镜像源,自建 Docker 镜像代理,docker pull 429 限流,docker hub 拉取失败,Cloudflare Worker 反向代理","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-07-11T16:33:33.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","keywords":"Docker 镜像加速,Docker Hub 国内镜像源,自建 Docker 镜像代理,docker pull 429 限流,docker hub 拉取失败,Cloudflare Worker 反向代理","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-10-13T23:37:45.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -331,13 +331,13 @@
             
             
             <hr />
-            <div itemprop="articleBody"><h1 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h1><p><strong>docker_proxy_cf</strong> 是一个基于 Cloudflare Worker 的 Docker Hub镜像代理服务，旨在解决国内无法拉取 Docker Hub 镜像以及 Docker Hub匿名拉取镜像存在次数上限的问题。</p>
+            <div itemprop="articleBody"><h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>docker_proxy_cf</strong> 是一个基于 Cloudflare Worker 的 Docker Hub镜像代理服务，旨在解决国内无法拉取 Docker Hub 镜像以及 Docker Hub匿名拉取镜像存在次数上限的问题。</p>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/docker_proxy_cf">https://github.com/AinzRimuru/docker_proxy_cf</a></p>
 <p>体验地址：<a target="_blank" rel="noopener" href="https://docker.rimuru.cc/">https://docker.rimuru.cc</a></p>
 <blockquote>
 <p>仅支持 <code>docker pull</code>（GET&#x2F;HEAD&#x2F;OPTIONS），不支持 push 等写操作。</p>
 </blockquote>
-<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
 <li><strong>零侵入透明代理</strong> - 直接 <code>docker pull</code> 或配成 registry mirror，客户端无需改造</li>
 <li><strong>账号鉴权绕开限流</strong> - 配置 Docker Hub 账号后走账号额度（200&#x2F;h），客户端无需 <code>docker login</code></li>
 <li><strong>透明转发</strong> - 除鉴权请求以及可能泄露的账号信息的请求外，其他请求均会被透明转发到 Docker Hub</li>
@@ -462,7 +462,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare-d1/" rel="tag">Cloudflare D1</a>, <a class="tag-none-link" href="/tags/cloudflare-worker/" rel="tag">Cloudflare Worker</a>, <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-hub/" rel="tag">Docker Hub</a>, <a class="tag-none-link" href="/tags/reverse-proxy/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/mirror-acceleration/" rel="tag">镜像加速</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-07-11T16:33:33.000Z" itemprop="dateModified">最后编辑：2026-07-11</time>
+                    <time datetime="2026-10-13T23:37:45.000Z" itemprop="dateModified">最后编辑：2026-10-13</time>
                 </div>
             </div>
         </footer>
