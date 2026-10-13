@@ -18,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="AI工具, Claude Code, Windows 11, 代理配置, 教程, 环境变量, 网络优化, 问题解决" />
-  
+  <meta name="keywords" content="Claude Code 代理设置,Claude Code 无法连接,Claude Code 403,Claude Code 环境变量 代理,TUN 模式 代理,Windows 代理配置" />
   <meta name="description" content="本文详细介绍了在 Windows 环境下为 Claude Code 配置网络代理的实操教程。通过修改 Claude 安装目录下的启动脚本并结合 TUN 模式，解决因网络环境导致的连接失败问题。无需额外依赖，步骤简单明了，涵盖 npm 安装、环境变量配置及代理生效测试，是开发者优化 Claude Code 使用体验的必备指南。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows配置Claude Code代理（无额外依赖）">
@@ -48,7 +47,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Windows配置Claude Code代理（无额外依赖）","description":"本文详细介绍了在 Windows 环境下为 Claude Code 配置网络代理的实操教程。通过修改 Claude 安装目录下的启动脚本并结合 TUN 模式，解决因网络环境导致的连接失败问题。无需额外依赖，步骤简单明了，涵盖 npm 安装、环境变量配置及代理生效测试，是开发者优化 Claude Code 使用体验的必备指南。","image":"https://blog.rimuru.work/2026/01/04/Windows%E9%85%8D%E7%BD%AEClaude-Code%E4%BB%A3%E7%90%86%EF%BC%88%E6%97%A0%E9%A2%9D%E5%A4%96%E4%BE%9D%E8%B5%96%EF%BC%89/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-04T18:21:59.000Z","dateModified":"2026-01-04T23:31:35.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/04/Windows%E9%85%8D%E7%BD%AEClaude-Code%E4%BB%A3%E7%90%86%EF%BC%88%E6%97%A0%E9%A2%9D%E5%A4%96%E4%BE%9D%E8%B5%96%EF%BC%89/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Windows配置Claude Code代理（无额外依赖）","description":"本文详细介绍了在 Windows 环境下为 Claude Code 配置网络代理的实操教程。通过修改 Claude 安装目录下的启动脚本并结合 TUN 模式，解决因网络环境导致的连接失败问题。无需额外依赖，步骤简单明了，涵盖 npm 安装、环境变量配置及代理生效测试，是开发者优化 Claude Code 使用体验的必备指南。","keywords":"Claude Code 代理设置,Claude Code 无法连接,Claude Code 403,Claude Code 环境变量 代理,TUN 模式 代理,Windows 代理配置","image":"https://blog.rimuru.work/2026/01/04/Windows%E9%85%8D%E7%BD%AEClaude-Code%E4%BB%A3%E7%90%86%EF%BC%88%E6%97%A0%E9%A2%9D%E5%A4%96%E4%BE%9D%E8%B5%96%EF%BC%89/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-04T18:21:59.000Z","dateModified":"2026-01-04T23:31:35.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/04/Windows%E9%85%8D%E7%BD%AEClaude-Code%E4%BB%A3%E7%90%86%EF%BC%88%E6%97%A0%E9%A2%9D%E5%A4%96%E4%BE%9D%E8%B5%96%EF%BC%89/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -352,6 +351,40 @@
 <li>重新打开PowerShell，输入<code>claude</code>测试，如果一切顺利，可以开始登录。</li>
 </ol>
 </div>
+            
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Claude Code 在国内无法连接怎么办？</summary>
+                    <div class="faq-a"><p>多为网络环境限制所致。在 Windows 下为 Claude Code 配置代理即可解决：修改安装目录下的启动脚本注入代理环境变量，配合 TUN 模式接管流量。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">需要安装额外的代理软件吗？</summary>
+                    <div class="faq-a"><p>本方案无额外依赖，复用已有的代理端口即可：通过环境变量让 Claude Code 的流量走代理，不需要为它单独装任何工具。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">配置后怎么确认代理生效？</summary>
+                    <div class="faq-a"><p>按文章的测试步骤验证：配置完成后重新运行 Claude Code，观察此前失败的连接是否恢复正常，即可确认代理已生效。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Claude Code 在国内无法连接怎么办？","acceptedAnswer":{"@type":"Answer","text":"多为网络环境限制所致。在 Windows 下为 Claude Code 配置代理即可解决：修改安装目录下的启动脚本注入代理环境变量，配合 TUN 模式接管流量。"}},{"@type":"Question","name":"需要安装额外的代理软件吗？","acceptedAnswer":{"@type":"Answer","text":"本方案无额外依赖，复用已有的代理端口即可：通过环境变量让 Claude Code 的流量走代理，不需要为它单独装任何工具。"}},{"@type":"Question","name":"配置后怎么确认代理生效？","acceptedAnswer":{"@type":"Answer","text":"按文章的测试步骤验证：配置完成后重新运行 Claude Code，观察此前失败的连接是否恢复正常，即可确认代理已生效。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

@@ -18,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="iperf3, 宽带, 网络诊断" />
-  
+  <meta name="keywords" content="宽带上行限速,宽带测速 取证,工信部投诉 宽带,iperf3 测速,上行带宽 被限速,宽带维权 投诉" />
   <meta name="description" content="遭遇家宽上行限速怎么办？本文分享实测有效的全方位取证方法，涵盖白名单绕过、路由追踪及动态限速特征分析。教你利用Speedtest、iperf3等工具在不同时段多次测速收集确凿证据，结合工信部投诉流程成功申诉恢复网速。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="家用宽带上行被限速后的全方位取证方法">
@@ -43,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"家用宽带上行被限速后的全方位取证方法","description":"遭遇家宽上行限速怎么办？本文分享实测有效的全方位取证方法，涵盖白名单绕过、路由追踪及动态限速特征分析。教你利用Speedtest、iperf3等工具在不同时段多次测速收集确凿证据，结合工信部投诉流程成功申诉恢复网速。","image":"https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-02T22:36:19.000Z","dateModified":"2026-03-30T23:04:29.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"家用宽带上行被限速后的全方位取证方法","description":"遭遇家宽上行限速怎么办？本文分享实测有效的全方位取证方法，涵盖白名单绕过、路由追踪及动态限速特征分析。教你利用Speedtest、iperf3等工具在不同时段多次测速收集确凿证据，结合工信部投诉流程成功申诉恢复网速。","keywords":"宽带上行限速,宽带测速 取证,工信部投诉 宽带,iperf3 测速,上行带宽 被限速,宽带维权 投诉","image":"https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-02T22:36:19.000Z","dateModified":"2026-03-30T23:04:29.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/02/%E5%AE%B6%E7%94%A8%E5%AE%BD%E5%B8%A6%E4%B8%8A%E8%A1%8C%E8%A2%AB%E9%99%90%E9%80%9F%E5%90%8E%E7%9A%84%E5%85%A8%E6%96%B9%E4%BD%8D%E5%8F%96%E8%AF%81%E6%96%B9%E6%B3%95/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -338,6 +337,7 @@
 <h2 id="限速路由取证"><a href="#限速路由取证" class="headerlink" title="限速路由取证"></a>限速路由取证</h2><p>自建测速工具测速时，可以采用traceroute等工具查看数据包的路由路径。如果两条宽带位于同一小区，那么路由跳数应该非常少，通常只经过一个运营商网关。如此，可以确保流量没有被转发到其他地方，在所有基础设施属于当地运营商的情况下，限速的责任方也只能是当地运营商。通过这种方式，可以有效地排除其他因素的干扰，增强取证的可信度。有些运营商的限速策略可能会在省级直接下发，不通知地方运营商，通过这种方式，能够让地方运营商在排查的过程中发现相关策略由省级直接下发，从而进一步向上反馈。</p>
 <h2 id="限速特征取证（可选）"><a href="#限速特征取证（可选）" class="headerlink" title="限速特征取证（可选）"></a>限速特征取证（可选）</h2><p>为了尽可能的减少对用户体验的影响，运营商的限速机制通常时动态调整的，可能会在识别到特定特征时生效。比如，某些限速机制可能会在用户上传大量数据时触发。因此，在使用iperf3进行测速时，可以使用<code>-i</code>参数来设置报告间隔，以观察速率的变化趋势。在我的观察中，设置间隔为10秒时，速率会在第一个10秒内高于平均速率但仍然低于正常水平，而在10秒后速率会稳定在一个较低的水平。设置间隔为1s时，速率会在第一个1秒内接近正常水平，但随后迅速下降并稳定在一个较低的水平。不同的是，达到正常水平的时间点除第一个1秒外，还会在之后的某些时间点随机出现。这表明限速机制可能会在识别到特定特征时动态调整速率，而不是在整个测试过程中持续保持一个固定的速率水平。通过观察速率的变化趋势，可以进一步确认是否存在限速行为，并且可以提供更多的证据来支持投诉。</p>
 </div>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -354,7 +354,7 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/iperf3/" rel="tag">iperf3</a>, <a class="tag-none-link" href="/tags/broad-band/" rel="tag">宽带</a>, <a class="tag-none-link" href="/tags/network-diagnostics-web/" rel="tag">网络诊断</a>
+                    <a class="tag-none-link" href="/tags/iperf3/" rel="tag">iperf3</a>, <a class="tag-none-link" href="/tags/broad-band/" rel="tag">宽带</a>, <a class="tag-none-link" href="/tags/network-diagnostics/" rel="tag">网络诊断</a>
                 </div>
                 <div class="pull-date">
                     <time datetime="2026-03-30T23:04:29.000Z" itemprop="dateModified">最后编辑：2026-03-30</time>
@@ -366,7 +366,7 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" 基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）" href="/2026/01/11/基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）/"><i class="fa fa-angle-left"></i> 上一篇</a>
+                <a title=" Cloudflare Tunnel 免费内网穿透教程：安全认证与动态IP白名单" href="/2026/01/11/基于Cloudflare的内网穿透解决方案（含安全认证及动态IP白名单）/"><i class="fa fa-angle-left"></i> 上一篇</a>
             </div>
             
             

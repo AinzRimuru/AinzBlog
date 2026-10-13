@@ -8,7 +8,7 @@
   
   
   
-  <title>个人NAS全方位攻略--安全配置 | Rimuru&#39;s Blog</title>
+  <title>个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份 | Rimuru&#39;s Blog</title>
   <link rel="canonical" href="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/">
   <meta name="author" content="Rimuru" />
   <meta http-equiv="Cache-Control" content="no-transform" />
@@ -18,18 +18,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="NAS, RAID, 数据备份, 网络安全" />
-  
+  <meta name="keywords" content="NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵" />
   <meta name="description" content="本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="个人NAS全方位攻略--安全配置">
+<meta property="og:title" content="个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份">
 <meta property="og:url" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/">
 <meta property="og:site_name" content="Rimuru&#39;s Blog">
 <meta property="og:description" content="本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:47.000Z">
-<meta property="article:modified_time" content="2026-10-12T12:51:18.583Z">
+<meta property="article:modified_time" content="2026-10-13T15:25:22.998Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="NAS">
 <meta property="article:tag" content="RAID">
@@ -44,7 +43,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略--安全配置","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-10-12T12:51:18.583Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","keywords":"NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-10-13T15:25:22.998Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -299,7 +298,7 @@
     <div class="kratos-hentry kratos-page-inner clearfix">
         <header class="kratos-page-header">
             
-                <h1 class="kratos-page-title text-center" itemprop="name headline">个人NAS全方位攻略--安全配置</h1>
+                <h1 class="kratos-page-title text-center" itemprop="name headline">个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份</h1>
             
             <ul class="kratos-page-meta text-center">
                 <li><time datetime="2026-03-21T23:17:47.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2026-03-21</time></li>
@@ -638,6 +637,40 @@
 <h3 id="2-5-断电保护"><a href="#2-5-断电保护" class="headerlink" title="2.5.断电保护"></a>2.5.断电保护</h3><p>NAS在运行过程中突然断电，可能导致正在写入的数据损坏、文件系统错误，严重时甚至引发RAID阵列降级。UPS（不间断电源）可以在断电后为NAS提供一段时间的电力供应，让系统有足够的时间安全关机，避免数据损失。</p>
 <p>选择UPS时根据NAS的实际功耗来匹配容量，一般选择能提供10-15分钟续航的型号就足够完成安全关机了。配合NAS或系统的自动关机脚本（检测到UPS切换到电池供电后延时关机），可以在无人值守的情况下也能从容应对断电。预算充足的话建议配置，预算有限的话至少确保NAS接在有浪涌保护功能的插座上。</p>
 </div>
+            
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">远程访问 NAS 必须做端口映射吗？</summary>
+                    <div class="faq-a"><p>不建议。直接端口映射或 DMZ 会把 NAS 管理界面暴露在公网，被扫描爆破的风险极高。更安全的做法是先经 VPN 接入内网再访问服务，或使用带认证的内网穿透方案。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">RAID 等于备份吗？</summary>
+                    <div class="faq-a"><p>不等于。RAID 只抵御单块硬盘物理故障，防不了误删除、勒索病毒和整机损毁。建议遵循 3-2-1 备份原则：3 份数据、2 种介质、1 份异地，文章数据安全部分有展开。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">NAS 防火墙基础配置怎么做？</summary>
+                    <div class="faq-a"><p>用 iptables 做最小化开放：只放行必要端口，SSH 改用密钥登录并禁用密码认证，管理界面尽量限制在内网或 VPN 内可达，配合 HTTPS 加密管理流量。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"远程访问 NAS 必须做端口映射吗？","acceptedAnswer":{"@type":"Answer","text":"不建议。直接端口映射或 DMZ 会把 NAS 管理界面暴露在公网，被扫描爆破的风险极高。更安全的做法是先经 VPN 接入内网再访问服务，或使用带认证的内网穿透方案。"}},{"@type":"Question","name":"RAID 等于备份吗？","acceptedAnswer":{"@type":"Answer","text":"不等于。RAID 只抵御单块硬盘物理故障，防不了误删除、勒索病毒和整机损毁。建议遵循 3-2-1 备份原则：3 份数据、2 种介质、1 份异地，文章数据安全部分有展开。"}},{"@type":"Question","name":"NAS 防火墙基础配置怎么做？","acceptedAnswer":{"@type":"Answer","text":"用 iptables 做最小化开放：只放行必要端口，SSH 改用密钥登录并禁用密码认证，管理界面尽量限制在内网或 VPN 内可达，配合 HTTPS 加密管理流量。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -657,7 +690,7 @@
                     <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/raid/" rel="tag">RAID</a>, <a class="tag-none-link" href="/tags/data-backup/" rel="tag">数据备份</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-10-12T12:51:18.583Z" itemprop="dateModified">最后编辑：2026-10-12</time>
+                    <time datetime="2026-10-13T15:25:22.998Z" itemprop="dateModified">最后编辑：2026-10-13</time>
                 </div>
             </div>
         </footer>
@@ -666,12 +699,12 @@
         <nav class="navigation post-navigation clearfix" role="navigation">
             
             <div class="nav-previous clearfix">
-                <a title=" 个人NAS全方位攻略--需求分析" href="/2026/03/21/个人NAS全方位攻略-需求分析/"><i class="fa fa-angle-left"></i> 上一篇</a>
+                <a title=" 个人NAS全方位攻略（一）需求分析：新手选购指南与硬盘避坑" href="/2026/03/21/个人NAS全方位攻略-需求分析/"><i class="fa fa-angle-left"></i> 上一篇</a>
             </div>
             
             
             <div class="nav-next clearfix">
-                <a title=" 个人NAS全方位攻略--容器化部署" href="/2026/03/21/个人NAS全方位攻略-容器化部署/">下一篇 <i class="fa fa-angle-right"></i></a>
+                <a title=" 个人NAS全方位攻略（三）容器化部署：Docker Compose 实践" href="/2026/03/21/个人NAS全方位攻略-容器化部署/">下一篇 <i class="fa fa-angle-right"></i></a>
             </div>
             
         </nav>

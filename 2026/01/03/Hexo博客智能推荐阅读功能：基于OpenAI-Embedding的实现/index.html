@@ -18,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Hexo, JavaScript, OpenAI, 博客优化" />
-  
+  <meta name="keywords" content="Hexo 相关文章推荐,OpenAI Embedding 推荐,语义相似度 文章推荐,Hexo 博客优化,embedding 教程,智能推荐 实现" />
   <meta name="description" content="本文详细介绍了如何为Hexo博客集成基于OpenAI Embedding技术的智能推荐阅读功能。通过Node.js脚本在构建时计算文章语义相似度，并结合前端JavaScript实现优雅降级的展示策略。教程包含完整的自动化工作流、缓存机制设计及PJAX兼容方案，旨在通过AI技术提升博客用户体验与内容发现效率。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo博客智能推荐阅读功能：基于OpenAI Embedding的实现">
@@ -44,7 +43,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Hexo博客智能推荐阅读功能：基于OpenAI Embedding的实现","description":"本文详细介绍了如何为Hexo博客集成基于OpenAI Embedding技术的智能推荐阅读功能。通过Node.js脚本在构建时计算文章语义相似度，并结合前端JavaScript实现优雅降级的展示策略。教程包含完整的自动化工作流、缓存机制设计及PJAX兼容方案，旨在通过AI技术提升博客用户体验与内容发现效率。","image":"https://blog.rimuru.work/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-03T18:45:00.000Z","dateModified":"2026-01-04T09:12:40.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Hexo博客智能推荐阅读功能：基于OpenAI Embedding的实现","description":"本文详细介绍了如何为Hexo博客集成基于OpenAI Embedding技术的智能推荐阅读功能。通过Node.js脚本在构建时计算文章语义相似度，并结合前端JavaScript实现优雅降级的展示策略。教程包含完整的自动化工作流、缓存机制设计及PJAX兼容方案，旨在通过AI技术提升博客用户体验与内容发现效率。","keywords":"Hexo 相关文章推荐,OpenAI Embedding 推荐,语义相似度 文章推荐,Hexo 博客优化,embedding 教程,智能推荐 实现","image":"https://blog.rimuru.work/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-01-03T18:45:00.000Z","dateModified":"2026-01-04T09:12:40.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -550,6 +549,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这两个脚本的配合，为 Hexo 博客实现了一个基于 AI 的智能推荐系统。它在构建时预计算所有推荐关系，运行时只需加载 JSON 数据，既保证了推荐质量，又不会影响页面加载性能。</p>
 <p>希望这个方案能够帮助你提升博客的用户体验！如有问题欢迎在评论区讨论。</p>
 </div>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

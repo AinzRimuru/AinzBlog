@@ -18,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Docker, Linux, Overleaf, ShareLaTeX, 教程, 问题解决" />
-  
+  <meta name="keywords" content="Overleaf 重置管理员密码,ShareLaTeX 本地部署,Overleaf 忘记密码,Overleaf 邮箱不可用,LaTeX 自建 服务,Overleaf Docker 部署" />
   <meta name="description" content="本文介绍如何在Overleaf（ShareLaTeX）本地部署环境下，通过Docker日志直接获取重置链接来修改管理员密码。该方法解决了因未配置邮件服务（SMTP）而无法通过邮箱找回密码的问题，涵盖了日志提取、链接解析及域名替换等实操步骤。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Overleaf(Sharelatex)本地部署无需邮箱重置管理员密码">
@@ -46,7 +45,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Overleaf(Sharelatex)本地部署无需邮箱重置管理员密码","description":"本文介绍如何在Overleaf（ShareLaTeX）本地部署环境下，通过Docker日志直接获取重置链接来修改管理员密码。该方法解决了因未配置邮件服务（SMTP）而无法通过邮箱找回密码的问题，涵盖了日志提取、链接解析及域名替换等实操步骤。","image":"https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-26T23:40:39.000Z","dateModified":"2026-03-30T23:04:29.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Overleaf(Sharelatex)本地部署无需邮箱重置管理员密码","description":"本文介绍如何在Overleaf（ShareLaTeX）本地部署环境下，通过Docker日志直接获取重置链接来修改管理员密码。该方法解决了因未配置邮件服务（SMTP）而无法通过邮箱找回密码的问题，涵盖了日志提取、链接解析及域名替换等实操步骤。","keywords":"Overleaf 重置管理员密码,ShareLaTeX 本地部署,Overleaf 忘记密码,Overleaf 邮箱不可用,LaTeX 自建 服务,Overleaf Docker 部署","image":"https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-26T23:40:39.000Z","dateModified":"2026-03-30T23:04:29.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/26/Overleaf-Sharelatex-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E6%97%A0%E9%9C%80%E9%82%AE%E7%AE%B1%E9%87%8D%E7%BD%AE%E7%AE%A1%E7%90%86%E5%91%98%E5%AF%86%E7%A0%81/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -341,6 +340,7 @@
 <h2 id="替换域名（可选）"><a href="#替换域名（可选）" class="headerlink" title="替换域名（可选）"></a>替换域名（可选）</h2><p>在没有设置Overleaf的域名时，重置密码的链接会包含<code>localhost</code>，需要替换为实际的域名。</p>
 <h2 id="重置密码"><a href="#重置密码" class="headerlink" title="重置密码"></a>重置密码</h2><p>打开获取到的重置密码链接，然后输入新密码，点击<code>Set new password</code>。</p>
 </div>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

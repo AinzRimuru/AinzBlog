@@ -18,8 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="format-detection" content="telphone=no, email=no" />
   
-    <meta name="keywords" content="Cloudflare D1, Cloudflare Worker, Docker, Docker Hub, 反向代理, 镜像加速" />
-  
+  <meta name="keywords" content="Docker 镜像加速,Docker Hub 国内镜像源,自建 Docker 镜像代理,docker pull 429 限流,docker hub 拉取失败,Cloudflare Worker 反向代理" />
   <meta name="description" content="Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library&#x2F;、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理">
@@ -46,7 +45,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-07-11T16:33:33.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerProxyCF：基于 Cloudflare Worker 的 Docker Hub 镜像代理","description":"Docker拉取镜像经常卡住或遇到429限流？本文介绍基于Cloudflare Worker的Docker Hub镜像反向代理项目docker_proxy_cf。它支持透明代理、自动补全library/、账号池与429自动冷却、Token保护及访问控制，帮你轻松解决受限网络环境下的镜像拉取难题，提升Docker使用体验。","keywords":"Docker 镜像加速,Docker Hub 国内镜像源,自建 Docker 镜像代理,docker pull 429 限流,docker hub 拉取失败,Cloudflare Worker 反向代理","image":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-07-06T18:14:38.000Z","dateModified":"2026-07-11T16:33:33.000Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/07/06/DockerProxyCF%EF%BC%9A%E5%9F%BA%E4%BA%8E-Cloudflare-Worker-%E7%9A%84-Docker-Hub-%E9%95%9C%E5%83%8F%E4%BB%A3%E7%90%86/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -405,6 +404,45 @@
 <p>之后 <code>docker pull nginx</code> 会自动走镜像，无需在镜像名前加域名。</p>
 <h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT License</p>
 </div>
+            
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">为什么 docker pull 总是拉取失败或 429 限流？</summary>
+                    <div class="faq-a"><p>Docker Hub 存储节点在境外，国内高峰期丢包严重，公共镜像源又经常因被大量白嫖触发匿名请求限流返回 429。自建 Cloudflare Worker 反向代理走专属通道，并可配置账号池自动冷却规避限流。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">DockerProxyCF 支持 Docker Hub 账号鉴权吗？</summary>
+                    <div class="faq-a"><p>支持。可把 Docker Hub 账号（建议用 Access Token 代替密码）写入 Worker 的 dh_creds secret 形成账号池，绕开匿名限流；公开部署时还能开启 token 保护，拉取者拿不到你的真实账号凭证。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">部署需要自己的服务器吗？</summary>
+                    <div class="faq-a"><p>不需要。项目完全运行在 Cloudflare Workers 上，支持 Wrangler CLI 一键部署或 GitHub Actions 自动部署，个人使用免费额度即可覆盖。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">客户端怎么使用自建镜像代理？</summary>
+                    <div class="faq-a"><p>把 Worker 域名配置进 Docker 的 registry-mirrors（daemon.json），或直接 docker pull 你的域名/镜像名 即可。项目做了透明代理，会自动补全官方镜像的 library/ 前缀，无需改变使用习惯。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"为什么 docker pull 总是拉取失败或 429 限流？","acceptedAnswer":{"@type":"Answer","text":"Docker Hub 存储节点在境外，国内高峰期丢包严重，公共镜像源又经常因被大量白嫖触发匿名请求限流返回 429。自建 Cloudflare Worker 反向代理走专属通道，并可配置账号池自动冷却规避限流。"}},{"@type":"Question","name":"DockerProxyCF 支持 Docker Hub 账号鉴权吗？","acceptedAnswer":{"@type":"Answer","text":"支持。可把 Docker Hub 账号（建议用 Access Token 代替密码）写入 Worker 的 dh_creds secret 形成账号池，绕开匿名限流；公开部署时还能开启 token 保护，拉取者拿不到你的真实账号凭证。"}},{"@type":"Question","name":"部署需要自己的服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不需要。项目完全运行在 Cloudflare Workers 上，支持 Wrangler CLI 一键部署或 GitHub Actions 自动部署，个人使用免费额度即可覆盖。"}},{"@type":"Question","name":"客户端怎么使用自建镜像代理？","acceptedAnswer":{"@type":"Answer","text":"把 Worker 域名配置进 Docker 的 registry-mirrors（daemon.json），或直接 docker pull 你的域名/镜像名 即可。项目做了透明代理，会自动补全官方镜像的 library/ 前缀，无需改变使用习惯。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -421,7 +459,7 @@
             <div class="footer-tag clearfix">
                 <div class="pull-left">
                 <i class="fa fa-tags"></i>
-                    <a class="tag-none-link" href="/tags/cloudflare-d1/" rel="tag">Cloudflare D1</a>, <a class="tag-none-link" href="/tags/cloudflare-worker/" rel="tag">Cloudflare Worker</a>, <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-hub/" rel="tag">Docker Hub</a>, <a class="tag-none-link" href="/tags/options/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/mirror-acceleration/" rel="tag">镜像加速</a>
+                    <a class="tag-none-link" href="/tags/cloudflare-d1/" rel="tag">Cloudflare D1</a>, <a class="tag-none-link" href="/tags/cloudflare-worker/" rel="tag">Cloudflare Worker</a>, <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-hub/" rel="tag">Docker Hub</a>, <a class="tag-none-link" href="/tags/reverse-proxy/" rel="tag">反向代理</a>, <a class="tag-none-link" href="/tags/mirror-acceleration/" rel="tag">镜像加速</a>
                 </div>
                 <div class="pull-date">
                     <time datetime="2026-07-11T16:33:33.000Z" itemprop="dateModified">最后编辑：2026-07-11</time>
