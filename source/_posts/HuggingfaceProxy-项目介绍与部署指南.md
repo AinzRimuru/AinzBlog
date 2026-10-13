@@ -12,6 +12,13 @@ tags:
 categories:
   - 自建服务
 cover: cover.png
+keywords:
+  - "Hugging Face 国内访问"
+  - "huggingface 镜像站"
+  - "HF_ENDPOINT 配置"
+  - "huggingface 模型下载加速"
+  - "自建 huggingface 镜像"
+  - "大模型下载 慢"
 ---
 
 ## 项目简介

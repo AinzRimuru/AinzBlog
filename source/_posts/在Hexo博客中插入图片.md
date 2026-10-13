@@ -13,6 +13,13 @@ tags:
   - 图片配置
   - 静态博客
 cover: cover.png
+keywords:
+  - "Hexo 插入图片"
+  - "Hexo 图片不显示"
+  - "Hexo 图片路径 配置"
+  - "post_asset_folder"
+  - "Hexo 图片设置"
+  - "Markdown 图片引用"
 ---
 ## 在Hexo博客中插入图片
 

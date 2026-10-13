@@ -14,6 +14,13 @@ tags:
 categories:
   - 自建服务
 cover: cover.png
+keywords:
+  - "Nextcloud WebDAV"
+  - "WebDAV 映射网络驱动器"
+  - "Nextcloud 分享文件夹 挂载"
+  - "Windows 11 WebDAV 连接"
+  - "Nextcloud 外部访问"
+  - "public.php webdav"
 ---
 ## 1. 新建分享链接
 在 Nextcloud 网页端，选择需要分享的文件夹，创建共享链接可以以生成一个形如`https://*****/s/AaaAABbbBBCccCCC`的链接。其中`*****`为你的 Nextcloud 服务器地址，`AaaAABbbBBCccCCC`为分享链接的唯一标识符。

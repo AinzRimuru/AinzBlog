@@ -11,6 +11,13 @@ tags:
 categories:
   - 建站手记
 cover: cover.png
+keywords:
+  - "Hexo 友链插件"
+  - "Friend Flow 接入"
+  - "Hexo 标签插件"
+  - "友链页面卡片"
+  - "友链最新文章展示"
+  - "hexo friend flow"
 ---
 
 ## 前言
