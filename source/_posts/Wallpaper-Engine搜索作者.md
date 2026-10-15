@@ -21,6 +21,9 @@ keywords:
   - "Steam ID 查作者"
   - "壁纸作者 搜索"
   - "动态壁纸下载"
+  - "wallpaper怎么搜索作者"
+  - "wallpaper创意工坊"
+  - "wallpaper engine创意工坊"
 ---
 ## 前言
 

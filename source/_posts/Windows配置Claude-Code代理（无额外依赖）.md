@@ -22,6 +22,8 @@ keywords:
   - "Claude Code 环境变量 代理"
   - "TUN 模式 代理"
   - "Windows 代理配置"
+  - "claude code 代理"
+  - "claude-code-proxy"
 faqs:
   - q: "Claude Code 在国内无法连接怎么办？"
     a: "多为网络环境限制所致。在 Windows 下为 Claude Code 配置代理即可解决：修改安装目录下的启动脚本注入代理环境变量，配合 TUN 模式接管流量。"
