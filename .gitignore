@@ -9,6 +9,12 @@ node_modules/
 .claude
 .env
 
+# Local-only SEO/maintenance tools (not tracked in git)
+tools/add_seo_keywords.js
+tools/add_faqs.js
+tools/align_titles.js
+tools/gsc_analytics.js
+
 # Ignore optional external libraries
 source/lib/*
 
