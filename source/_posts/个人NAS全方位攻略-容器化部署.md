@@ -18,6 +18,15 @@ keywords:
   - "Docker 网络隔离"
   - "容器资源限制"
   - "NAS 容器化 最佳实践"
+faqs:
+  - q: "NAS Docker Compose 怎么限制容器日志大小防止磁盘占满？"
+    a: "在compose文件中为容器配置logging驱动，使用json-file，设置max-size和max-file，例如每个日志文件最大10MB，最多保留3个。这样日志不会无限增长，避免撑满系统盘。"
+  - q: "NAS上Docker容器数据持久化用绑定挂载还是Docker卷？"
+    a: "推荐使用绑定挂载，直接把宿主机目录映射到容器内，比如/data/nextcloud挂到/var/www/html。这样能直接看到和管理文件，备份迁移更方便。注意容器内外UID不一致可能导致权限问题，可在compose中用user参数指定运行用户或调整目录权限。"
+  - q: "NAS Docker 容器更新镜像怎么操作不影响数据？"
+    a: "执行 docker compose pull 拉取最新镜像，再 docker compose up -d 重新创建容器。旧容器自动移除，通过挂载卷持久化的数据不会丢失。确保compose文件和挂载数据目录有备份，重装后能快速恢复。"
+  - q: "NAS Docker 网络用host模式还是bridge模式？"
+    a: "不要随意使用host模式，它会失去网络隔离，容易端口冲突。建议使用默认bridge网络，通过ports只暴露需要外部访问的端口，容器间通信直接用容器名，Docker内建DNS会自动解析。部署前确认端口没被占用。"
 ---
 > 本系列导航：
 > 1. [需求分析](/2026/03/21/个人NAS全方位攻略-需求分析/)

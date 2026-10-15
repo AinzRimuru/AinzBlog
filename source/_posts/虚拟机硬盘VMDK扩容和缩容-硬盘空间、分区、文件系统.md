@@ -22,6 +22,13 @@ keywords:
   - "resize2fs 扩容 EXT4"
   - "VMware 磁盘 缩容"
   - "GPT 分区 调整"
+faqs:
+  - q: "VMware虚拟机硬盘扩容后df看不到空间变大怎么办"
+    a: "这是因为只扩容了硬盘，还没扩容分区和文件系统。先用parted调整分区：parted /dev/设备，unit s，p free查看空闲扇区，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。再执行resize2fs /dev/设备分区号扩容文件系统，完成后df就能看到空间变大。"
+  - q: "虚拟机VMDK硬盘怎么缩容"
+    a: "VMDK缩容不能在线操作，且可能丢数据，需先备份vmdk。先用resize2fs /dev/设备分区号 大小缩容文件系统；再用parted缩容分区，注意单位换算，建议按90%差异缩小；然后新建预期大小的硬盘，按原分区重新分区，用dd逐个复制分区；最后用gdisk和tune2fs修改UUID，移除源硬盘启动。"
+  - q: "Linux EXT4分区扩容用什么命令"
+    a: "文件系统扩容用resize2fs命令，如resize2fs /dev/sda1。分区扩容用parted：parted /dev/sda，unit s，p free，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。硬盘扩容直接在VMware中修改vmdk大小，但只能扩容不能直接缩小。"
 ---
 本教程所使用的分区格式为GPT，文件系统为EXT4。LMV的分区扩容方式与GPT方式不同。
 

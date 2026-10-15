@@ -18,6 +18,15 @@ keywords:
   - "友链页面卡片"
   - "友链最新文章展示"
   - "hexo friend flow"
+faqs:
+  - q: "Hexo博客如何接入Friend Flow友链联盟插件？"
+    a: "在博客中新建 scripts/friend-flow-tag.js 作为插件入口注册 Hexo 标签，再把 style.css 和 template.js 放到 source/_data/friend-flow/ 目录。Hexo 会自动加载 scripts 下的 JS，之后用该标签插件一行代码就能在友链页面渲染卡片。"
+  - q: "Friend Flow插件在Hexo中显示什么内容？"
+    a: "会在友链页面渲染一组卡片，每张卡片包含友链博客的头像、名称和描述，以及该博客最新发布的文章列表（标题加日期）。每次加载时卡片顺序会随机排列。"
+  - q: "Friend Flow插件如何适配亮色和暗色模式？"
+    a: "样式通过 CSS 自定义属性做双层变量映射，优先使用 Kratos-Rebirth 主题的变量，其他主题则回退到内置默认值，因此能自动适配亮色/暗色模式，非该主题也能正常显示。"
+  - q: "Friend Flow插件的文件应该放在Hexo博客的哪个目录？"
+    a: "插件入口 friend-flow-tag.js 放在 scripts/ 目录，Hexo 在 generate 或 server 时会自动加载；style.css 和 template.js 放在 source/_data/friend-flow/ 下，避免被当作脚本执行。"
 ---
 
 ## 前言

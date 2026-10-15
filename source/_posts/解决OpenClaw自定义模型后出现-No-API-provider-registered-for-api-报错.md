@@ -16,6 +16,11 @@ keywords:
   - "智谱 GLM 配置"
   - "OpenClaw Docker 升级"
   - "OpenClaw API 配置"
+faqs:
+  - q: "OpenClaw 切换 glm-5-turbo 后报 No API provider registered for api 怎么解决？"
+    a: "这是 OpenClaw 版本过旧导致的，升级到最新版本即可解决。如果你用 docker compose 部署，执行 docker compose pull && docker compose down && docker compose up -d 完成升级就行。"
+  - q: "OpenClaw 配置智谱模型报 models.providers.zai.baseUrl Invalid input expected string received undefined 怎么处理？"
+    a: "需要手动给 zai 的 baseUrl 配置为 https://open.bigmodel.cn/api/coding/paas/v4。官网文档没提示要配这个，但必须配置，且不要用通用的 https://open.bigmodel.cn/api/paas/v4，否则编码套餐不生效，会提示没有额度或消耗余额。"
 ---
 ## TL;DR
 OpenClaw版本过旧，升级到最新版本即可解决"No API provider registered for api"报错。

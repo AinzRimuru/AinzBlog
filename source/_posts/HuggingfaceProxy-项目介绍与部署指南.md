@@ -19,6 +19,15 @@ keywords:
   - "huggingface 模型下载加速"
   - "自建 huggingface 镜像"
   - "大模型下载 慢"
+faqs:
+  - q: "国内访问Hugging Face下载模型太慢怎么办？"
+    a: "可以使用HuggingfaceProxy这个基于Cloudflare Workers的反向代理加速服务。部署后直接访问你的代理域名，所有请求会自动转发到Hugging Face，无需额外配置。它还能智能处理CDN重定向，让模型页面、文件下载和API调用都走单一代理域名，从而解决访问慢和下载超时问题。"
+  - q: "HuggingfaceProxy怎么部署到Cloudflare Pages？"
+    a: "先Fork项目仓库，然后在Cloudflare Dashboard创建Pages项目并连接你的GitHub仓库。之后推送代码到main分支，GitHub Actions会自动构建，Cloudflare Pages会自动拉取最新代码并部署。部署完成后会分配一个*.pages.dev域名，你也可以绑定自定义域名。"
+  - q: "HuggingfaceProxy的下载脚本怎么用？"
+    a: "先用curl -O https://your-proxy.com/hf_downloader.py下载脚本，然后运行pip install requests tqdm安装依赖。下载模型时执行python hf_downloader.py 模型名，例如python hf_downloader.py bert-base-uncased。还支持--type model指定类型、--revision main指定版本、--workers 8设置并行数。"
+  - q: "为什么huggingface-cli搭配HuggingfaceProxy会下载失败？"
+    a: "因为Cloudflare的缓存机制会覆盖或丢失Content-Length等关键头信息，导致huggingface-cli和snapshot_download这类客户端下载失败。所以项目不推荐搭配使用，建议改用HuggingfaceProxy自带的下载脚本，它支持并行下载和断点续传，能正常完成模型下载。"
 ---
 
 ## 项目简介

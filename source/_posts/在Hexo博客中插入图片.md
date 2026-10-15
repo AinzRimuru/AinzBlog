@@ -20,6 +20,13 @@ keywords:
   - "post_asset_folder"
   - "Hexo 图片设置"
   - "Markdown 图片引用"
+faqs:
+  - q: "Hexo博客怎么在文章里插入图片？"
+    a: "可以有两种方式：一是把图片放到 source/images/ 目录下，在 Markdown 中用 ![图片描述](/images/your-image.png) 引用；二是启用 post_asset_folder，把图片放在文章同名文件夹里，用相对路径 ![图片描述](your-image.png) 引用。"
+  - q: "Hexo post_asset_folder 怎么配置和使用？"
+    a: "在 Hexo 配置文件 _config.yml 中把 post_asset_folder 设为 true。之后新建文章时 Hexo 会自动创建同名文件夹，把图片放进去，在 Markdown 中用相对路径 ![图片描述](your-image.png) 引用即可。"
+  - q: "Hexo 图片显示不出来或路径错误怎么解决？"
+    a: "部分项目会尝试从根目录加载图片导致失败，可以在 _config.yml 中添加 marked 配置，设置 prependRoot: true 和 postAsset: true，这样 Hexo 渲染 Markdown 时会正确处理图片路径，避免加载失败。"
 ---
 ## 在Hexo博客中插入图片
 

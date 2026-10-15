@@ -16,6 +16,15 @@ keywords:
   - "Serverless 成本控制"
   - "Cloudflare 免费额度 超出"
   - "Worker 无限循环 防护"
+faqs:
+  - q: "Cloudflare Worker账单爆炸怎么防止？"
+    a: "可以用 cf-billing-guard 工具，安装后执行 npx cf-billing-guard enable 一键接线，它会覆盖 Worker 入口文件，对所有调用请求计数和限流，对单次请求的数据库等服务调用设置上限，从而防止账单异常增长。"
+  - q: "cf-billing-guard怎么配置D1和KV调用上限？"
+    a: "在自动生成的 billing-guard.main.js 里，在 d1/kv 旁按类型各加一行，比如 d1: { maxCalls: 100 }、kv: { maxCalls: 100 }，未单列的类型回落到 defaults。也可以按绑定名覆盖，优先级最高。"
+  - q: "cf-billing-guard支持哪些Cloudflare服务？"
+    a: "内建适配器默认生效，支持 d1、kv、r2、queue、vectorize、analytics、ai、durable objects 等服务。但仅 d1 与 kv 经真实 Cloudflare 平台验证，其余服务适配器只通过 mock 测试，真实运行表现可能不同。"
+  - q: "cf-billing-guard能完全避免Cloudflare账单超额吗？"
+    a: "不能。cf-billing-guard 是尽力而为的账单防护，不是保证：无法探测的绑定类型不被计数；拦截调用可阻止后续用量，但不追回、也不封顶已产生的费用。作者不承担超额费用等责任。"
 ---
 ## 介绍
 Cloudflare Worker 虽然提供了大量的免费调用额度还还配套了非常多的持久化数据库服务，的这些服务在免费额度用完之后就会产生费用。最重要的是如果服务代码中出现**无限循环**，那么可能会导致账单迅速飙升，产生高额费用。已经有了非常多的先例：

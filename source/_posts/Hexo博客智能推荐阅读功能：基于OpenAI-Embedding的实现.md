@@ -18,6 +18,13 @@ keywords:
   - "Hexo 博客优化"
   - "embedding 教程"
   - "智能推荐 实现"
+faqs:
+  - q: "Hexo博客怎么添加基于OpenAI Embedding的智能推荐阅读功能？"
+    a: "实现需要两个脚本：generate-posts-data.js在构建时生成文章数据和推荐，recommended-posts.js在前端展示。构建脚本读取OpenAI API密钥，预处理文章内容，调用Embedding API计算向量，用余弦相似度计算文章相关性，生成JSON数据文件供前端使用。"
+  - q: "Hexo博客推荐阅读OpenAI Embedding缓存机制怎么减少API调用？"
+    a: "脚本会计算文章内容的MD5哈希值，检查缓存中是否存在相同哈希的Embedding，如果命中则直接复用，否则才调用API获取新Embedding并保存到embeddings_store/cache.json。这样只有文章内容变化时才会重新计算，减少API调用次数。"
+  - q: "Hexo博客推荐阅读前端脚本支持PJAX吗怎么配置？"
+    a: "recommended-posts.js通过监听pjax:complete事件，在页面切换时移除现有的推荐列表并重新初始化，实现PJAX局部刷新下的自动更新。同时脚本自带响应式样式，支持亮暗主题和移动端适配。"
 ---
 在浏览博客时，「推荐阅读」功能能够有效提升用户体验，帮助读者发现更多感兴趣的内容。本文将介绍如何为 Hexo 博客实现一个智能推荐阅读功能，它利用 OpenAI 的 Embedding 技术来计算文章之间的语义相似度，从而实现精准的内容推荐。
 

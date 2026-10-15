@@ -24,6 +24,13 @@ keywords:
   - "wallpaper怎么搜索作者"
   - "wallpaper创意工坊"
   - "wallpaper engine创意工坊"
+faqs:
+  - q: "Wallpaper Engine怎么搜索作者？"
+    a: "Wallpaper Engine本身不支持按名称直接搜索作者，但可以通过作者的Steam ID访问其创意工坊主页。如果你已有该作者的壁纸，打开壁纸详情页点击作者名称即可进入其创意工坊。如果只知道名字，需要先通过Steam用户搜索获取Steam ID，再构建创意工坊链接。"
+  - q: "Wallpaper Engine如何通过作者名字找到创意工坊？"
+    a: "访问Steam用户搜索页面，输入作者名称找到目标用户并进入个人主页。点击“查看账号主人装备的物品”按钮，从新页面URL中获取Steam ID数字。把这串数字替换到模板链接 https://steamcommunity.com/profiles/[Steam_ID]/myworkshopfiles/?appid=431960 中，打开即可访问该作者的创意工坊。"
+  - q: "已知一个壁纸怎么找Wallpaper Engine作者的其他作品？"
+    a: "在Steam创意工坊中打开该壁纸的详情页，点击作者名称进入其创意工坊主页，就能查看该作者的所有作品。你也可以复制浏览器顶部链接备用，格式为 https://steamcommunity.com/profiles/********/myworkshopfiles/?appid=431960。"
 ---
 ## 前言
 

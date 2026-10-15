@@ -20,6 +20,13 @@ keywords:
   - "Overleaf 邮箱不可用"
   - "LaTeX 自建 服务"
   - "Overleaf Docker 部署"
+faqs:
+  - q: "Overleaf本地部署忘记管理员密码怎么重置？"
+    a: "在登录页点击“Forgot your password?”输入邮箱触发重置流程，然后从容器日志里提取重置链接。执行 docker exec <container_name> bash -c \"cd /var/log/overleaf/ && cat web.log\" 并用 grep 过滤 password，拿到链接后打开，输入新密码点击“Set new password”即可。"
+  - q: "如何从Overleaf日志中获取密码重置链接？"
+    a: "运行 docker exec <container_name> bash -c \"cd /var/log/overleaf/ && cat web.log\" 并配合 grep 过滤 password，输出中会得到类似 http://localhost/user/password/set?passwordResetToken=******&email=****** 的链接，这就是重置密码入口。"
+  - q: "Overleaf重置密码链接里的localhost需要替换吗？"
+    a: "如果部署时没有设置 Overleaf 的域名，日志里拿到的重置密码链接会包含 localhost，需要把它替换为实际访问的域名后再打开。"
 ---
 ## 概述
 通过从Overleaf的日志中获取重置密码的链接并重置密码，实现无需邮箱重置管理员密码。

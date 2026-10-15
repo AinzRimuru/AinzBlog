@@ -17,6 +17,15 @@ keywords:
   - "Cloudflare Workers 开源项目"
   - "RSS 聚合"
   - "Friend Flow"
+faqs:
+  - q: "Friend Flow友链互助系统是什么？有什么功能？"
+    a: "Friend Flow是一个友链互助系统，能自动抓取友链博客的Atom/RSS Feed获取最近10篇文章，提供API和展示页面。它有5分钟TTL缓存、10秒抓取超时、连续失败3次冷却1小时等容错机制，还支持图片代理和灵活API。"
+  - q: "怎么把Friend Flow集成到Hexo博客友链页面？"
+    a: "以Hexo为例，在友链页面添加一个容器和一段JavaScript，通过fetch请求Friend Flow API，用exclude参数排除自己博客，获取数据后随机排列并渲染成卡片。完整示例可参考项目的GitHub仓库。"
+  - q: "Friend Flow的API怎么获取友链最新文章？"
+    a: "使用REST API，GET https://friend.rimuru.work/api/friend-links 获取全部友链及最近10篇文章。可用exclude参数排除指定URL（支持多次传参），limit参数控制返回数量并随机选取。返回JSON包含博客信息和recentArticles数组。"
+  - q: "Friend Flow是如何自动抓取友链博客文章的？"
+    a: "Friend Flow后端基于Cloudflare Workers + Hono，数据存Cloudflare D1。请求到达时检查5分钟TTL缓存，过期则并发刷新最多10个站点Feed。连续失败3次冷却1小时，30次停止请求时刷新，每天凌晨定时重试已停止的站点。"
 ---
 
 ## 项目简介

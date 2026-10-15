@@ -21,6 +21,15 @@ keywords:
   - "Windows 11 WebDAV 连接"
   - "Nextcloud 外部访问"
   - "public.php webdav"
+faqs:
+  - q: "Nextcloud分享文件夹怎么通过WebDAV访问？"
+    a: "首先在Nextcloud网页端为文件夹创建分享链接，得到类似https://*****/s/AaaAABbbBBCccCCC的链接。WebDAV访问地址是https://*****/public.php/webdav，用户名填分享链接唯一标识符AaaAABbbBBCccCCC，密码填你设置的访问密码，没设密码就不用填。"
+  - q: "Nextcloud WebDAV访问分享文件夹的用户名和密码是什么？"
+    a: "用户名是分享链接的唯一标识符，也就是链接中/s/后面的那串字符，例如AaaAABbbBBCccCCC。密码是你在分享链接自定义权限里设置的访问密码；如果创建分享时没有设置密码，则不需要填写密码。"
+  - q: "Windows 11怎么映射Nextcloud WebDAV网络驱动器？"
+    a: "在Windows 11的此电脑右键选择“映射网络驱动器”，在文件夹栏输入WebDAV地址https://*****/public.php/webdav，然后按提示输入分享链接唯一标识符作为用户名，以及访问密码（如果有设置）进行连接。"
+  - q: "Nextcloud分享链接的WebDAV地址是什么？"
+    a: "WebDAV地址是https://*****/public.php/webdav，其中*****替换成你的Nextcloud服务器地址。这个地址用于通过WebDAV协议访问你创建的分享文件夹，不是直接打开分享链接。"
 ---
 ## 1. 新建分享链接
 在 Nextcloud 网页端，选择需要分享的文件夹，创建共享链接可以以生成一个形如`https://*****/s/AaaAABbbBBCccCCC`的链接。其中`*****`为你的 Nextcloud 服务器地址，`AaaAABbbBBCccCCC`为分享链接的唯一标识符。

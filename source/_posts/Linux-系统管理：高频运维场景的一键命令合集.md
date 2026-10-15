@@ -21,6 +21,13 @@ keywords:
   - "Kubernetes 排错命令"
   - "containerd 运维技巧"
   - "Docker 运维"
+faqs:
+  - q: "Linux怎么查看所有硬盘的SMART健康状态？"
+    a: "先安装smartmontools，然后用lsblk列出存储设备，过滤出sd、hd、nvme、vd开头的设备，再用xargs配合smartctl -H查看每个硬盘的健康状态。一条命令：lsblk -d -o NAME | grep -E '^(sd|hd|nvme|vd)' | xargs -I {} sudo smartctl -H \"/dev/{}\"。"
+  - q: "如何定位Linux进程属于哪个Docker容器？"
+    a: "查看进程的cgroup信息，用grep提取docker-后面的12位容器ID，再用docker ps过滤出对应容器。命令：docker ps | grep $(sudo cat /proc/<pid>/cgroup | grep -oP 'docker-\\K[a-f0-9]+' | head -c 12)。注意替换<pid>为实际进程号。"
+  - q: "Kubernetes中怎么根据进程ID找到Pod名称？"
+    a: "先通过进程的cgroup信息提取容器ID前12位，然后用crictl inspect命令查询Pod名称。具体命令：crictl inspect -o go-template --template='{{index .status.labels \"io.kubernetes.pod.name\"}}' $(sudo cat /proc/<pid>/cgroup | grep pids | awk -F'/' '{print substr($NF,1,12)}')。注意需要安装crictl。"
 ---
 ## 查看所有硬盘的SMART详细信息
 
