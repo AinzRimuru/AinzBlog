@@ -34,6 +34,14 @@ jobs:
       - name: Update post timestamps
         run: pnpm exec hexo update-time
 
+      - name: Fill missing post metadata (LLM)
+        # 新文章元数据自动补全：已有字段自动跳过，失败不影响部署
+        continue-on-error: true
+        run: node tools/generate_metadata.js all --all
+        env:
+          OPENAI_API_ENDPOINT: ${{ secrets.OPENAI_API_ENDPOINT }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_LLM_MODEL: ${{ vars.OPENAI_LLM_MODEL }}
       - name: Build Theme Assets
         run: |
           cd themes/Kratos-Rebirth
