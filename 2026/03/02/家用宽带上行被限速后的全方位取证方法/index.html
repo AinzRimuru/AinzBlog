@@ -338,6 +338,44 @@
 <h2 id="限速特征取证（可选）"><a href="#限速特征取证（可选）" class="headerlink" title="限速特征取证（可选）"></a>限速特征取证（可选）</h2><p>为了尽可能的减少对用户体验的影响，运营商的限速机制通常时动态调整的，可能会在识别到特定特征时生效。比如，某些限速机制可能会在用户上传大量数据时触发。因此，在使用iperf3进行测速时，可以使用<code>-i</code>参数来设置报告间隔，以观察速率的变化趋势。在我的观察中，设置间隔为10秒时，速率会在第一个10秒内高于平均速率但仍然低于正常水平，而在10秒后速率会稳定在一个较低的水平。设置间隔为1s时，速率会在第一个1秒内接近正常水平，但随后迅速下降并稳定在一个较低的水平。不同的是，达到正常水平的时间点除第一个1秒外，还会在之后的某些时间点随机出现。这表明限速机制可能会在识别到特定特征时动态调整速率，而不是在整个测试过程中持续保持一个固定的速率水平。通过观察速率的变化趋势，可以进一步确认是否存在限速行为，并且可以提供更多的证据来支持投诉。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">家宽上行被限速怎么取证投诉？</summary>
+                    <div class="faq-a"><p>可以先多用Speedtest选不同服务器测速，如果下行正常但上行明显偏低，很可能被限速。有公网IP的话，找同城同运营商家宽用户用iperf3自建测速，IPv4或IPv6都行。再配合traceroute看路由，同小区跳数应很少，能确认责任在当地运营商。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">为什么Speedtest测速正常但上传还是很慢？</summary>
+                    <div class="faq-a"><p>可能是运营商用了域名白名单限速，Speedtest服务器在白名单里所以测速显示正常。可以换Speedtest里不同的测试服务器多测几次，如果下行正常但上行明显低于预期，就可能是被限速了。还可以用自建iperf3测速验证。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">iperf3测速怎么判断宽带被限速？</summary>
+                    <div class="faq-a"><p>用iperf3加-i参数设置报告间隔，比如10秒或1秒，观察速率变化。如果第一个10秒内速率高于平均速率但仍低于正常水平，或1秒间隔时速率先接近正常然后迅速下降并稳定在较低水平，说明可能存在动态限速。这些速率变化趋势可以作为投诉证据。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">traceroute能证明宽带限速是运营商的问题吗？</summary>
+                    <div class="faq-a"><p>自建测速时配合traceroute看路径，如果两条宽带在同一小区，路由跳数应该非常少，通常只经过一个运营商网关，说明流量没被转发到其他地方，基础设施都属于当地运营商，限速责任方只能是当地运营商。这样能排除干扰，增强取证可信度。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"家宽上行被限速怎么取证投诉？","acceptedAnswer":{"@type":"Answer","text":"可以先多用Speedtest选不同服务器测速，如果下行正常但上行明显偏低，很可能被限速。有公网IP的话，找同城同运营商家宽用户用iperf3自建测速，IPv4或IPv6都行。再配合traceroute看路由，同小区跳数应很少，能确认责任在当地运营商。"}},{"@type":"Question","name":"为什么Speedtest测速正常但上传还是很慢？","acceptedAnswer":{"@type":"Answer","text":"可能是运营商用了域名白名单限速，Speedtest服务器在白名单里所以测速显示正常。可以换Speedtest里不同的测试服务器多测几次，如果下行正常但上行明显低于预期，就可能是被限速了。还可以用自建iperf3测速验证。"}},{"@type":"Question","name":"iperf3测速怎么判断宽带被限速？","acceptedAnswer":{"@type":"Answer","text":"用iperf3加-i参数设置报告间隔，比如10秒或1秒，观察速率变化。如果第一个10秒内速率高于平均速率但仍低于正常水平，或1秒间隔时速率先接近正常然后迅速下降并稳定在较低水平，说明可能存在动态限速。这些速率变化趋势可以作为投诉证据。"}},{"@type":"Question","name":"traceroute能证明宽带限速是运营商的问题吗？","acceptedAnswer":{"@type":"Answer","text":"自建测速时配合traceroute看路径，如果两条宽带在同一小区，路由跳数应该非常少，通常只经过一个运营商网关，说明流量没被转发到其他地方，基础设施都属于当地运营商，限速责任方只能是当地运营商。这样能排除干扰，增强取证可信度。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

@@ -376,6 +376,39 @@
 <h2 id="3-补充"><a href="#3-补充" class="headerlink" title="3. 补充"></a>3. 补充</h2><h3 id="3-1-空间不够新建硬盘"><a href="#3-1-空间不够新建硬盘" class="headerlink" title="3.1 空间不够新建硬盘"></a>3.1 空间不够新建硬盘</h3><p>将vmdk和vmdk-flat文件一同拷贝到其他设备，在新设备上操作。如果是缩容，新建硬盘的操作也要在原始机器上新建后再拷贝出来，否则可能会出现vmdk虚拟机版本不兼容的问题。操作时如果提示需要转换vmdk文件切记不要转换！</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">VMware虚拟机硬盘扩容后df看不到空间变大怎么办</summary>
+                    <div class="faq-a"><p>这是因为只扩容了硬盘，还没扩容分区和文件系统。先用parted调整分区：parted /dev/设备，unit s，p free查看空闲扇区，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。再执行resize2fs /dev/设备分区号扩容文件系统，完成后df就能看到空间变大。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">虚拟机VMDK硬盘怎么缩容</summary>
+                    <div class="faq-a"><p>VMDK缩容不能在线操作，且可能丢数据，需先备份vmdk。先用resize2fs /dev/设备分区号 大小缩容文件系统；再用parted缩容分区，注意单位换算，建议按90%差异缩小；然后新建预期大小的硬盘，按原分区重新分区，用dd逐个复制分区；最后用gdisk和tune2fs修改UUID，移除源硬盘启动。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Linux EXT4分区扩容用什么命令</summary>
+                    <div class="faq-a"><p>文件系统扩容用resize2fs命令，如resize2fs /dev/sda1。分区扩容用parted：parted /dev/sda，unit s，p free，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。硬盘扩容直接在VMware中修改vmdk大小，但只能扩容不能直接缩小。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"VMware虚拟机硬盘扩容后df看不到空间变大怎么办","acceptedAnswer":{"@type":"Answer","text":"这是因为只扩容了硬盘，还没扩容分区和文件系统。先用parted调整分区：parted /dev/设备，unit s，p free查看空闲扇区，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。再执行resize2fs /dev/设备分区号扩容文件系统，完成后df就能看到空间变大。"}},{"@type":"Question","name":"虚拟机VMDK硬盘怎么缩容","acceptedAnswer":{"@type":"Answer","text":"VMDK缩容不能在线操作，且可能丢数据，需先备份vmdk。先用resize2fs /dev/设备分区号 大小缩容文件系统；再用parted缩容分区，注意单位换算，建议按90%差异缩小；然后新建预期大小的硬盘，按原分区重新分区，用dd逐个复制分区；最后用gdisk和tune2fs修改UUID，移除源硬盘启动。"}},{"@type":"Question","name":"Linux EXT4分区扩容用什么命令","acceptedAnswer":{"@type":"Answer","text":"文件系统扩容用resize2fs命令，如resize2fs /dev/sda1。分区扩容用parted：parted /dev/sda，unit s，p free，resizepart 分区号，输入空闲扇区最后一个扇区号s，quit。硬盘扩容直接在VMware中修改vmdk大小，但只能扩容不能直接缩小。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

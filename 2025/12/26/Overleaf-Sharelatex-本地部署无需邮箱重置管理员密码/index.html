@@ -341,6 +341,39 @@
 <h2 id="重置密码"><a href="#重置密码" class="headerlink" title="重置密码"></a>重置密码</h2><p>打开获取到的重置密码链接，然后输入新密码，点击<code>Set new password</code>。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Overleaf本地部署忘记管理员密码怎么重置？</summary>
+                    <div class="faq-a"><p>在登录页点击“Forgot your password?”输入邮箱触发重置流程，然后从容器日志里提取重置链接。执行 docker exec &lt;container_name&gt; bash -c &#34;cd /var/log/overleaf/ &amp;&amp; cat web.log&#34; 并用 grep 过滤 password，拿到链接后打开，输入新密码点击“Set new password”即可。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">如何从Overleaf日志中获取密码重置链接？</summary>
+                    <div class="faq-a"><p>运行 docker exec &lt;container_name&gt; bash -c &#34;cd /var/log/overleaf/ &amp;&amp; cat web.log&#34; 并配合 grep 过滤 password，输出中会得到类似 http://localhost/user/password/set?passwordResetToken=******&amp;email=****** 的链接，这就是重置密码入口。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Overleaf重置密码链接里的localhost需要替换吗？</summary>
+                    <div class="faq-a"><p>如果部署时没有设置 Overleaf 的域名，日志里拿到的重置密码链接会包含 localhost，需要把它替换为实际访问的域名后再打开。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Overleaf本地部署忘记管理员密码怎么重置？","acceptedAnswer":{"@type":"Answer","text":"在登录页点击“Forgot your password?”输入邮箱触发重置流程，然后从容器日志里提取重置链接。执行 docker exec <container_name> bash -c \"cd /var/log/overleaf/ && cat web.log\" 并用 grep 过滤 password，拿到链接后打开，输入新密码点击“Set new password”即可。"}},{"@type":"Question","name":"如何从Overleaf日志中获取密码重置链接？","acceptedAnswer":{"@type":"Answer","text":"运行 docker exec <container_name> bash -c \"cd /var/log/overleaf/ && cat web.log\" 并配合 grep 过滤 password，输出中会得到类似 http://localhost/user/password/set?passwordResetToken=******&email=****** 的链接，这就是重置密码入口。"}},{"@type":"Question","name":"Overleaf重置密码链接里的localhost需要替换吗？","acceptedAnswer":{"@type":"Answer","text":"如果部署时没有设置 Overleaf 的域名，日志里拿到的重置密码链接会包含 localhost，需要把它替换为实际访问的域名后再打开。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

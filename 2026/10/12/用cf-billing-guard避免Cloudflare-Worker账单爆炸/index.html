@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg">
 <meta property="article:published_time" content="2026-10-12T18:58:02.000Z">
-<meta property="article:modified_time" content="2026-10-15T10:45:51.563Z">
+<meta property="article:modified_time" content="2026-10-17T02:59:03.255Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="Cloudflare Workers">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-10-15T10:45:51.563Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-10-17T02:59:03.255Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -393,6 +393,44 @@
 </ul>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Cloudflare Worker账单爆炸怎么防止？</summary>
+                    <div class="faq-a"><p>可以用 cf-billing-guard 工具，安装后执行 npx cf-billing-guard enable 一键接线，它会覆盖 Worker 入口文件，对所有调用请求计数和限流，对单次请求的数据库等服务调用设置上限，从而防止账单异常增长。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">cf-billing-guard怎么配置D1和KV调用上限？</summary>
+                    <div class="faq-a"><p>在自动生成的 billing-guard.main.js 里，在 d1/kv 旁按类型各加一行，比如 d1: { maxCalls: 100 }、kv: { maxCalls: 100 }，未单列的类型回落到 defaults。也可以按绑定名覆盖，优先级最高。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">cf-billing-guard支持哪些Cloudflare服务？</summary>
+                    <div class="faq-a"><p>内建适配器默认生效，支持 d1、kv、r2、queue、vectorize、analytics、ai、durable objects 等服务。但仅 d1 与 kv 经真实 Cloudflare 平台验证，其余服务适配器只通过 mock 测试，真实运行表现可能不同。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">cf-billing-guard能完全避免Cloudflare账单超额吗？</summary>
+                    <div class="faq-a"><p>不能。cf-billing-guard 是尽力而为的账单防护，不是保证：无法探测的绑定类型不被计数；拦截调用可阻止后续用量，但不追回、也不封顶已产生的费用。作者不承担超额费用等责任。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Cloudflare Worker账单爆炸怎么防止？","acceptedAnswer":{"@type":"Answer","text":"可以用 cf-billing-guard 工具，安装后执行 npx cf-billing-guard enable 一键接线，它会覆盖 Worker 入口文件，对所有调用请求计数和限流，对单次请求的数据库等服务调用设置上限，从而防止账单异常增长。"}},{"@type":"Question","name":"cf-billing-guard怎么配置D1和KV调用上限？","acceptedAnswer":{"@type":"Answer","text":"在自动生成的 billing-guard.main.js 里，在 d1/kv 旁按类型各加一行，比如 d1: { maxCalls: 100 }、kv: { maxCalls: 100 }，未单列的类型回落到 defaults。也可以按绑定名覆盖，优先级最高。"}},{"@type":"Question","name":"cf-billing-guard支持哪些Cloudflare服务？","acceptedAnswer":{"@type":"Answer","text":"内建适配器默认生效，支持 d1、kv、r2、queue、vectorize、analytics、ai、durable objects 等服务。但仅 d1 与 kv 经真实 Cloudflare 平台验证，其余服务适配器只通过 mock 测试，真实运行表现可能不同。"}},{"@type":"Question","name":"cf-billing-guard能完全避免Cloudflare账单超额吗？","acceptedAnswer":{"@type":"Answer","text":"不能。cf-billing-guard 是尽力而为的账单防护，不是保证：无法探测的绑定类型不被计数；拦截调用可阻止后续用量，但不追回、也不封顶已产生的费用。作者不承担超额费用等责任。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -412,7 +450,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/cloudflare-workers/" rel="tag">Cloudflare Workers</a>, <a class="tag-none-link" href="/tags/cost-control/" rel="tag">成本控制</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-10-15T10:45:51.563Z" itemprop="dateModified">最后编辑：2026-10-15</time>
+                    <time datetime="2026-10-17T02:59:03.255Z" itemprop="dateModified">最后编辑：2026-10-17</time>
                 </div>
             </div>
         </footer>

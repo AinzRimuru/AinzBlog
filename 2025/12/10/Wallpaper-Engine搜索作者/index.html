@@ -371,6 +371,39 @@
 </ul>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Wallpaper Engine怎么搜索作者？</summary>
+                    <div class="faq-a"><p>Wallpaper Engine本身不支持按名称直接搜索作者，但可以通过作者的Steam ID访问其创意工坊主页。如果你已有该作者的壁纸，打开壁纸详情页点击作者名称即可进入其创意工坊。如果只知道名字，需要先通过Steam用户搜索获取Steam ID，再构建创意工坊链接。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Wallpaper Engine如何通过作者名字找到创意工坊？</summary>
+                    <div class="faq-a"><p>访问Steam用户搜索页面，输入作者名称找到目标用户并进入个人主页。点击“查看账号主人装备的物品”按钮，从新页面URL中获取Steam ID数字。把这串数字替换到模板链接 https://steamcommunity.com/profiles/[Steam_ID]/myworkshopfiles/?appid=431960 中，打开即可访问该作者的创意工坊。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">已知一个壁纸怎么找Wallpaper Engine作者的其他作品？</summary>
+                    <div class="faq-a"><p>在Steam创意工坊中打开该壁纸的详情页，点击作者名称进入其创意工坊主页，就能查看该作者的所有作品。你也可以复制浏览器顶部链接备用，格式为 https://steamcommunity.com/profiles/********/myworkshopfiles/?appid=431960。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Wallpaper Engine怎么搜索作者？","acceptedAnswer":{"@type":"Answer","text":"Wallpaper Engine本身不支持按名称直接搜索作者，但可以通过作者的Steam ID访问其创意工坊主页。如果你已有该作者的壁纸，打开壁纸详情页点击作者名称即可进入其创意工坊。如果只知道名字，需要先通过Steam用户搜索获取Steam ID，再构建创意工坊链接。"}},{"@type":"Question","name":"Wallpaper Engine如何通过作者名字找到创意工坊？","acceptedAnswer":{"@type":"Answer","text":"访问Steam用户搜索页面，输入作者名称找到目标用户并进入个人主页。点击“查看账号主人装备的物品”按钮，从新页面URL中获取Steam ID数字。把这串数字替换到模板链接 https://steamcommunity.com/profiles/[Steam_ID]/myworkshopfiles/?appid=431960 中，打开即可访问该作者的创意工坊。"}},{"@type":"Question","name":"已知一个壁纸怎么找Wallpaper Engine作者的其他作品？","acceptedAnswer":{"@type":"Answer","text":"在Steam创意工坊中打开该壁纸的详情页，点击作者名称进入其创意工坊主页，就能查看该作者的所有作品。你也可以复制浏览器顶部链接备用，格式为 https://steamcommunity.com/profiles/********/myworkshopfiles/?appid=431960。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

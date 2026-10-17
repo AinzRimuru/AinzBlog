@@ -367,6 +367,44 @@
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">https://github.com/AinzRimuru/HuggingfaceProxy</a></p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">国内访问Hugging Face下载模型太慢怎么办？</summary>
+                    <div class="faq-a"><p>可以使用HuggingfaceProxy这个基于Cloudflare Workers的反向代理加速服务。部署后直接访问你的代理域名，所有请求会自动转发到Hugging Face，无需额外配置。它还能智能处理CDN重定向，让模型页面、文件下载和API调用都走单一代理域名，从而解决访问慢和下载超时问题。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">HuggingfaceProxy怎么部署到Cloudflare Pages？</summary>
+                    <div class="faq-a"><p>先Fork项目仓库，然后在Cloudflare Dashboard创建Pages项目并连接你的GitHub仓库。之后推送代码到main分支，GitHub Actions会自动构建，Cloudflare Pages会自动拉取最新代码并部署。部署完成后会分配一个*.pages.dev域名，你也可以绑定自定义域名。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">HuggingfaceProxy的下载脚本怎么用？</summary>
+                    <div class="faq-a"><p>先用curl -O https://your-proxy.com/hf_downloader.py下载脚本，然后运行pip install requests tqdm安装依赖。下载模型时执行python hf_downloader.py 模型名，例如python hf_downloader.py bert-base-uncased。还支持--type model指定类型、--revision main指定版本、--workers 8设置并行数。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">为什么huggingface-cli搭配HuggingfaceProxy会下载失败？</summary>
+                    <div class="faq-a"><p>因为Cloudflare的缓存机制会覆盖或丢失Content-Length等关键头信息，导致huggingface-cli和snapshot_download这类客户端下载失败。所以项目不推荐搭配使用，建议改用HuggingfaceProxy自带的下载脚本，它支持并行下载和断点续传，能正常完成模型下载。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"国内访问Hugging Face下载模型太慢怎么办？","acceptedAnswer":{"@type":"Answer","text":"可以使用HuggingfaceProxy这个基于Cloudflare Workers的反向代理加速服务。部署后直接访问你的代理域名，所有请求会自动转发到Hugging Face，无需额外配置。它还能智能处理CDN重定向，让模型页面、文件下载和API调用都走单一代理域名，从而解决访问慢和下载超时问题。"}},{"@type":"Question","name":"HuggingfaceProxy怎么部署到Cloudflare Pages？","acceptedAnswer":{"@type":"Answer","text":"先Fork项目仓库，然后在Cloudflare Dashboard创建Pages项目并连接你的GitHub仓库。之后推送代码到main分支，GitHub Actions会自动构建，Cloudflare Pages会自动拉取最新代码并部署。部署完成后会分配一个*.pages.dev域名，你也可以绑定自定义域名。"}},{"@type":"Question","name":"HuggingfaceProxy的下载脚本怎么用？","acceptedAnswer":{"@type":"Answer","text":"先用curl -O https://your-proxy.com/hf_downloader.py下载脚本，然后运行pip install requests tqdm安装依赖。下载模型时执行python hf_downloader.py 模型名，例如python hf_downloader.py bert-base-uncased。还支持--type model指定类型、--revision main指定版本、--workers 8设置并行数。"}},{"@type":"Question","name":"为什么huggingface-cli搭配HuggingfaceProxy会下载失败？","acceptedAnswer":{"@type":"Answer","text":"因为Cloudflare的缓存机制会覆盖或丢失Content-Length等关键头信息，导致huggingface-cli和snapshot_download这类客户端下载失败。所以项目不推荐搭配使用，建议改用HuggingfaceProxy自带的下载脚本，它支持并行下载和断点续传，能正常完成模型下载。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

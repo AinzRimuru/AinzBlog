@@ -442,6 +442,44 @@
 <p>在线体验：<a target="_blank" rel="noopener" href="https://friend.rimuru.work/">https://friend.rimuru.work</a></p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Hexo博客如何接入Friend Flow友链联盟插件？</summary>
+                    <div class="faq-a"><p>在博客中新建 scripts/friend-flow-tag.js 作为插件入口注册 Hexo 标签，再把 style.css 和 template.js 放到 source/_data/friend-flow/ 目录。Hexo 会自动加载 scripts 下的 JS，之后用该标签插件一行代码就能在友链页面渲染卡片。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Friend Flow插件在Hexo中显示什么内容？</summary>
+                    <div class="faq-a"><p>会在友链页面渲染一组卡片，每张卡片包含友链博客的头像、名称和描述，以及该博客最新发布的文章列表（标题加日期）。每次加载时卡片顺序会随机排列。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Friend Flow插件如何适配亮色和暗色模式？</summary>
+                    <div class="faq-a"><p>样式通过 CSS 自定义属性做双层变量映射，优先使用 Kratos-Rebirth 主题的变量，其他主题则回退到内置默认值，因此能自动适配亮色/暗色模式，非该主题也能正常显示。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Friend Flow插件的文件应该放在Hexo博客的哪个目录？</summary>
+                    <div class="faq-a"><p>插件入口 friend-flow-tag.js 放在 scripts/ 目录，Hexo 在 generate 或 server 时会自动加载；style.css 和 template.js 放在 source/_data/friend-flow/ 下，避免被当作脚本执行。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hexo博客如何接入Friend Flow友链联盟插件？","acceptedAnswer":{"@type":"Answer","text":"在博客中新建 scripts/friend-flow-tag.js 作为插件入口注册 Hexo 标签，再把 style.css 和 template.js 放到 source/_data/friend-flow/ 目录。Hexo 会自动加载 scripts 下的 JS，之后用该标签插件一行代码就能在友链页面渲染卡片。"}},{"@type":"Question","name":"Friend Flow插件在Hexo中显示什么内容？","acceptedAnswer":{"@type":"Answer","text":"会在友链页面渲染一组卡片，每张卡片包含友链博客的头像、名称和描述，以及该博客最新发布的文章列表（标题加日期）。每次加载时卡片顺序会随机排列。"}},{"@type":"Question","name":"Friend Flow插件如何适配亮色和暗色模式？","acceptedAnswer":{"@type":"Answer","text":"样式通过 CSS 自定义属性做双层变量映射，优先使用 Kratos-Rebirth 主题的变量，其他主题则回退到内置默认值，因此能自动适配亮色/暗色模式，非该主题也能正常显示。"}},{"@type":"Question","name":"Friend Flow插件的文件应该放在Hexo博客的哪个目录？","acceptedAnswer":{"@type":"Answer","text":"插件入口 friend-flow-tag.js 放在 scripts/ 目录，Hexo 在 generate 或 server 时会自动加载；style.css 和 template.js 放在 source/_data/friend-flow/ 下，避免被当作脚本执行。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

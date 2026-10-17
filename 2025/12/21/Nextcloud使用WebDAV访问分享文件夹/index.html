@@ -338,6 +338,44 @@
 <h3 id="4-在文件管理器中访问"><a href="#4-在文件管理器中访问" class="headerlink" title="4 在文件管理器中访问"></a>4 在文件管理器中访问</h3><p>以 Windows11 为例，可以在此电脑右键选择“映射网络驱动器”，在文件夹栏中输入 WebDAV URL，并使用上述的用户名和密码进行连接。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Nextcloud分享文件夹怎么通过WebDAV访问？</summary>
+                    <div class="faq-a"><p>首先在Nextcloud网页端为文件夹创建分享链接，得到类似https://*****/s/AaaAABbbBBCccCCC的链接。WebDAV访问地址是https://*****/public.php/webdav，用户名填分享链接唯一标识符AaaAABbbBBCccCCC，密码填你设置的访问密码，没设密码就不用填。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Nextcloud WebDAV访问分享文件夹的用户名和密码是什么？</summary>
+                    <div class="faq-a"><p>用户名是分享链接的唯一标识符，也就是链接中/s/后面的那串字符，例如AaaAABbbBBCccCCC。密码是你在分享链接自定义权限里设置的访问密码；如果创建分享时没有设置密码，则不需要填写密码。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Windows 11怎么映射Nextcloud WebDAV网络驱动器？</summary>
+                    <div class="faq-a"><p>在Windows 11的此电脑右键选择“映射网络驱动器”，在文件夹栏输入WebDAV地址https://*****/public.php/webdav，然后按提示输入分享链接唯一标识符作为用户名，以及访问密码（如果有设置）进行连接。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Nextcloud分享链接的WebDAV地址是什么？</summary>
+                    <div class="faq-a"><p>WebDAV地址是https://*****/public.php/webdav，其中*****替换成你的Nextcloud服务器地址。这个地址用于通过WebDAV协议访问你创建的分享文件夹，不是直接打开分享链接。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Nextcloud分享文件夹怎么通过WebDAV访问？","acceptedAnswer":{"@type":"Answer","text":"首先在Nextcloud网页端为文件夹创建分享链接，得到类似https://*****/s/AaaAABbbBBCccCCC的链接。WebDAV访问地址是https://*****/public.php/webdav，用户名填分享链接唯一标识符AaaAABbbBBCccCCC，密码填你设置的访问密码，没设密码就不用填。"}},{"@type":"Question","name":"Nextcloud WebDAV访问分享文件夹的用户名和密码是什么？","acceptedAnswer":{"@type":"Answer","text":"用户名是分享链接的唯一标识符，也就是链接中/s/后面的那串字符，例如AaaAABbbBBCccCCC。密码是你在分享链接自定义权限里设置的访问密码；如果创建分享时没有设置密码，则不需要填写密码。"}},{"@type":"Question","name":"Windows 11怎么映射Nextcloud WebDAV网络驱动器？","acceptedAnswer":{"@type":"Answer","text":"在Windows 11的此电脑右键选择“映射网络驱动器”，在文件夹栏输入WebDAV地址https://*****/public.php/webdav，然后按提示输入分享链接唯一标识符作为用户名，以及访问密码（如果有设置）进行连接。"}},{"@type":"Question","name":"Nextcloud分享链接的WebDAV地址是什么？","acceptedAnswer":{"@type":"Answer","text":"WebDAV地址是https://*****/public.php/webdav，其中*****替换成你的Nextcloud服务器地址。这个地址用于通过WebDAV协议访问你创建的分享文件夹，不是直接打开分享链接。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

@@ -335,6 +335,39 @@
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>为解决这一问题，我在请求的过滤规则中加入了对站点二级域名的匹配，从而确保规则只会影响特定的二级域名，而不会波及整个一级域名下的其他网站和服务。调整后，站点恢复了正常的访问。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Cloudflare域名安全规则配置后网站除首页外全部403是什么原因？</summary>
+                    <div class="faq-a"><p>通常是规则作用在整个一级域名上，没有限定到特定二级域名。文章中的情况就是配置自定义规则时漏加了站点二级域名匹配，导致一级域名下所有请求被拦截，只有首页被放行。解决办法是在请求过滤规则中加入对应二级域名匹配，让规则只影响目标站点。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Cloudflare域名安全规则误伤同域名下其他网站怎么处理？</summary>
+                    <div class="faq-a"><p>如果规则影响了一级域名下所有网站和服务，说明过滤条件缺少二级域名限定。需要在请求过滤规则中加入站点二级域名的匹配条件，确保规则只对特定二级域名生效，避免波及整个一级域名下的其他网站。调整后访问即可恢复正常。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Cloudflare域名安全规则怎么只对特定二级域名生效？</summary>
+                    <div class="faq-a"><p>配置规则时要在请求过滤规则中加入站点二级域名的匹配。文章中的故障就是因为漏掉了这个匹配，导致规则作用于整个一级域名。补上二级域名匹配后，规则就只会影响该二级域名，其他网站和服务不再被拦截。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Cloudflare域名安全规则配置后网站除首页外全部403是什么原因？","acceptedAnswer":{"@type":"Answer","text":"通常是规则作用在整个一级域名上，没有限定到特定二级域名。文章中的情况就是配置自定义规则时漏加了站点二级域名匹配，导致一级域名下所有请求被拦截，只有首页被放行。解决办法是在请求过滤规则中加入对应二级域名匹配，让规则只影响目标站点。"}},{"@type":"Question","name":"Cloudflare域名安全规则误伤同域名下其他网站怎么处理？","acceptedAnswer":{"@type":"Answer","text":"如果规则影响了一级域名下所有网站和服务，说明过滤条件缺少二级域名限定。需要在请求过滤规则中加入站点二级域名的匹配条件，确保规则只对特定二级域名生效，避免波及整个一级域名下的其他网站。调整后访问即可恢复正常。"}},{"@type":"Question","name":"Cloudflare域名安全规则怎么只对特定二级域名生效？","acceptedAnswer":{"@type":"Answer","text":"配置规则时要在请求过滤规则中加入站点二级域名的匹配。文章中的故障就是因为漏掉了这个匹配，导致规则作用于整个一级域名。补上二级域名匹配后，规则就只会影响该二级域名，其他网站和服务不再被拦截。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

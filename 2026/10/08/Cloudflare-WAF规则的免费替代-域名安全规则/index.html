@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg">
 <meta property="article:published_time" content="2026-10-08T19:40:15.000Z">
-<meta property="article:modified_time" content="2026-10-15T10:45:51.303Z">
+<meta property="article:modified_time" content="2026-10-17T02:59:02.993Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="WAF">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare WAF规则的免费替代--域名安全规则","description":"介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。","keywords":"Cloudflare WAF 免费规则,Cloudflare 域名安全规则,Cloudflare 免费版 防CC,Cloudflare 速率限制规则,WAF 自定义规则,防CC 攻击 设置","image":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-08T19:40:15.000Z","dateModified":"2026-10-15T10:45:51.303Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare WAF规则的免费替代--域名安全规则","description":"介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。","keywords":"Cloudflare WAF 免费规则,Cloudflare 域名安全规则,Cloudflare 免费版 防CC,Cloudflare 速率限制规则,WAF 自定义规则,防CC 攻击 设置","image":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-08T19:40:15.000Z","dateModified":"2026-10-17T02:59:02.993Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -344,6 +344,44 @@
 <h3 id="说明文档"><a href="#说明文档" class="headerlink" title="说明文档"></a>说明文档</h3><p>更多关于域名安全规则的使用说明可以参考Cloudflare官方文档：<a target="_blank" rel="noopener" href="https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/">Rule expressions · Cloudflare Ruleset Engine docs</a>。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Cloudflare免费版没有WAF怎么设置IP访问限制和速率限制？</summary>
+                    <div class="faq-a"><p>可以使用域名安全规则里的自定义规则和速率限制规则来替代部分WAF功能。前提是域名已托管在Cloudflare，不能用pages.dev或workers.dev默认域名。进入域名概览，点击自己的域名，选择安全性下的安全规则即可配置。自定义规则能基于IP、请求头等字段做访问控制，速率限制规则可限制单位时间请求次数。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Cloudflare自定义规则怎么拦截爬虫保护Worker免费额度？</summary>
+                    <div class="faq-a"><p>在自定义规则里可以基于请求头字段设置条件。比如只允许访问首页、robots.txt等必要资源，对非脚本请求进行限制，其他请求会在到达Worker前被拦截，从而减少爬虫对Worker免费额度的消耗。文章里的Huggingface镜像站就是这么配置的。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Cloudflare免费账户只有一条速率限制规则怎么合并多个域名？</summary>
+                    <div class="faq-a"><p>免费账户确实只能配置一条速率限制规则，所以需要把多个独立接口或域名合并到同一条规则里。可以在速率限制规则中改用编辑表达式方式，用OR操作符把多个条件连接起来，比如将多个域名的速率限制规则合并为一条，还可以扩展到特定接口或请求头。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Cloudflare域名安全规则在哪里设置？需要什么条件？</summary>
+                    <div class="faq-a"><p>位置在Cloudflare域名概览里，点击自己的域名，进入安全性，再点击安全规则，就能看到自定义规则、速率限制规则和托管规则。前提是域名必须已经托管在Cloudflare，使用Worker或Page部署后提供的默认域名如your-subdomain.pages/workers.dev无法使用。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Cloudflare免费版没有WAF怎么设置IP访问限制和速率限制？","acceptedAnswer":{"@type":"Answer","text":"可以使用域名安全规则里的自定义规则和速率限制规则来替代部分WAF功能。前提是域名已托管在Cloudflare，不能用pages.dev或workers.dev默认域名。进入域名概览，点击自己的域名，选择安全性下的安全规则即可配置。自定义规则能基于IP、请求头等字段做访问控制，速率限制规则可限制单位时间请求次数。"}},{"@type":"Question","name":"Cloudflare自定义规则怎么拦截爬虫保护Worker免费额度？","acceptedAnswer":{"@type":"Answer","text":"在自定义规则里可以基于请求头字段设置条件。比如只允许访问首页、robots.txt等必要资源，对非脚本请求进行限制，其他请求会在到达Worker前被拦截，从而减少爬虫对Worker免费额度的消耗。文章里的Huggingface镜像站就是这么配置的。"}},{"@type":"Question","name":"Cloudflare免费账户只有一条速率限制规则怎么合并多个域名？","acceptedAnswer":{"@type":"Answer","text":"免费账户确实只能配置一条速率限制规则，所以需要把多个独立接口或域名合并到同一条规则里。可以在速率限制规则中改用编辑表达式方式，用OR操作符把多个条件连接起来，比如将多个域名的速率限制规则合并为一条，还可以扩展到特定接口或请求头。"}},{"@type":"Question","name":"Cloudflare域名安全规则在哪里设置？需要什么条件？","acceptedAnswer":{"@type":"Answer","text":"位置在Cloudflare域名概览里，点击自己的域名，进入安全性，再点击安全规则，就能看到自定义规则、速率限制规则和托管规则。前提是域名必须已经托管在Cloudflare，使用Worker或Page部署后提供的默认域名如your-subdomain.pages/workers.dev无法使用。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -363,7 +401,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/waf/" rel="tag">WAF</a>, <a class="tag-none-link" href="/tags/web-security/" rel="tag">Web安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-10-15T10:45:51.303Z" itemprop="dateModified">最后编辑：2026-10-15</time>
+                    <time datetime="2026-10-17T02:59:02.993Z" itemprop="dateModified">最后编辑：2026-10-17</time>
                 </div>
             </div>
         </footer>

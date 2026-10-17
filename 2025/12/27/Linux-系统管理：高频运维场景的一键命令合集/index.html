@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png">
 <meta property="article:published_time" content="2025-12-27T16:45:03.000Z">
-<meta property="article:modified_time" content="2026-10-15T10:45:51.350Z">
+<meta property="article:modified_time" content="2026-10-17T02:59:03.041Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Kubernetes">
@@ -47,7 +47,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Linux 系统管理：高频运维场景的一键命令合集","description":"本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。","keywords":"Linux 运维命令,smartctl 硬盘健康检查,PID 查找容器,Kubernetes 排错命令,containerd 运维技巧,Docker 运维","image":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-27T16:45:03.000Z","dateModified":"2026-10-15T10:45:51.350Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Linux 系统管理：高频运维场景的一键命令合集","description":"本文汇总了Linux系统运维中的高频一键命令，涵盖使用smartmontools查看硬盘SMART健康状态，以及在Docker、Containerd和Kubernetes环境下通过进程PID快速定位所属容器或Pod的实用技巧。适合系统管理员与DevOps工程师提升日常排错效率。","keywords":"Linux 运维命令,smartctl 硬盘健康检查,PID 查找容器,Kubernetes 排错命令,containerd 运维技巧,Docker 运维","image":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2025-12-27T16:45:03.000Z","dateModified":"2026-10-17T02:59:03.041Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2025/12/27/Linux-%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%EF%BC%9A%E9%AB%98%E9%A2%91%E8%BF%90%E7%BB%B4%E5%9C%BA%E6%99%AF%E7%9A%84%E4%B8%80%E9%94%AE%E5%91%BD%E4%BB%A4%E5%90%88%E9%9B%86/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -357,6 +357,39 @@
 <h4 id="Kubernetes获取Pod名称"><a href="#Kubernetes获取Pod名称" class="headerlink" title="Kubernetes获取Pod名称"></a>Kubernetes获取Pod名称</h4><p>使用<code>crictl</code>根据容器ID获取Pod名称。其中容器ID为上一步获取到的12位ID。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crictl inspect -o go-template --template=<span class="string">&#x27;&#123;&#123;index .status.labels &quot;io.kubernetes.pod.name&quot;&#125;&#125;&#x27;</span> $(<span class="built_in">sudo</span> <span class="built_in">cat</span> /proc/&lt;pid&gt;/cgroup | grep pids | awk -F<span class="string">&#x27;/&#x27;</span> <span class="string">&#x27;&#123;print substr($NF,1,12)&#125;&#x27;</span>)</span><br></pre></td></tr></table></figure></div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Linux怎么查看所有硬盘的SMART健康状态？</summary>
+                    <div class="faq-a"><p>先安装smartmontools，然后用lsblk列出存储设备，过滤出sd、hd、nvme、vd开头的设备，再用xargs配合smartctl -H查看每个硬盘的健康状态。一条命令：lsblk -d -o NAME | grep -E &#39;^(sd|hd|nvme|vd)&#39; | xargs -I {} sudo smartctl -H &#34;/dev/{}&#34;。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">如何定位Linux进程属于哪个Docker容器？</summary>
+                    <div class="faq-a"><p>查看进程的cgroup信息，用grep提取docker-后面的12位容器ID，再用docker ps过滤出对应容器。命令：docker ps | grep $(sudo cat /proc/&lt;pid&gt;/cgroup | grep -oP &#39;docker-\K[a-f0-9]+&#39; | head -c 12)。注意替换&lt;pid&gt;为实际进程号。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Kubernetes中怎么根据进程ID找到Pod名称？</summary>
+                    <div class="faq-a"><p>先通过进程的cgroup信息提取容器ID前12位，然后用crictl inspect命令查询Pod名称。具体命令：crictl inspect -o go-template --template=&#39;{{index .status.labels &#34;io.kubernetes.pod.name&#34;}}&#39; $(sudo cat /proc/&lt;pid&gt;/cgroup | grep pids | awk -F&#39;/&#39; &#39;{print substr($NF,1,12)}&#39;)。注意需要安装crictl。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Linux怎么查看所有硬盘的SMART健康状态？","acceptedAnswer":{"@type":"Answer","text":"先安装smartmontools，然后用lsblk列出存储设备，过滤出sd、hd、nvme、vd开头的设备，再用xargs配合smartctl -H查看每个硬盘的健康状态。一条命令：lsblk -d -o NAME | grep -E '^(sd|hd|nvme|vd)' | xargs -I {} sudo smartctl -H \"/dev/{}\"。"}},{"@type":"Question","name":"如何定位Linux进程属于哪个Docker容器？","acceptedAnswer":{"@type":"Answer","text":"查看进程的cgroup信息，用grep提取docker-后面的12位容器ID，再用docker ps过滤出对应容器。命令：docker ps | grep $(sudo cat /proc/<pid>/cgroup | grep -oP 'docker-\\K[a-f0-9]+' | head -c 12)。注意替换<pid>为实际进程号。"}},{"@type":"Question","name":"Kubernetes中怎么根据进程ID找到Pod名称？","acceptedAnswer":{"@type":"Answer","text":"先通过进程的cgroup信息提取容器ID前12位，然后用crictl inspect命令查询Pod名称。具体命令：crictl inspect -o go-template --template='{{index .status.labels \"io.kubernetes.pod.name\"}}' $(sudo cat /proc/<pid>/cgroup | grep pids | awk -F'/' '{print substr($NF,1,12)}')。注意需要安装crictl。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
@@ -376,7 +409,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/kubernetes/" rel="tag">Kubernetes</a>, <a class="tag-none-link" href="/tags/linux/" rel="tag">Linux</a>, <a class="tag-none-link" href="/tags/tutorial/" rel="tag">教程</a>, <a class="tag-none-link" href="/tags/managing-disks/" rel="tag">磁盘管理</a>, <a class="tag-none-link" href="/tags/system-monitoring/" rel="tag">系统监控</a>, <a class="tag-none-link" href="/tags/ops-commands/" rel="tag">运维命令</a>, <a class="tag-none-link" href="/tags/problem-solving/" rel="tag">问题解决</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-10-15T10:45:51.350Z" itemprop="dateModified">最后编辑：2026-10-15</time>
+                    <time datetime="2026-10-17T02:59:03.041Z" itemprop="dateModified">最后编辑：2026-10-17</time>
                 </div>
             </div>
         </footer>

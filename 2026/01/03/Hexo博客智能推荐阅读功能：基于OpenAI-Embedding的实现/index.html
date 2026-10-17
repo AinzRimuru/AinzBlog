@@ -550,6 +550,39 @@
 <p>希望这个方案能够帮助你提升博客的用户体验！如有问题欢迎在评论区讨论。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Hexo博客怎么添加基于OpenAI Embedding的智能推荐阅读功能？</summary>
+                    <div class="faq-a"><p>实现需要两个脚本：generate-posts-data.js在构建时生成文章数据和推荐，recommended-posts.js在前端展示。构建脚本读取OpenAI API密钥，预处理文章内容，调用Embedding API计算向量，用余弦相似度计算文章相关性，生成JSON数据文件供前端使用。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Hexo博客推荐阅读OpenAI Embedding缓存机制怎么减少API调用？</summary>
+                    <div class="faq-a"><p>脚本会计算文章内容的MD5哈希值，检查缓存中是否存在相同哈希的Embedding，如果命中则直接复用，否则才调用API获取新Embedding并保存到embeddings_store/cache.json。这样只有文章内容变化时才会重新计算，减少API调用次数。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Hexo博客推荐阅读前端脚本支持PJAX吗怎么配置？</summary>
+                    <div class="faq-a"><p>recommended-posts.js通过监听pjax:complete事件，在页面切换时移除现有的推荐列表并重新初始化，实现PJAX局部刷新下的自动更新。同时脚本自带响应式样式，支持亮暗主题和移动端适配。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hexo博客怎么添加基于OpenAI Embedding的智能推荐阅读功能？","acceptedAnswer":{"@type":"Answer","text":"实现需要两个脚本：generate-posts-data.js在构建时生成文章数据和推荐，recommended-posts.js在前端展示。构建脚本读取OpenAI API密钥，预处理文章内容，调用Embedding API计算向量，用余弦相似度计算文章相关性，生成JSON数据文件供前端使用。"}},{"@type":"Question","name":"Hexo博客推荐阅读OpenAI Embedding缓存机制怎么减少API调用？","acceptedAnswer":{"@type":"Answer","text":"脚本会计算文章内容的MD5哈希值，检查缓存中是否存在相同哈希的Embedding，如果命中则直接复用，否则才调用API获取新Embedding并保存到embeddings_store/cache.json。这样只有文章内容变化时才会重新计算，减少API调用次数。"}},{"@type":"Question","name":"Hexo博客推荐阅读前端脚本支持PJAX吗怎么配置？","acceptedAnswer":{"@type":"Answer","text":"recommended-posts.js通过监听pjax:complete事件，在页面切换时移除现有的推荐列表并重新初始化，实现PJAX局部刷新下的自动更新。同时脚本自带响应式样式，支持亮暗主题和移动端适配。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">

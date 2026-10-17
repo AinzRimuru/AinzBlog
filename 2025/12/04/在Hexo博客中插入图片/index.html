@@ -355,6 +355,39 @@
 <p>这样可以确保Hexo在渲染Markdown时正确处理图片路径，避免加载失败的问题。</p>
 </div>
             
+            <section class="kratos-post-faq" id="faq">
+                <style>
+                .kratos-post-faq{margin:2em 0;padding:1.2em 1.4em;border:1px solid var(--border-color,#e0e0e0);border-radius:8px;background:var(--bg-color-overlay,rgba(0,0,0,.015))}
+                .kratos-post-faq h2{margin:.2em 0 .8em;font-size:1.35em;border:none}
+                .kratos-post-faq details{border-top:1px dashed var(--border-color,#e0e0e0);padding:.6em .2em}
+                .kratos-post-faq details:first-of-type{border-top:none}
+                .kratos-post-faq summary{cursor:pointer;font-weight:600;line-height:1.6}
+                .kratos-post-faq summary:hover{color:var(--theme-color,#4a90e2)}
+                .kratos-post-faq .faq-a{padding:.4em .2em .2em;color:var(--text-color,#555);line-height:1.8;overflow:hidden}
+                .kratos-post-faq .faq-a p{margin:.4em 0}
+                </style>
+                <h2>常见问题</h2>
+                
+                <details class="faq-item" open>
+                    <summary class="faq-q">Hexo博客怎么在文章里插入图片？</summary>
+                    <div class="faq-a"><p>可以有两种方式：一是把图片放到 source/images/ 目录下，在 Markdown 中用 ![图片描述](/images/your-image.png) 引用；二是启用 post_asset_folder，把图片放在文章同名文件夹里，用相对路径 ![图片描述](your-image.png) 引用。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Hexo post_asset_folder 怎么配置和使用？</summary>
+                    <div class="faq-a"><p>在 Hexo 配置文件 _config.yml 中把 post_asset_folder 设为 true。之后新建文章时 Hexo 会自动创建同名文件夹，把图片放进去，在 Markdown 中用相对路径 ![图片描述](your-image.png) 引用即可。</p></div>
+                </details>
+                
+                <details class="faq-item">
+                    <summary class="faq-q">Hexo 图片显示不出来或路径错误怎么解决？</summary>
+                    <div class="faq-a"><p>部分项目会尝试从根目录加载图片导致失败，可以在 _config.yml 中添加 marked 配置，设置 prependRoot: true 和 postAsset: true，这样 Hexo 渲染 Markdown 时会正确处理图片路径，避免加载失败。</p></div>
+                </details>
+                
+            </section>
+            <script type="application/ld+json">
+            {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hexo博客怎么在文章里插入图片？","acceptedAnswer":{"@type":"Answer","text":"可以有两种方式：一是把图片放到 source/images/ 目录下，在 Markdown 中用 ![图片描述](/images/your-image.png) 引用；二是启用 post_asset_folder，把图片放在文章同名文件夹里，用相对路径 ![图片描述](your-image.png) 引用。"}},{"@type":"Question","name":"Hexo post_asset_folder 怎么配置和使用？","acceptedAnswer":{"@type":"Answer","text":"在 Hexo 配置文件 _config.yml 中把 post_asset_folder 设为 true。之后新建文章时 Hexo 会自动创建同名文件夹，把图片放进去，在 Markdown 中用相对路径 ![图片描述](your-image.png) 引用即可。"}},{"@type":"Question","name":"Hexo 图片显示不出来或路径错误怎么解决？","acceptedAnswer":{"@type":"Answer","text":"部分项目会尝试从根目录加载图片导致失败，可以在 _config.yml 中添加 marked 配置，设置 prependRoot: true 和 postAsset: true，这样 Hexo 渲染 Markdown 时会正确处理图片路径，避免加载失败。"}}]}
+            </script>
+            
         </div>
         
         <footer class="kratos-entry-footer clearfix">
