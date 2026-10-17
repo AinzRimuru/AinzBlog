@@ -117,13 +117,13 @@ async function run(args) {
       // 抽查：首页 + sitemap 中近期几页
       const sm = await fetch(site2 + '/sitemap.xml').then(r => r.text()).catch(() => '');
       const locs = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-      targets.push(site2 + '/', ...(locs.filter(u => /2026\/10/.test(u)).slice(0, 2)), ...(locs.filter(u => /2026\/03/.test(u)).slice(0, 1)));
+      targets.push(site2.replace(/\/+$/, '/') , ...(locs.filter(u => /2026\/10/.test(u)).slice(0, 2)), ...(locs.filter(u => /2026\/03/.test(u)).slice(0, 1)));
     }
     console.error(`[inspect] 检查 ${targets.length} 个 URL`);
     for (const u of targets) {
       const d = await gscApi(token, 'v1/urlInspection/index:inspect', { inspectionUrl: u, siteUrl: site2, languageCode: 'zh-CN' });
       const r = d.inspectionResult || {};
-      const idx = r.indexStatus || {};
+      const idx = r.indexStatusResult || {};
       console.log(`\n● ${decodeURIComponent(u)}`);
       console.log(`  结论: ${idx.verdict || 'n/a'} | 索引: ${idx.coverageState || 'n/a'} | robotsTxt: ${idx.robotsTxtState || 'n/a'} | 抓取: ${idx.pageFetchState || 'n/a'} | canonical: ${idx.googleCanonical || 'n/a'}`);
       console.log(`  最后抓取: ${idx.lastCrawlTime || '从未'} | 上次出现: ${idx.lastSeen || 'n/a'}`);
