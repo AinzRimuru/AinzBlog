@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:48.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:07:00.694Z">
+<meta property="article:modified_time" content="2026-11-02T11:13:51.422Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Docker Compose">
@@ -44,7 +44,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（三）容器化部署：Docker Compose 实践","description":"本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。","keywords":"NAS Docker 部署,Docker Compose 容器管理,Docker 数据持久化,Docker 网络隔离,容器资源限制,NAS 容器化 最佳实践","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:48.000Z","dateModified":"2026-11-02T11:07:00.694Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（三）容器化部署：Docker Compose 实践","description":"本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。","keywords":"NAS Docker 部署,Docker Compose 容器管理,Docker 数据持久化,Docker 网络隔离,容器资源限制,NAS 容器化 最佳实践","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:48.000Z","dateModified":"2026-11-02T11:13:51.422Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -410,7 +410,7 @@
 <p>这条命令会清理所有未被使用的镜像、容器、网络和构建缓存。建议定期执行，释放磁盘空间。<code>-a</code>参数会连同没有容器使用的镜像一起清理，如果你确定没有手动拉取的镜像需要保留，可以放心使用。</p>
 <p><strong>备份compose文件</strong></p>
 <p>所有容器的配置都写在<code>docker-compose.yml</code>里，这个文件就是你的”容器清单”。确保它和重要数据一起被备份——NAS重装系统后，只要恢复compose文件和挂载数据目录，所有服务就能快速重建。</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -469,7 +469,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-compose/" rel="tag">Docker Compose</a>, <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/containerization/" rel="tag">容器化</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:07:00.694Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:13:51.422Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>

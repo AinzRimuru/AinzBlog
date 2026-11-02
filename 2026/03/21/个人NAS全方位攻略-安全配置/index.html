@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:47.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:07:00.661Z">
+<meta property="article:modified_time" content="2026-11-02T11:13:51.384Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="NAS">
 <meta property="article:tag" content="RAID">
@@ -43,7 +43,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","keywords":"NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-11-02T11:07:00.661Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","keywords":"NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-11-02T11:13:51.384Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -653,7 +653,7 @@
 <p>如果数据确实重要，及时寻求专业数据恢复服务。物理故障（异响、无法识别）需要无尘室开盘恢复，逻辑故障（误删、格式化）可以通过专业软件处理。无论哪种情况，越早处理，恢复的可能性越大。</p>
 <h3 id="2-5-断电保护"><a href="#2-5-断电保护" class="headerlink" title="2.5.断电保护"></a>2.5.断电保护</h3><p>NAS在运行过程中突然断电，可能导致正在写入的数据损坏、文件系统错误，严重时甚至引发RAID阵列降级。UPS（不间断电源）可以在断电后为NAS提供一段时间的电力供应，让系统有足够的时间安全关机，避免数据损失。</p>
 <p>选择UPS时根据NAS的实际功耗来匹配容量，一般选择能提供10-15分钟续航的型号就足够完成安全关机了。配合NAS或系统的自动关机脚本（检测到UPS切换到电池供电后延时关机），可以在无人值守的情况下也能从容应对断电。预算充足的话建议配置，预算有限的话至少确保NAS接在有浪涌保护功能的插座上。</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -707,7 +707,7 @@
                     <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/raid/" rel="tag">RAID</a>, <a class="tag-none-link" href="/tags/data-backup/" rel="tag">数据备份</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:07:00.661Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:13:51.384Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>

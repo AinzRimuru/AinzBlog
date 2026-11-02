@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.rimuru.work/services/</loc>
-    
-    <lastmod>2026-11-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/tags/</loc>
     
     <lastmod>2026-11-02</lastmod>
@@ -29,16 +20,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/friends/</loc>
-    
-    <lastmod>2026-11-02</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/about/</loc>
+    <loc>https://blog.rimuru.work/services/</loc>
     
     <lastmod>2026-11-02</lastmod>
     
@@ -57,6 +39,24 @@
   
   <url>
     <loc>https://blog.rimuru.work/contact/</loc>
+    
+    <lastmod>2026-11-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/about/</loc>
+    
+    <lastmod>2026-11-02</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/friends/</loc>
     
     <lastmod>2026-11-02</lastmod>
     
@@ -423,20 +423,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/tags/tutorial/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/javascript/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/tags/docker/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -479,6 +465,20 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/tutorial/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/javascript/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/hexo/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -501,34 +501,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/model-download/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/jetbrains/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/student-license/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/educational-discount/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/account-linking/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -564,6 +536,34 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/system-monitoring/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/jetbrains/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/student-license/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/educational-discount/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/account-linking/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1013,13 +1013,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/categories/blogging/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/categories/self-hosted/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -1027,7 +1020,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/categories/troubleshooting/</loc>
+    <loc>https://blog.rimuru.work/categories/blogging/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1035,6 +1028,13 @@
   
   <url>
     <loc>https://blog.rimuru.work/categories/tech-notes/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/categories/troubleshooting/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

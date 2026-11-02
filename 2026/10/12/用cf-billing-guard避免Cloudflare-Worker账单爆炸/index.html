@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg">
 <meta property="article:published_time" content="2026-10-12T18:58:02.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:07:00.835Z">
+<meta property="article:modified_time" content="2026-11-02T11:13:51.581Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="Cloudflare Workers">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-11-02T11:07:00.835Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-11-02T11:13:51.581Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -408,7 +408,7 @@
 <li>本库与 Cloudflare 无隶属、赞助或背书关系。”Cloudflare”、”Workers”、”D1”、”R2”、”Durable Objects” 等名称及商标归其各自所有者。</li>
 <li>本库按 MIT 许可证原样提供，作者不对因使用本库产生的任何超额费用、服务中断、数据丢失或其他损失承担责任。</li>
 </ul>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -467,7 +467,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/cloudflare-workers/" rel="tag">Cloudflare Workers</a>, <a class="tag-none-link" href="/tags/cost-control/" rel="tag">成本控制</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:07:00.835Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:13:51.581Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>
