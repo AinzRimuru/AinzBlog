@@ -140,15 +140,24 @@
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <!-- Google AdSense Account Verification -->
 <meta name="google-adsense-account" content="ca-pub-9760626627924711">
-<!-- Google Consent Mode v2 - analytics granted by default -->
+<!-- Google Consent Mode v2 - 区域化默认：非欧洲地区默认授予，EEA/英国/瑞士默认拒绝 -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // 非欧洲地区：无需同意即可正常投放（Limited Ads 不支持 fluid 广告格式，默认拒绝会导致空填充）
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+  // 欧洲经济区 + 英国 + 瑞士：默认拒绝，等待用户选择
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'analytics_storage': 'granted'
+    'analytics_storage': 'granted',
+    'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','CH','GB']
   });
 </script>
 <!-- Cookie Consent Banner CSS -->

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/images/favicon.png">
 <meta property="article:published_time" content="2026-07-11T12:00:00.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:39:14.390Z">
+<meta property="article:modified_time" content="2026-11-02T11:48:02.135Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare教程,NAS,自托管服务,Docker,Hexo博客,Linux运维,内网穿透,Docker镜像加速,Hugging Face镜像,城市天际线2,技术博客,疑难排查">
 <meta name="twitter:card" content="summary">
@@ -129,15 +129,24 @@
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <!-- Google AdSense Account Verification -->
 <meta name="google-adsense-account" content="ca-pub-9760626627924711">
-<!-- Google Consent Mode v2 - analytics granted by default -->
+<!-- Google Consent Mode v2 - 区域化默认：非欧洲地区默认授予，EEA/英国/瑞士默认拒绝 -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // 非欧洲地区：无需同意即可正常投放（Limited Ads 不支持 fluid 广告格式，默认拒绝会导致空填充）
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+  // 欧洲经济区 + 英国 + 瑞士：默认拒绝，等待用户选择
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'analytics_storage': 'granted'
+    'analytics_storage': 'granted',
+    'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','CH','GB']
   });
 </script>
 <!-- Cookie Consent Banner CSS -->
@@ -392,7 +401,7 @@
             
             <div class="footer-tag clearfix">
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:39:14.390Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:48:02.135Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>

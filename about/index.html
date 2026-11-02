@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/images/favicon.png">
 <meta property="article:published_time" content="2025-12-24T22:20:00.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:39:14.353Z">
+<meta property="article:modified_time" content="2026-11-02T11:48:02.092Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare教程,NAS,自托管服务,Docker,Hexo博客,Linux运维,内网穿透,Docker镜像加速,Hugging Face镜像,城市天际线2,技术博客,疑难排查">
 <meta name="twitter:card" content="summary">
@@ -129,15 +129,24 @@
 <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
 <!-- Google AdSense Account Verification -->
 <meta name="google-adsense-account" content="ca-pub-9760626627924711">
-<!-- Google Consent Mode v2 - analytics granted by default -->
+<!-- Google Consent Mode v2 - 区域化默认：非欧洲地区默认授予，EEA/英国/瑞士默认拒绝 -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  // 非欧洲地区：无需同意即可正常投放（Limited Ads 不支持 fluid 广告格式，默认拒绝会导致空填充）
+  gtag('consent', 'default', {
+    'ad_storage': 'granted',
+    'ad_user_data': 'granted',
+    'ad_personalization': 'granted',
+    'analytics_storage': 'granted'
+  });
+  // 欧洲经济区 + 英国 + 瑞士：默认拒绝，等待用户选择
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
-    'analytics_storage': 'granted'
+    'analytics_storage': 'granted',
+    'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','CH','GB']
   });
 </script>
 <!-- Cookie Consent Banner CSS -->
@@ -359,7 +368,7 @@
 </tr>
 </tbody></table>
 <h3 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h3><ul>
-<li><strong>Email</strong>: <a href="mailto:&#x61;&#x64;&#x6d;&#105;&#110;&#64;&#114;&#x69;&#109;&#117;&#114;&#117;&#x2e;&#119;&#x6f;&#114;&#107;">admin@rimuru.work</a></li>
+<li><strong>Email</strong>: <a href="mailto:&#x61;&#x64;&#109;&#105;&#110;&#64;&#114;&#105;&#109;&#117;&#x72;&#117;&#46;&#x77;&#x6f;&#x72;&#x6b;">admin@rimuru.work</a></li>
 <li><strong>GitHub</strong>: <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru">AinzRimuru</a></li>
 <li><strong>Issues</strong>: <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/AinzBlog/issues">提交问题或建议</a></li>
 </ul>
@@ -380,7 +389,7 @@
             
             <div class="footer-tag clearfix">
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:39:14.353Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:48:02.092Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>
