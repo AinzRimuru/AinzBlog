@@ -97,15 +97,13 @@
     <!-- IndexNow -->
 <meta name="indexnow-key" content="ef9e736ebb984053bdc3d18cf250bfa0">
 <!-- Preconnect hints for faster resource loading -->
-<link rel="preconnect" href="https://cdn.rimuru.work" crossorigin>
-<link rel="dns-prefetch" href="https://cdn.rimuru.work">
 <!-- CWD 评论系统资源预连接 -->
 <link rel="preconnect" href="https://cwd-api.rimuru.work" crossorigin>
 <link rel="dns-prefetch" href="https://cwd-api.rimuru.work">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-<link rel="preconnect" href="https://analytics.rimuru.work" crossorigin>
-<link rel="dns-prefetch" href="https://analytics.rimuru.work">
+<link rel="preconnect" href="https://leantrace.rimuru.work" crossorigin>
+<link rel="dns-prefetch" href="https://leantrace.rimuru.work">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin>
@@ -295,7 +293,7 @@
             
         </header>
         <div class="kratos-page-content kr-page">
-            <div itemprop="articleBody"><h2 id="隐私政策"><a href="#隐私政策" class="headerlink" title="隐私政策"></a>隐私政策</h2><p><strong>最后更新日期</strong>: 2026年3月22日</p>
+            <div itemprop="articleBody"><h2 id="隐私政策"><a href="#隐私政策" class="headerlink" title="隐私政策"></a>隐私政策</h2><p><strong>最后更新日期</strong>: 2026年10月27日</p>
 <p>感谢您访问 Rimuru’s Blog（以下简称”本站”）。本隐私政策旨在说明本站如何收集、使用和保护您的个人信息。</p>
 <h3 id="1-信息收集"><a href="#1-信息收集" class="headerlink" title="1. 信息收集"></a>1. 信息收集</h3><h4 id="1-1-自动收集的信息"><a href="#1-1-自动收集的信息" class="headerlink" title="1.1 自动收集的信息"></a>1.1 自动收集的信息</h4><p>当您访问本站时，我们可能会自动收集以下信息：</p>
 <ul>
@@ -336,6 +334,11 @@
 <td>CDN 加速和安全防护</td>
 <td><a target="_blank" rel="noopener" href="https://www.cloudflare.com/privacypolicy/">Cloudflare 隐私政策</a></td>
 </tr>
+<tr>
+<td><strong>LeanTrace</strong>（本站自建）</td>
+<td>站内访问统计（PV&#x2F;UV），明文 IP 不落库</td>
+<td><a target="_blank" rel="noopener" href="https://leantrace.rimuru.work/">LeanTrace</a></td>
+</tr>
 </tbody></table>
 <p>这些第三方服务可能会收集您的信息，具体请参阅其各自的隐私政策。</p>
 <h3 id="4-Cookies-使用"><a href="#4-Cookies-使用" class="headerlink" title="4. Cookies 使用"></a>4. Cookies 使用</h3><p>本站使用 Cookies 来实现以下功能：</p>
@@ -358,6 +361,10 @@
 <ul>
 <li><code>_ga</code> — 区分用户，有效期 2 年</li>
 <li><code>_ga_*</code> — 维持会话状态，有效期 2 年</li>
+</ul>
+<p>由本站自建的 LeanTrace 访问统计服务设置：</p>
+<ul>
+<li><code>leantrace_token</code> — 访客标识令牌，用于识别独立访客（UV），同时存储于 localStorage，有效期约 13 个月</li>
 </ul>
 <h4 id="4-3-广告-Cookies（需同意）"><a href="#4-3-广告-Cookies（需同意）" class="headerlink" title="4.3 广告 Cookies（需同意）"></a>4.3 广告 Cookies（需同意）</h4><p>由 Google AdSense 设置，用于展示个性化广告。</p>
 <ul>
@@ -714,8 +721,8 @@
 <script defer src="/js/recommended-posts.js"></script>
 <!-- 服务页可用性检测 -->
 <script defer src="/js/services-status.js"></script>
-<!-- Self-hosted analytics -->
-<script defer src="https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js" data-base-url="https://analytics.rimuru.work"></script>
+<!-- LeanTrace 访问统计 -->
+<script defer src="https://leantrace.rimuru.work/js/index.min.js" data-base-url="https://leantrace.rimuru.work"></script>
 <!-- Google Analytics -->
 <script defer src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
 <script>
@@ -729,13 +736,13 @@
 <!-- PJAX analytics reload handler -->
 <script>
   window.addEventListener('pjax:complete', function() {
-    const scriptUrl = 'https://cdn.rimuru.work/analytics_with_cloudflare/index.min.js';
+    const scriptUrl = 'https://leantrace.rimuru.work/js/index.min.js';
     const oldScript = document.querySelector('script[src="' + scriptUrl + '"]');
     if (oldScript) oldScript.remove();
     const newScript = document.createElement('script');
     newScript.src = scriptUrl;
     newScript.defer = true;
-    newScript.setAttribute('data-base-url', 'https://analytics.rimuru.work');
+    newScript.setAttribute('data-base-url', 'https://leantrace.rimuru.work');
     document.body.appendChild(newScript);
   });
 </script>
