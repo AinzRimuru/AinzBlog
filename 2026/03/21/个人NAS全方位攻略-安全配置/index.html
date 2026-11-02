@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:47.000Z">
-<meta property="article:modified_time" content="2026-11-02T11:48:01.820Z">
+<meta property="article:modified_time" content="2026-11-02T11:54:46.267Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="NAS">
 <meta property="article:tag" content="RAID">
@@ -43,7 +43,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","keywords":"NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-11-02T11:48:01.820Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（二）安全配置：VPN、防火墙与数据备份","description":"本指南详细介绍了个人NAS的安全配置策略，涵盖网络安全与数据安全两大核心维度。重点讲解了如何通过VPN、防火墙iptables、SSH密钥认证及HTTPS加密构建系统防线，并深入分析了3-2-1备份原则、RAID方案选择及其在大容量硬盘时代的局限性，助你打造稳固的个人私有云存储。","keywords":"NAS 安全配置,NAS 防火墙 iptables,SSH 密钥认证 配置,3-2-1 备份原则,NAS RAID 方案选择,NAS 数据安全 防入侵","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:47.000Z","dateModified":"2026-11-02T11:54:46.267Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -156,6 +156,8 @@
     'region': ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IS','IE','IT','LV','LI','LT','LU','MT','NL','NO','PL','PT','RO','SK','SI','ES','SE','CH','GB']
   });
 </script>
+<!-- Google tag：必须在同意默认值之后尽早 async 加载，Consent Mode 信号才能传达给 adsbygoogle.js -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
 <!-- Cookie Consent Banner CSS -->
 <style>
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -716,7 +718,7 @@
                     <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/raid/" rel="tag">RAID</a>, <a class="tag-none-link" href="/tags/data-backup/" rel="tag">数据备份</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-02T11:48:01.820Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-02T11:54:46.267Z" itemprop="dateModified">最后编辑：2026-11-02</time>
                 </div>
             </div>
         </footer>
@@ -1036,8 +1038,7 @@
 <script defer src="/js/services-status.js"></script>
 <!-- LeanTrace 访问统计 -->
 <script defer src="https://leantrace.rimuru.work/js/index.min.js" data-base-url="https://leantrace.rimuru.work"></script>
-<!-- Google Analytics -->
-<script defer src="https://www.googletagmanager.com/gtag/js?id=G-PKP8Z0FC73"></script>
+<!-- Google Analytics（gtag.js 已在 head 中 async 加载） -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
