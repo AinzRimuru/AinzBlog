@@ -108,11 +108,13 @@ adsense:
   label: "广告" # 广告位标签（用于与正文内容区分，符合 AdSense 政策）
   index: # 首页文章列表中部广告（每次加载从 min_after 篇之后的位置中随机选择）
     enable: true
-    slot: "3453213082" # TODO: 填入「展示广告」单元 ID 后生效，例如 1234567890
+    slot: "3453213082" # 「展示广告」单元 ID
+    layout_key: "" # 新版控制台代码中的 data-ad-layout-key；若该单元代码带 layout-key 则填入，旧式留空
     min_after: 3 # 最早出现在第几篇文章之后（前两篇之后不放广告，可调）
   post_content: # 文章正文二级标题段落末尾的纯文本样式广告（每次加载随机选择一个段落末尾展示）
     enable: true
-    slot: "7668624414" # TODO: 填入「文章内广告」单元 ID 后生效（该类型与正文文字混排）
+    slot: "7668624414" # 「文章内广告」单元 ID
+    layout_key: "-gw-3+1f-3d+2z" # 来自控制台该单元代码中的 data-ad-layout-key
     min_length: 800 # 正文太短的文章不插广告
     # 单篇文章关闭：在 front-matter 中写 no_ads: true
 
