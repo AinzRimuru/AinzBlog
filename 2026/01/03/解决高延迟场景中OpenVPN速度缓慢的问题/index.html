@@ -104,6 +104,25 @@
     
   </style>
 
+  
+  <!-- AdSense 生产域名白名单：广告相关脚本据此判断是否加载真实广告，本地调试环境显示占位框 -->
+  <script>window.KR_ADSENSE_DOMAINS=["blog.rimuru.work"];</script>
+  
+  
+  <!-- AdSense 广告位样式（与正文内容明显区分） -->
+  <style>
+    .kr-ad-slot{margin:1.6em 0;padding:.2em .6em .6em;border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:6px;background:var(--kr-theme-info-bg,rgba(128,128,128,.05));overflow:hidden}
+    .kr-ad-slot .kr-ad-tag{display:block;font-size:.72rem;letter-spacing:.2em;color:var(--kr-theme-text-alt,#999);text-align:center;padding:.45em 0 .1em;user-select:none}
+    .kr-ad-slot .kr-ad-tag i{margin-right:.3em;font-size:.72rem}
+    .kr-ad-slot .adsbygoogle{max-width:100%}
+    .kr-ad-index{margin:1.2em 0}
+    .kr-ad-inarticle{margin:2.2em 0}
+    /* 本地调试占位框：广告位外的环境以虚线框提示，不请求真实广告 */
+    .kr-ad-ph{display:flex;align-items:center;justify-content:center;min-height:96px;margin:.35em 0;font-size:.8rem;color:var(--kr-theme-text-alt,#999);border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:4px;text-align:center;line-height:1.6}
+    .kr-ad-inarticle .kr-ad-ph{min-height:140px}
+  </style>
+  
+
   <!-- 额外的追加注入项 -->
   
     <!-- IndexNow -->
@@ -335,14 +354,14 @@
             <div itemprop="articleBody"><h2 id="连接协议选择"><a href="#连接协议选择" class="headerlink" title="连接协议选择"></a>连接协议选择</h2><p>强制使用 UDP，1% 丢包在 TCP 下会被放大为严重的延迟，而 UDP 下则基本无影响。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proto udp</span><br></pre></td></tr></table></figure>
 
-<h2 id="增加缓冲区"><a href="#增加缓冲区" class="headerlink" title="增加缓冲区"></a>增加缓冲区</h2><p>根据实际延迟与最大带宽计算出合理的缓冲区大小，单位为字节。<br>如延迟为100ms，最大带宽为100Mbps，那么缓冲区大小应该为100ms * 100Mbps * 1000 &#x2F; 8 &#x3D; 1250000Bytes。对应的配置为：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="增加缓冲区"><a href="#增加缓冲区" class="headerlink" title="增加缓冲区"></a>增加缓冲区</h2><p>根据实际延迟与最大带宽计算出合理的缓冲区大小，单位为字节。<br>如延迟为100ms，最大带宽为100Mbps，那么缓冲区大小应该为100ms * 100Mbps * 1000 &#x2F; 8 &#x3D; 1250000Bytes。对应的配置为：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sndbuf 1250000</span><br><span class="line">rcvbuf 1250000</span><br><span class="line">push &quot;sndbuf 1250000&quot;</span><br><span class="line">push &quot;rcvbuf 1250000&quot;</span><br></pre></td></tr></table></figure>
 <p>上述值还可以适当调大。</p>
-<h2 id="增加服务器的TCP-UDP缓冲区大小"><a href="#增加服务器的TCP-UDP缓冲区大小" class="headerlink" title="增加服务器的TCP&#x2F;UDP缓冲区大小"></a>增加服务器的TCP&#x2F;UDP缓冲区大小</h2><p>在<code>/etc/sysctl.conf</code>中添加以下内容：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="增加服务器的TCP-UDP缓冲区大小"><a href="#增加服务器的TCP-UDP缓冲区大小" class="headerlink" title="增加服务器的TCP&#x2F;UDP缓冲区大小"></a>增加服务器的TCP&#x2F;UDP缓冲区大小</h2><p>在<code>/etc/sysctl.conf</code>中添加以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 增大内核 UDP 缓冲区限制，适配高带宽深管道（BDP）</span><br><span class="line">net.core.rmem_max=16777216</span><br><span class="line">net.core.wmem_max=16777216</span><br><span class="line">net.core.rmem_default=16777216</span><br><span class="line">net.core.wmem_default=16777216</span><br><span class="line"></span><br><span class="line"># 启用 BBR 拥塞控制算法（对高延迟环境至关重要）</span><br><span class="line">net.core.default_qdisc=fq</span><br><span class="line">net.ipv4.tcp_congestion_control=bbr</span><br></pre></td></tr></table></figure>
 
-<h2 id="提高nginx的缓冲区大小"><a href="#提高nginx的缓冲区大小" class="headerlink" title="提高nginx的缓冲区大小"></a>提高nginx的缓冲区大小</h2><p>修改nginx的配置文件，添加&#x2F;修改如下内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 quic reuseport; # 启用 QUIC</span><br><span class="line">        http3 on; # 启用 HTTP/3</span><br><span class="line"></span><br><span class="line">        # 核心：增大单条 H3 流的缓冲区</span><br><span class="line">        # 设为 12m 可以支撑 200ms 延迟下约 500Mbps 的理论吞吐量</span><br><span class="line">        http3_stream_buffer_size 12m; # 增大单条 H3 流的缓冲区</span><br><span class="line"></span><br><span class="line">        # 增大代理缓冲区</span><br><span class="line">        proxy_buffers 16 1024k;</span><br><span class="line">        proxy_busy_buffers_size 15360k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="kr-ad-anchor" hidden></div><h2 id="提高nginx的缓冲区大小"><a href="#提高nginx的缓冲区大小" class="headerlink" title="提高nginx的缓冲区大小"></a>提高nginx的缓冲区大小</h2><p>修改nginx的配置文件，添加&#x2F;修改如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen 443 quic reuseport; # 启用 QUIC</span><br><span class="line">        http3 on; # 启用 HTTP/3</span><br><span class="line"></span><br><span class="line">        # 核心：增大单条 H3 流的缓冲区</span><br><span class="line">        # 设为 12m 可以支撑 200ms 延迟下约 500Mbps 的理论吞吐量</span><br><span class="line">        http3_stream_buffer_size 12m; # 增大单条 H3 流的缓冲区</span><br><span class="line"></span><br><span class="line">        # 增大代理缓冲区</span><br><span class="line">        proxy_buffers 16 1024k;</span><br><span class="line">        proxy_busy_buffers_size 15360k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -725,7 +744,25 @@
   gtag('config', 'G-PKP8Z0FC73');
 </script>
 <!-- Google AdSense -->
-<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- Google AdSense（仅生产域名加载：本地调试不请求广告脚本，杜绝误触与无效流量。白名单见 head 中的 KR_ADSENSE_DOMAINS / theme.adsense.domains） -->
+<script>
+(function(){
+  var d = window.KR_ADSENSE_DOMAINS, h = location.hostname, ok = !d || !d.length;
+  if (!ok) {
+    for (var i = 0; i < d.length; i++) {
+      var x = d[i];
+      if (h === x || h.slice(-(x.length + 1)) === '.' + x) { ok = true; break; }
+    }
+  }
+  if (ok) {
+    var s = document.createElement('script');
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711';
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+})();
+</script>
 <!-- PJAX analytics reload handler -->
 <script>
   window.addEventListener('pjax:complete', function() {

@@ -101,6 +101,25 @@
     
   </style>
 
+  
+  <!-- AdSense 生产域名白名单：广告相关脚本据此判断是否加载真实广告，本地调试环境显示占位框 -->
+  <script>window.KR_ADSENSE_DOMAINS=["blog.rimuru.work"];</script>
+  
+  
+  <!-- AdSense 广告位样式（与正文内容明显区分） -->
+  <style>
+    .kr-ad-slot{margin:1.6em 0;padding:.2em .6em .6em;border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:6px;background:var(--kr-theme-info-bg,rgba(128,128,128,.05));overflow:hidden}
+    .kr-ad-slot .kr-ad-tag{display:block;font-size:.72rem;letter-spacing:.2em;color:var(--kr-theme-text-alt,#999);text-align:center;padding:.45em 0 .1em;user-select:none}
+    .kr-ad-slot .kr-ad-tag i{margin-right:.3em;font-size:.72rem}
+    .kr-ad-slot .adsbygoogle{max-width:100%}
+    .kr-ad-index{margin:1.2em 0}
+    .kr-ad-inarticle{margin:2.2em 0}
+    /* 本地调试占位框：广告位外的环境以虚线框提示，不请求真实广告 */
+    .kr-ad-ph{display:flex;align-items:center;justify-content:center;min-height:96px;margin:.35em 0;font-size:.8rem;color:var(--kr-theme-text-alt,#999);border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:4px;text-align:center;line-height:1.6}
+    .kr-ad-inarticle .kr-ad-ph{min-height:140px}
+  </style>
+  
+
   <!-- 额外的追加注入项 -->
   
     <!-- IndexNow -->
@@ -335,7 +354,7 @@
 <blockquote>
 <p>仅支持 <code>docker pull</code>（GET&#x2F;HEAD&#x2F;OPTIONS），不支持 push 等写操作。</p>
 </blockquote>
-<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<div class="kr-ad-anchor" hidden></div><h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
 <li><strong>零侵入透明代理</strong> - 直接 <code>docker pull</code> 或配成 registry mirror，客户端无需改造</li>
 <li><strong>账号鉴权绕开限流</strong> - 配置 Docker Hub 账号后走账号额度（200&#x2F;h），客户端无需 <code>docker login</code></li>
 <li><strong>透明转发</strong> - 除鉴权请求以及可能泄露的账号信息的请求外，其他请求均会被透明转发到 Docker Hub</li>
@@ -343,9 +362,9 @@
 <li><strong>token 保护</strong> - 真实账号 token 绝不外发，仅签发 HMAC 签名的 proxy token</li>
 <li><strong>号池信息保护</strong> - 剥离所有泄露账号身份&#x2F;额度的响应头</li>
 </ul>
-<h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker client ──► 你的 Worker 域名</span><br><span class="line">                     │</span><br><span class="line">                     ├─ /v2/...manifests/tags ──►  registry-1.docker.io  （小文件，Worker 转发）</span><br><span class="line">                     ├─ /token?...              ──►  auth.docker.io       （获取拉取 token）</span><br><span class="line">                     └─ /v2/...blobs/&lt;digest&gt;   ──►  registry-1.docker.io 返回 307</span><br><span class="line">                                                       ↓</span><br><span class="line">                                          改写 Location 为 /redirect_to_&lt;cdn&gt;/...</span><br><span class="line">                                          由 Worker 统一回源 CDN 下载大层</span><br></pre></td></tr></table></figure>
+<div class="kr-ad-anchor" hidden></div><h2 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker client ──► 你的 Worker 域名</span><br><span class="line">                     │</span><br><span class="line">                     ├─ /v2/...manifests/tags ──►  registry-1.docker.io  （小文件，Worker 转发）</span><br><span class="line">                     ├─ /token?...              ──►  auth.docker.io       （获取拉取 token）</span><br><span class="line">                     └─ /v2/...blobs/&lt;digest&gt;   ──►  registry-1.docker.io 返回 307</span><br><span class="line">                                                       ↓</span><br><span class="line">                                          改写 Location 为 /redirect_to_&lt;cdn&gt;/...</span><br><span class="line">                                          由 Worker 统一回源 CDN 下载大层</span><br></pre></td></tr></table></figure>
 
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="方式一：Wrangler-CLI（推荐）"><a href="#方式一：Wrangler-CLI（推荐）" class="headerlink" title="方式一：Wrangler CLI（推荐）"></a>方式一：Wrangler CLI（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/docker_proxy_cf.git</span><br><span class="line"><span class="built_in">cd</span> docker_proxy_cf</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">npx wrangler login        <span class="comment"># 首次需要登录</span></span><br><span class="line">npx wrangler deploy</span><br></pre></td></tr></table></figure>
+<div class="kr-ad-anchor" hidden></div><h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="方式一：Wrangler-CLI（推荐）"><a href="#方式一：Wrangler-CLI（推荐）" class="headerlink" title="方式一：Wrangler CLI（推荐）"></a>方式一：Wrangler CLI（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/docker_proxy_cf.git</span><br><span class="line"><span class="built_in">cd</span> docker_proxy_cf</span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line">npx wrangler login        <span class="comment"># 首次需要登录</span></span><br><span class="line">npx wrangler deploy</span><br></pre></td></tr></table></figure>
 
 <p>部署成功后会得到一个 <code>https://docker-hub-proxy.&lt;你的子域&gt;.workers.dev</code> 地址，也可在 Workers → Triggers → Custom Domains 绑定自定义域名。</p>
 <blockquote>
@@ -355,7 +374,7 @@
 <blockquote>
 <p>Worker secrets（<code>DH_*</code> &#x2F; <code>PROXY_TOKEN_KEY</code> &#x2F; <code>ACCESS_KEY</code>）与 D1 绑定持久存在 Cloudflare，CI 只部署代码，无需在流水线里重设密钥。</p>
 </blockquote>
-<h2 id="进阶一：启用账号鉴权（绕开匿名限流，推荐）"><a href="#进阶一：启用账号鉴权（绕开匿名限流，推荐）" class="headerlink" title="进阶一：启用账号鉴权（绕开匿名限流，推荐）"></a>进阶一：启用账号鉴权（绕开匿名限流，推荐）</h2><p>匿名拉取受 Docker Hub 限流（100&#x2F;h），而 Cloudflare Worker 的出口 IP 是全网共享的，匿名额度极易被耗尽导致 <code>429</code>。配置一个 Docker Hub 账号后，Worker 会用该账号统一换发 token 并在转发 registry 时覆盖鉴权——所有拉取计入<strong>账号额度（200&#x2F;h，不受共享 IP 影响）</strong>，且客户端<strong>无需 <code>docker login</code></strong>。</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="进阶一：启用账号鉴权（绕开匿名限流，推荐）"><a href="#进阶一：启用账号鉴权（绕开匿名限流，推荐）" class="headerlink" title="进阶一：启用账号鉴权（绕开匿名限流，推荐）"></a>进阶一：启用账号鉴权（绕开匿名限流，推荐）</h2><p>匿名拉取受 Docker Hub 限流（100&#x2F;h），而 Cloudflare Worker 的出口 IP 是全网共享的，匿名额度极易被耗尽导致 <code>429</code>。配置一个 Docker Hub 账号后，Worker 会用该账号统一换发 token 并在转发 registry 时覆盖鉴权——所有拉取计入<strong>账号额度（200&#x2F;h，不受共享 IP 影响）</strong>，且客户端<strong>无需 <code>docker login</code></strong>。</p>
 <p>代码只引用变量名（<code>env.DH_USERNAME</code> &#x2F; <code>env.DH_PASSWORD</code>），账号信息以 <strong>Worker 加密 secret</strong> 存储，不进源码。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1) 写入 Docker Hub 账号（格式 用户名:密码，按首个冒号拆分；密码可含特殊字符）</span></span><br><span class="line"><span class="comment">#    强烈建议用 Docker Hub Access Token 代替账号密码</span></span><br><span class="line"><span class="built_in">printf</span> <span class="string">&#x27;%s&#x27;</span> <span class="string">&#x27;你的用户名:你的密码或PAT&#x27;</span> &gt; dh_creds</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2) Cloudflare 鉴权（脚本优先用环境变量，也可在项目目录放 token 文件，已 gitignore）</span></span><br><span class="line"><span class="built_in">export</span> CLOUDFLARE_API_TOKEN=<span class="string">&#x27;你的CF令牌&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3) 把账号写入 Worker secret（读取 dh_creds）</span></span><br><span class="line">./set-secrets.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4) 部署 / 更新代码</span></span><br><span class="line">./deploy.sh</span><br></pre></td></tr></table></figure>
 
@@ -363,7 +382,7 @@
 <blockquote>
 <p>该账号额度被所有使用本代理的人共享；凭据建议用专用 Access Token 并在泄露后及时轮换。<code>dh_creds</code>、<code>token</code> 均已在 <code>.gitignore</code> 中。</p>
 </blockquote>
-<h2 id="进阶二：token-保护（防真实账号-token-泄露，公开服务推荐）"><a href="#进阶二：token-保护（防真实账号-token-泄露，公开服务推荐）" class="headerlink" title="进阶二：token 保护（防真实账号 token 泄露，公开服务推荐）"></a>进阶二：token 保护（防真实账号 token 泄露，公开服务推荐）</h2><p>上一节的账号鉴权模式下，<code>/token</code> 会把<strong>真实的 Docker Hub 账号 token</strong> 直接返回给客户端——服务一旦公开，任何人都能从 <code>/token</code> 刮走真 token 直连 Docker Hub 消耗你的账号额度。启用 token 保护（设置 <code>PROXY_TOKEN_KEY</code>）后：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="进阶二：token-保护（防真实账号-token-泄露，公开服务推荐）"><a href="#进阶二：token-保护（防真实账号-token-泄露，公开服务推荐）" class="headerlink" title="进阶二：token 保护（防真实账号 token 泄露，公开服务推荐）"></a>进阶二：token 保护（防真实账号 token 泄露，公开服务推荐）</h2><p>上一节的账号鉴权模式下，<code>/token</code> 会把<strong>真实的 Docker Hub 账号 token</strong> 直接返回给客户端——服务一旦公开，任何人都能从 <code>/token</code> 刮走真 token 直连 Docker Hub 消耗你的账号额度。启用 token 保护（设置 <code>PROXY_TOKEN_KEY</code>）后：</p>
 <ul>
 <li><code>/token</code> 只签发 <strong>proxy token</strong>（HMAC-SHA256 签名的 JWT），<strong>真实账号 token 仅在 Worker 内部使用、绝不外发</strong>；</li>
 <li>registry 要求客户端持有有效 proxy token（标准 Bearer 流程，docker 客户端自动完成 401→取 token→重试）；</li>
@@ -377,7 +396,7 @@
 <blockquote>
 <p><code>PROXY_TOKEN_KEY</code> 仅 Worker 内部使用、无需记忆；更换它会使已签发 token 失效（proxy token 默认 1 小时过期，影响很小）。</p>
 </blockquote>
-<h2 id="进阶三：账号池与-429-自动冷却（D1）"><a href="#进阶三：账号池与-429-自动冷却（D1）" class="headerlink" title="进阶三：账号池与 429 自动冷却（D1）"></a>进阶三：账号池与 429 自动冷却（D1）</h2><p>单账号额度耗尽即 429。绑定 Cloudflare D1 后可存<strong>多个账号</strong>，Worker 按 <code>last_used</code> 轮询选号；某账号触发 429 自动<strong>冷却 6 小时</strong>，期间跳过、自动换下一个；D1 账号全部冷却时回退单账号（若有）或返回 429。</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="进阶三：账号池与-429-自动冷却（D1）"><a href="#进阶三：账号池与-429-自动冷却（D1）" class="headerlink" title="进阶三：账号池与 429 自动冷却（D1）"></a>进阶三：账号池与 429 自动冷却（D1）</h2><p>单账号额度耗尽即 429。绑定 Cloudflare D1 后可存<strong>多个账号</strong>，Worker 按 <code>last_used</code> 轮询选号；某账号触发 429 自动<strong>冷却 6 小时</strong>，期间跳过、自动换下一个；D1 账号全部冷却时回退单账号（若有）或返回 429。</p>
 <p><strong>1）创建 D1 + 建表（一次性）：</strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">! ~/docker_proxy_cf/d1-setup.sh   <span class="comment"># 创建库 docker-hub-accounts + accounts 表，输出 database_id</span></span><br></pre></td></tr></table></figure>
 
@@ -391,7 +410,7 @@
 <blockquote>
 <p>D1 有账号则用账号池；D1 为空或查询失败时自动回退单账号。冷却逻辑可隔离验证：<code>! ~/docker_proxy_cf/verify-cooldown.sh</code>。</p>
 </blockquote>
-<h2 id="客户端使用"><a href="#客户端使用" class="headerlink" title="客户端使用"></a>客户端使用</h2><h3 id="直接拉取"><a href="#直接拉取" class="headerlink" title="直接拉取"></a>直接拉取</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方镜像（library/ 可省略）</span></span><br><span class="line">docker pull &lt;你的域名&gt;/nginx</span><br><span class="line">docker pull &lt;你的域名&gt;/library/nginx:1.27</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户仓库</span></span><br><span class="line">docker pull &lt;你的域名&gt;/user/repo:tag</span><br></pre></td></tr></table></figure>
+<div class="kr-ad-anchor" hidden></div><h2 id="客户端使用"><a href="#客户端使用" class="headerlink" title="客户端使用"></a>客户端使用</h2><h3 id="直接拉取"><a href="#直接拉取" class="headerlink" title="直接拉取"></a>直接拉取</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官方镜像（library/ 可省略）</span></span><br><span class="line">docker pull &lt;你的域名&gt;/nginx</span><br><span class="line">docker pull &lt;你的域名&gt;/library/nginx:1.27</span><br><span class="line"></span><br><span class="line"><span class="comment"># 用户仓库</span></span><br><span class="line">docker pull &lt;你的域名&gt;/user/repo:tag</span><br></pre></td></tr></table></figure>
 
 <h3 id="作为-registry-mirror"><a href="#作为-registry-mirror" class="headerlink" title="作为 registry mirror"></a>作为 registry mirror</h3><p>编辑 <code>/etc/docker/daemon.json</code>（Docker Desktop 在 设置 → Docker Engine）：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;registry-mirrors&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;https://&lt;你的域名&gt;&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
@@ -400,8 +419,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart docker</span><br><span class="line"><span class="comment"># 或 macOS / Windows 重启 Docker Desktop</span></span><br></pre></td></tr></table></figure>
 
 <p>之后 <code>docker pull nginx</code> 会自动走镜像，无需在镜像名前加域名。</p>
-<h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT License</p>
-</div>
+<div class="kr-ad-anchor" hidden></div><h2 id="License"><a href="#License" class="headerlink" title="License"></a>License</h2><p>MIT License</p>
+<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -789,7 +808,25 @@
   gtag('config', 'G-PKP8Z0FC73');
 </script>
 <!-- Google AdSense -->
-<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- Google AdSense（仅生产域名加载：本地调试不请求广告脚本，杜绝误触与无效流量。白名单见 head 中的 KR_ADSENSE_DOMAINS / theme.adsense.domains） -->
+<script>
+(function(){
+  var d = window.KR_ADSENSE_DOMAINS, h = location.hostname, ok = !d || !d.length;
+  if (!ok) {
+    for (var i = 0; i < d.length; i++) {
+      var x = d[i];
+      if (h === x || h.slice(-(x.length + 1)) === '.' + x) { ok = true; break; }
+    }
+  }
+  if (ok) {
+    var s = document.createElement('script');
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711';
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+})();
+</script>
 <!-- PJAX analytics reload handler -->
 <script>
   window.addEventListener('pjax:complete', function() {

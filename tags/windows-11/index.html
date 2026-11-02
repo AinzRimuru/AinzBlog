@@ -90,6 +90,25 @@
     
   </style>
 
+  
+  <!-- AdSense 生产域名白名单：广告相关脚本据此判断是否加载真实广告，本地调试环境显示占位框 -->
+  <script>window.KR_ADSENSE_DOMAINS=["blog.rimuru.work"];</script>
+  
+  
+  <!-- AdSense 广告位样式（与正文内容明显区分） -->
+  <style>
+    .kr-ad-slot{margin:1.6em 0;padding:.2em .6em .6em;border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:6px;background:var(--kr-theme-info-bg,rgba(128,128,128,.05));overflow:hidden}
+    .kr-ad-slot .kr-ad-tag{display:block;font-size:.72rem;letter-spacing:.2em;color:var(--kr-theme-text-alt,#999);text-align:center;padding:.45em 0 .1em;user-select:none}
+    .kr-ad-slot .kr-ad-tag i{margin-right:.3em;font-size:.72rem}
+    .kr-ad-slot .adsbygoogle{max-width:100%}
+    .kr-ad-index{margin:1.2em 0}
+    .kr-ad-inarticle{margin:2.2em 0}
+    /* 本地调试占位框：广告位外的环境以虚线框提示，不请求真实广告 */
+    .kr-ad-ph{display:flex;align-items:center;justify-content:center;min-height:96px;margin:.35em 0;font-size:.8rem;color:var(--kr-theme-text-alt,#999);border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:4px;text-align:center;line-height:1.6}
+    .kr-ad-inarticle .kr-ad-ph{min-height:140px}
+  </style>
+  
+
   <!-- 额外的追加注入项 -->
   
     <!-- IndexNow -->
@@ -309,7 +328,7 @@
 
 
 
-    
+
     
         <article class="kratos-hentry clearfix" itemscope itemtype="https://schema.org/Article">
     <div class="kratos-entry-border clearfix">
@@ -360,8 +379,8 @@ npm安装npm install -g @...
     </div>
 </article>
     
-
     
+
     
         <article class="kratos-hentry clearfix" itemscope itemtype="https://schema.org/Article">
     <div class="kratos-entry-border clearfix">
@@ -410,6 +429,8 @@ npm安装npm install -g @...
     </div>
 </article>
     
+    
+
 
 
 
@@ -721,7 +742,25 @@ npm安装npm install -g @...
   gtag('config', 'G-PKP8Z0FC73');
 </script>
 <!-- Google AdSense -->
-<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- Google AdSense（仅生产域名加载：本地调试不请求广告脚本，杜绝误触与无效流量。白名单见 head 中的 KR_ADSENSE_DOMAINS / theme.adsense.domains） -->
+<script>
+(function(){
+  var d = window.KR_ADSENSE_DOMAINS, h = location.hostname, ok = !d || !d.length;
+  if (!ok) {
+    for (var i = 0; i < d.length; i++) {
+      var x = d[i];
+      if (h === x || h.slice(-(x.length + 1)) === '.' + x) { ok = true; break; }
+    }
+  }
+  if (ok) {
+    var s = document.createElement('script');
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711';
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+})();
+</script>
 <!-- PJAX analytics reload handler -->
 <script>
   window.addEventListener('pjax:complete', function() {

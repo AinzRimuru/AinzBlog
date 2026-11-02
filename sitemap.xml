@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/contact/</loc>
+    <loc>https://blog.rimuru.work/categories/</loc>
     
     <lastmod>2026-11-02</lastmod>
     
@@ -56,7 +56,7 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/categories/</loc>
+    <loc>https://blog.rimuru.work/contact/</loc>
     
     <lastmod>2026-11-02</lastmod>
     
@@ -360,6 +360,20 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/waf/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/web-security/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/cdn/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -409,14 +423,14 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/tags/waf/</loc>
+    <loc>https://blog.rimuru.work/tags/tutorial/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/tags/web-security/</loc>
+    <loc>https://blog.rimuru.work/tags/javascript/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -459,20 +473,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/cloudflare-d1/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/tutorial/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/javascript/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -843,6 +843,20 @@
   </url>
   
   <url>
+    <loc>https://blog.rimuru.work/tags/bug-fix/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/game-optimization/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://blog.rimuru.work/tags/broad-band/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -858,20 +872,6 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/iperf3/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/bug-fix/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/game-optimization/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -976,20 +976,6 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/tags/openvpn/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.rimuru.work/tags/bbr/</loc>
-    <lastmod>2026-11-02</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.rimuru.work/tags/openclaw/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
@@ -998,6 +984,20 @@
   
   <url>
     <loc>https://blog.rimuru.work/tags/zhipu-ai/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/openvpn/</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.rimuru.work/tags/bbr/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1013,14 +1013,14 @@
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/categories/self-hosted/</loc>
+    <loc>https://blog.rimuru.work/categories/blogging/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://blog.rimuru.work/categories/blogging/</loc>
+    <loc>https://blog.rimuru.work/categories/self-hosted/</loc>
     <lastmod>2026-11-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

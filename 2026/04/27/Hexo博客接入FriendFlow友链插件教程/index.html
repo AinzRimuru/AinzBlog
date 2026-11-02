@@ -99,6 +99,25 @@
     
   </style>
 
+  
+  <!-- AdSense 生产域名白名单：广告相关脚本据此判断是否加载真实广告，本地调试环境显示占位框 -->
+  <script>window.KR_ADSENSE_DOMAINS=["blog.rimuru.work"];</script>
+  
+  
+  <!-- AdSense 广告位样式（与正文内容明显区分） -->
+  <style>
+    .kr-ad-slot{margin:1.6em 0;padding:.2em .6em .6em;border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:6px;background:var(--kr-theme-info-bg,rgba(128,128,128,.05));overflow:hidden}
+    .kr-ad-slot .kr-ad-tag{display:block;font-size:.72rem;letter-spacing:.2em;color:var(--kr-theme-text-alt,#999);text-align:center;padding:.45em 0 .1em;user-select:none}
+    .kr-ad-slot .kr-ad-tag i{margin-right:.3em;font-size:.72rem}
+    .kr-ad-slot .adsbygoogle{max-width:100%}
+    .kr-ad-index{margin:1.2em 0}
+    .kr-ad-inarticle{margin:2.2em 0}
+    /* 本地调试占位框：广告位外的环境以虚线框提示，不请求真实广告 */
+    .kr-ad-ph{display:flex;align-items:center;justify-content:center;min-height:96px;margin:.35em 0;font-size:.8rem;color:var(--kr-theme-text-alt,#999);border:1px dashed var(--kr-theme-border,#3c495b3a);border-radius:4px;text-align:center;line-height:1.6}
+    .kr-ad-inarticle .kr-ad-ph{min-height:140px}
+  </style>
+  
+
   <!-- 额外的追加注入项 -->
   
     <!-- IndexNow -->
@@ -330,7 +349,7 @@
             <div itemprop="articleBody"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 <a href="/2026/04/24/FriendFlow-%E8%AE%A9%E5%8F%8B%E9%93%BE%E6%B4%BB%E8%B5%B7%E6%9D%A5%E7%9A%84%E4%BA%92%E5%8A%A9%E7%B3%BB%E7%BB%9F/">上一篇文章</a> 中介绍了 Friend Flow 友链互助系统，它通过 Cloudflare Workers 自动抓取友链博客的最新文章，并以 REST API 的形式提供数据。</p>
 <p>文章末尾提供了一个手写 JS 的接入示例，但实际使用时还需要自己处理样式、加载状态、错误处理等细节。为了让接入更加开箱即用，我写了一个 <strong>Hexo 标签插件</strong>，只需一行代码即可完成集成。</p>
 <p>插件基于Kratos-Rebirth 主题的设计风格，自动适配亮色&#x2F;暗色模式，同时也兼容其他主题。</p>
-<h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>插件会在友链页面渲染一组卡片，每个卡片包含：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="效果预览"><a href="#效果预览" class="headerlink" title="效果预览"></a>效果预览</h2><p>插件会在友链页面渲染一组卡片，每个卡片包含：</p>
 <ul>
 <li>友链博客的头像、名称和描述</li>
 <li>该博客最新发布的文章列表（标题 + 日期）</li>
@@ -344,7 +363,7 @@
   </div>
   </div>
 
-<h2 id="接入步骤"><a href="#接入步骤" class="headerlink" title="接入步骤"></a>接入步骤</h2><h3 id="第一步：添加插件文件"><a href="#第一步：添加插件文件" class="headerlink" title="第一步：添加插件文件"></a>第一步：添加插件文件</h3><p>在博客中添加如下文件结构：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="接入步骤"><a href="#接入步骤" class="headerlink" title="接入步骤"></a>接入步骤</h2><h3 id="第一步：添加插件文件"><a href="#第一步：添加插件文件" class="headerlink" title="第一步：添加插件文件"></a>第一步：添加插件文件</h3><p>在博客中添加如下文件结构：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">scripts/</span><br><span class="line">└── friend-flow-tag.js            # 插件入口，注册 Hexo 标签</span><br><span class="line">source/_data/</span><br><span class="line">└── friend-flow/</span><br><span class="line">    ├── style.css                  # 卡片样式</span><br><span class="line">    └── template.js                # 数据拉取与渲染逻辑</span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -387,7 +406,7 @@
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line"><span class="section">title: 好伙伴们</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line"><span class="section">## 友链联盟</span></span><br><span class="line"></span><br><span class="line">&#123;% friendflow %&#125;</span><br></pre></td></tr></table></figure>
 
 <p>运行 <code>hexo generate</code> 或 <code>hexo server</code>，访问该页面即可看到效果。</p>
-<h2 id="设计细节"><a href="#设计细节" class="headerlink" title="设计细节"></a>设计细节</h2><h3 id="主题适配"><a href="#主题适配" class="headerlink" title="主题适配"></a>主题适配</h3><p>样式通过 CSS 自定义属性的双层映射实现主题适配：</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="设计细节"><a href="#设计细节" class="headerlink" title="设计细节"></a>设计细节</h2><h3 id="主题适配"><a href="#主题适配" class="headerlink" title="主题适配"></a>主题适配</h3><p>样式通过 CSS 自定义属性的双层映射实现主题适配：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--kr-theme-card-bg (主题变量，亮色 #ffffffcc / 暗色 #282c34dd)</span><br><span class="line">       ↓</span><br><span class="line">--ff-bg (插件变量) → 回退值 #fff</span><br><span class="line">       ↓</span><br><span class="line">.ff-card &#123; background: var(--ff-bg, #fff) &#125;</span><br></pre></td></tr></table></figure>
 
 <p>这样做的好处：</p>
@@ -434,11 +453,11 @@
 <td>友链联盟，内容动态更新</td>
 </tr>
 </tbody></table>
-<h2 id="加入友链联盟"><a href="#加入友链联盟" class="headerlink" title="加入友链联盟"></a>加入友链联盟</h2><p>如果你的博客也想加入友链联盟（让其他人的 Friend Flow 展示你的文章），需要在 Friend Flow 的配置仓库中添加你的博客信息。具体方式参考 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/friend-flow">Friend Flow 项目文档</a>。</p>
+<div class="kr-ad-anchor" hidden></div><h2 id="加入友链联盟"><a href="#加入友链联盟" class="headerlink" title="加入友链联盟"></a>加入友链联盟</h2><p>如果你的博客也想加入友链联盟（让其他人的 Friend Flow 展示你的文章），需要在 Friend Flow 的配置仓库中添加你的博客信息。具体方式参考 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/friend-flow">Friend Flow 项目文档</a>。</p>
 <hr>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/friend-flow">https://github.com/AinzRimuru/friend-flow</a></p>
 <p>在线体验：<a target="_blank" rel="noopener" href="https://friend.rimuru.work/">https://friend.rimuru.work</a></p>
-</div>
+<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -826,7 +845,25 @@
   gtag('config', 'G-PKP8Z0FC73');
 </script>
 <!-- Google AdSense -->
-<script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+<!-- Google AdSense（仅生产域名加载：本地调试不请求广告脚本，杜绝误触与无效流量。白名单见 head 中的 KR_ADSENSE_DOMAINS / theme.adsense.domains） -->
+<script>
+(function(){
+  var d = window.KR_ADSENSE_DOMAINS, h = location.hostname, ok = !d || !d.length;
+  if (!ok) {
+    for (var i = 0; i < d.length; i++) {
+      var x = d[i];
+      if (h === x || h.slice(-(x.length + 1)) === '.' + x) { ok = true; break; }
+    }
+  }
+  if (ok) {
+    var s = document.createElement('script');
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711';
+    s.crossOrigin = 'anonymous';
+    s.async = true;
+    document.body.appendChild(s);
+  }
+})();
+</script>
 <!-- PJAX analytics reload handler -->
 <script>
   window.addEventListener('pjax:complete', function() {
