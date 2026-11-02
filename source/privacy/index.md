@@ -9,7 +9,7 @@ description: "Rimuru's Blog隐私政策，说明本站如何收集、使用和�
 
 ## 隐私政策
 
-**最后更新日期**: 2026年3月22日
+**最后更新日期**: 2026年10月27日
 
 感谢您访问 Rimuru's Blog（以下简称"本站"）。本隐私政策旨在说明本站如何收集、使用和保护您的个人信息。
 
@@ -44,6 +44,7 @@ description: "Rimuru's Blog隐私政策，说明本站如何收集、使用和�
 | **Google Analytics** | 网站访问统计分析 | [Google 隐私政策](https://policies.google.com/privacy) |
 | **Google AdSense** | 展示个性化广告 | [Google 隐私政策](https://policies.google.com/privacy) |
 | **Cloudflare** | CDN 加速和安全防护 | [Cloudflare 隐私政策](https://www.cloudflare.com/privacypolicy/) |
+| **LeanTrace**（本站自建） | 站内访问统计（PV/UV），明文 IP 不落库 | [LeanTrace](https://leantrace.rimuru.work/) |
 
 这些第三方服务可能会收集您的信息，具体请参阅其各自的隐私政策。
 
@@ -65,6 +66,10 @@ description: "Rimuru's Blog隐私政策，说明本站如何收集、使用和�
 
 - `_ga` — 区分用户，有效期 2 年
 - `_ga_*` — 维持会话状态，有效期 2 年
+
+由本站自建的 LeanTrace 访问统计服务设置：
+
+- `leantrace_token` — 访客标识令牌，用于识别独立访客（UV），同时存储于 localStorage，有效期约 13 个月
 
 #### 4.3 广告 Cookies（需同意）
 
