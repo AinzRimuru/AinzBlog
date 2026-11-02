@@ -110,6 +110,7 @@ adsense:
     enable: true
     slot: "3453213082" # 「展示广告」单元 ID
     layout_key: "" # 新版控制台代码中的 data-ad-layout-key；若该单元代码带 layout-key 则填入，旧式留空
+    format: "horizontal" # 限制为横幅尺寸，高度与文章内广告相当，避免信息流中出现过高的竖版广告
     min_after: 3 # 最早出现在第几篇文章之后（前两篇之后不放广告，可调）
   post_content: # 文章正文二级标题段落末尾的纯文本样式广告（每次加载随机选择一个段落末尾展示）
     enable: true
