@@ -98,6 +98,24 @@ comments:
       _shared: '<span class="cwd-comment-count" data-path="$PATH">0</span>'
   path_hasher: "md5"
 
+# Google AdSense 广告位配置
+# 注意：adsbygoogle.js 已在 additional_injections.after_footer 中全局加载
+# 广告单元请先到 AdSense 控制台「广告 → 按广告单元」创建，然后把 data-ad-slot 填到下面
+adsense:
+  client: "ca-pub-9760626627924711" # 发布商 ID
+  domains: # 生产域名白名单：仅这些域名（含子域）加载真实广告；localhost 等其他环境只显示占位框，避免调试时产生无效流量
+    - blog.rimuru.work
+  label: "广告" # 广告位标签（用于与正文内容区分，符合 AdSense 政策）
+  index: # 首页文章列表中部广告（每次加载从 min_after 篇之后的位置中随机选择）
+    enable: true
+    slot: "3453213082" # TODO: 填入「展示广告」单元 ID 后生效，例如 1234567890
+    min_after: 3 # 最早出现在第几篇文章之后（前两篇之后不放广告，可调）
+  post_content: # 文章正文二级标题段落末尾的纯文本样式广告（每次加载随机选择一个段落末尾展示）
+    enable: true
+    slot: "7668624414" # TODO: 填入「文章内广告」单元 ID 后生效（该类型与正文文字混排）
+    min_length: 800 # 正文太短的文章不插广告
+    # 单篇文章关闭：在 front-matter 中写 no_ads: true
+
 # 额外的注入代码
 additional_injections:
   head: |
@@ -159,7 +177,25 @@ additional_injections:
       gtag('config', 'G-PKP8Z0FC73');
     </script>
     <!-- Google AdSense -->
-    <script defer src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711" crossorigin="anonymous"></script>
+    <!-- Google AdSense（仅生产域名加载：本地调试不请求广告脚本，杜绝误触与无效流量。白名单见 head 中的 KR_ADSENSE_DOMAINS / theme.adsense.domains） -->
+    <script>
+    (function(){
+      var d = window.KR_ADSENSE_DOMAINS, h = location.hostname, ok = !d || !d.length;
+      if (!ok) {
+        for (var i = 0; i < d.length; i++) {
+          var x = d[i];
+          if (h === x || h.slice(-(x.length + 1)) === '.' + x) { ok = true; break; }
+        }
+      }
+      if (ok) {
+        var s = document.createElement('script');
+        s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9760626627924711';
+        s.crossOrigin = 'anonymous';
+        s.async = true;
+        document.body.appendChild(s);
+      }
+    })();
+    </script>
     <!-- PJAX analytics reload handler -->
     <script>
       window.addEventListener('pjax:complete', function() {
