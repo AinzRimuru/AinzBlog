@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:48.000Z">
-<meta property="article:modified_time" content="2026-11-02T12:04:34.705Z">
+<meta property="article:modified_time" content="2026-11-05T13:05:43.947Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="Docker Compose">
@@ -44,7 +44,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（三）容器化部署：Docker Compose 实践","description":"本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。","keywords":"NAS Docker 部署,Docker Compose 容器管理,Docker 数据持久化,Docker 网络隔离,容器资源限制,NAS 容器化 最佳实践","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:48.000Z","dateModified":"2026-11-02T12:04:34.705Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（三）容器化部署：Docker Compose 实践","description":"本篇个人NAS全方位攻略深度解析容器化部署实践。文章涵盖Docker Compose管理、数据持久化策略、网络安全配置及资源限制等核心要点，旨在帮助用户构建安全、高效且易于维护的NAS容器环境，避免日志膨胀与权限滥用等常见坑点。","keywords":"NAS Docker 部署,Docker Compose 容器管理,Docker 数据持久化,Docker 网络隔离,容器资源限制,NAS 容器化 最佳实践","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:48.000Z","dateModified":"2026-11-05T13:05:43.947Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%B9%E5%99%A8%E5%8C%96%E9%83%A8%E7%BD%B2/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -483,7 +483,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/docker-compose/" rel="tag">Docker Compose</a>, <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/containerization/" rel="tag">容器化</a>, <a class="tag-none-link" href="/tags/cybersecurity/" rel="tag">网络安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-02T12:04:34.705Z" itemprop="dateModified">最后编辑：2026-11-02</time>
+                    <time datetime="2026-11-05T13:05:43.947Z" itemprop="dateModified">最后编辑：2026-11-05</time>
                 </div>
             </div>
         </footer>
@@ -536,7 +536,7 @@
                 文章
             </span>
             <span class="count">
-                30
+                31
             </span>
         </a>
         <a class="meta-item" href="/categories/">
@@ -552,7 +552,7 @@
                 标签
             </span>
             <span class="count">
-                93
+                95
             </span>
         </a>
     </div>
@@ -563,7 +563,7 @@
                 
   <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
     <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blogging/">建站手记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech-notes/">技术随笔</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏攻略</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难排查</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/networking/">网络杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/self-hosted/">自建服务</a><span class="category-list-count">8</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/blogging/">建站手记</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tech-notes/">技术随笔</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/gaming/">游戏攻略</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/troubleshooting/">疑难排查</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/networking/">网络杂谈</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/self-hosted/">自建服务</a><span class="category-list-count">8</span></li></ul>
   </aside>
 
 
@@ -583,6 +583,12 @@
   <div class="tab-content">
       <ul class="list-group">
         
+        
+          
+          
+            <a class="list-group-item" href="/2026/11/05/%E6%B7%B1%E7%A9%BA%E5%BD%93%E9%93%BAwiki%E7%AB%99%E7%82%B9%E5%8F%91%E5%B8%83/"><i class="fa fa-book"></i> 深空当铺wiki站点发布</a>
+            
+          
         
           
           
@@ -609,11 +615,7 @@
           
         
           
-          
-            <a class="list-group-item" href="/2026/04/27/Hexo%E5%8D%9A%E5%AE%A2%E6%8E%A5%E5%85%A5FriendFlow%E5%8F%8B%E9%93%BE%E6%8F%92%E4%BB%B6%E6%95%99%E7%A8%8B/"><i class="fa fa-book"></i> Hexo 博客一行代码接入 Friend Flow 友链联盟</a>
             
-          
-        
           
             
           
