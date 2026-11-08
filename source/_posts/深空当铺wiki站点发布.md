@@ -1,6 +1,7 @@
 ---
 title: 深空当铺wiki站点发布
 date: 2026-11-05T20:21:00.000Z
+updated: 2026-11-08T17:32:09.000Z
 cover: cover.jpg
 tags:
   - 游戏攻略
