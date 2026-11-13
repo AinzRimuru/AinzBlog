@@ -106,13 +106,12 @@ adsense:
   domains: # 生产域名白名单：仅这些域名（含子域）加载真实广告；localhost 等其他环境只显示占位框，避免调试时产生无效流量
     - blog.rimuru.work
   label: "广告" # 广告位标签（用于与正文内容区分，符合 AdSense 政策）
-  index: # 首页文章列表中部广告（每次加载从 min_after 篇之后的位置中随机选择）
+  index: # 首页文章列表广告（固定插在第一篇文章之后）
     enable: true
     slot: "3453213082" # 信息流广告单元 ID
     layout_key: "-fb+5w+4e-db+86" # 来自控制台该单元代码中的 data-ad-layout-key（fluid 类型单元必须）
     format: "auto" # 仅当 layout_key 为空时生效；fluid 单元忽略此配置
-    min_after: 3 # 最早出现在第几篇文章之后（前两篇之后不放广告，可调）
-  post_content: # 文章正文二级标题段落末尾的纯文本样式广告（每次加载随机选择一个段落末尾展示）
+  post_content: # 文章正文第一个段落之后的纯文本样式广告（固定位置）
     enable: true
     slot: "7668624414" # 「文章内广告」单元 ID
     layout_key: "-gw-3+1f-3d+2z" # 来自控制台该单元代码中的 data-ad-layout-key
