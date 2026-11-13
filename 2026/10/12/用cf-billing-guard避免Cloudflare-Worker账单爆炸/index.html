@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg">
 <meta property="article:published_time" content="2026-10-12T18:58:02.000Z">
-<meta property="article:modified_time" content="2026-11-08T09:40:58.502Z">
+<meta property="article:modified_time" content="2026-11-13T13:36:52.236Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="Cloudflare Workers">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-11-08T09:40:58.502Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"用cf-billing-guard避免Cloudflare Worker账单爆炸","description":"介绍 cf-billing-guard 开源工具，旨在防止 Cloudflare Worker 因代码无限循环等问题导致账单异常飙升。通过对请求进行限流以及对 D1、KV、R2 等服务调用设置上限，有效控制 Serverless 架构的运行成本，保护开发者免受天价账单困扰。","keywords":"Cloudflare Worker 账单 异常,cf-billing-guard,Workers 请求 限流,Serverless 成本控制,Cloudflare 免费额度 超出,Worker 无限循环 防护","image":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-12T18:58:02.000Z","dateModified":"2026-11-13T13:36:52.236Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/12/%E7%94%A8cf-billing-guard%E9%81%BF%E5%85%8DCloudflare-Worker%E8%B4%A6%E5%8D%95%E7%88%86%E7%82%B8/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -359,8 +359,8 @@
             
             
             <hr />
-            <div itemprop="articleBody"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Cloudflare Worker 虽然提供了大量的免费调用额度还还配套了非常多的持久化数据库服务，的这些服务在免费额度用完之后就会产生费用。最重要的是如果服务代码中出现<strong>无限循环</strong>，那么可能会导致账单迅速飙升，产生高额费用。已经有了非常多的先例：<br><a target="_blank" rel="noopener" href="https://blog.cloudflare.com/worker-billing-guard/">Cloudflare Worker 无限循环导致高额账单的案例</a><br><a target="_blank" rel="noopener" href="https://linux.do/t/topic/2171380">收到 Cloudflare Durable Object 的天价账单，如何应对</a><br><a target="_blank" rel="noopener" href="https://www.reddit.com/r/CloudFlare/comments/1t1e8nh/i_accidentally_generated_16_billion_durable/">I accidentally generated 16 billion Durable Object writes in one month and got slapped with a $36k bill . Here’s exactly how.</a><br><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=47787042">Durable Object alarm loop: $34k in 8 days, zero users, no platform warning</a><br>相关案例在国内比比皆是，为此本站推出了 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/cf-billing-guard">cf-billing-guard</a> 工具，用于防止 Cloudflare Worker 账单爆炸。cf-billing-guard 会覆盖项目的 Worker 入口文件，对所有的调用请求进行计数和限流，对单次请求的数据库等服务调用设置上限，从而有效防止账单异常增长。项目采用 Trusted Publisher 方式发布，确保npmjs包的安全性，有效保护用户的数据安全。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D cf-billing-guard</span><br></pre></td></tr></table></figure>
+            <div itemprop="articleBody"><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Cloudflare Worker 虽然提供了大量的免费调用额度还还配套了非常多的持久化数据库服务，的这些服务在免费额度用完之后就会产生费用。最重要的是如果服务代码中出现<strong>无限循环</strong>，那么可能会导致账单迅速飙升，产生高额费用。已经有了非常多的先例：<br><a target="_blank" rel="noopener" href="https://blog.cloudflare.com/worker-billing-guard/">Cloudflare Worker 无限循环导致高额账单的案例</a><br><a target="_blank" rel="noopener" href="https://linux.do/t/topic/2171380">收到 Cloudflare Durable Object 的天价账单，如何应对</a><br><a target="_blank" rel="noopener" href="https://www.reddit.com/r/CloudFlare/comments/1t1e8nh/i_accidentally_generated_16_billion_durable/">I accidentally generated 16 billion Durable Object writes in one month and got slapped with a $36k bill . Here’s exactly how.</a><br><a target="_blank" rel="noopener" href="https://news.ycombinator.com/item?id=47787042">Durable Object alarm loop: $34k in 8 days, zero users, no platform warning</a><br>相关案例在国内比比皆是，为此本站推出了 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/cf-billing-guard">cf-billing-guard</a> 工具，用于防止 Cloudflare Worker 账单爆炸。cf-billing-guard 会覆盖项目的 Worker 入口文件，对所有的调用请求进行计数和限流，对单次请求的数据库等服务调用设置上限，从而有效防止账单异常增长。项目采用 Trusted Publisher 方式发布，确保npmjs包的安全性，有效保护用户的数据安全。</p><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}var s=document.currentScript,el=s&&s.previousElementSibling;if(!el||el.tagName!=='INS')return;if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}})();</script></div>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D cf-billing-guard</span><br></pre></td></tr></table></figure>
 
 <h3 id="快速开始"><a href="#快速开始" class="headerlink" title="快速开始"></a>快速开始</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npx cf-billing-guard <span class="built_in">enable</span>          <span class="comment"># 一键接线</span></span><br><span class="line">npx cf-billing-guard <span class="built_in">disable</span>         <span class="comment"># 完全回滚</span></span><br></pre></td></tr></table></figure>
 <h3 id="支持的服务"><a href="#支持的服务" class="headerlink" title="支持的服务"></a>支持的服务</h3><p>内建适配器——默认生效。限额配置在生成的 <code>billing-guard.main.js</code> 里：在 <code>d1</code>&#x2F;<code>kv</code> 旁按类型各加一行。</p>
@@ -416,13 +416,13 @@
 <td><code>undefined</code></td>
 </tr>
 </tbody></table>
-<div class="kr-ad-anchor" hidden></div><h2 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a>免责声明</h2><ul>
+<h2 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a>免责声明</h2><ul>
 <li>仅 <code>d1</code> 与 <code>kv</code> 经真实 Cloudflare 平台验证，其余服务适配器仅通过 mock 测试，在真实运行时上的表现可能与预期不同。</li>
 <li>本库是尽力而为（best-effort）的账单防护，而非保证：无法探测的绑定类型不被计数；拦截调用可阻止后续用量，但不追回、也不封顶已产生的费用。</li>
 <li>本库与 Cloudflare 无隶属、赞助或背书关系。”Cloudflare”、”Workers”、”D1”、”R2”、”Durable Objects” 等名称及商标归其各自所有者。</li>
 <li>本库按 MIT 许可证原样提供，作者不对因使用本库产生的任何超额费用、服务中断、数据丢失或其他损失承担责任。</li>
 </ul>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+</div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -481,7 +481,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/cloudflare-workers/" rel="tag">Cloudflare Workers</a>, <a class="tag-none-link" href="/tags/cost-control/" rel="tag">成本控制</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-08T09:40:58.502Z" itemprop="dateModified">最后编辑：2026-11-08</time>
+                    <time datetime="2026-11-13T13:36:52.236Z" itemprop="dateModified">最后编辑：2026-11-13</time>
                 </div>
             </div>
         </footer>

@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg">
 <meta property="article:published_time" content="2026-10-08T19:40:15.000Z">
-<meta property="article:modified_time" content="2026-11-08T09:40:58.256Z">
+<meta property="article:modified_time" content="2026-11-13T13:36:51.954Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Cloudflare">
 <meta property="article:tag" content="WAF">
@@ -42,7 +42,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare WAF规则的免费替代--域名安全规则","description":"介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。","keywords":"Cloudflare WAF 免费规则,Cloudflare 域名安全规则,Cloudflare 免费版 防CC,Cloudflare 速率限制规则,WAF 自定义规则,防CC 攻击 设置","image":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-08T19:40:15.000Z","dateModified":"2026-11-08T09:40:58.256Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"Cloudflare WAF规则的免费替代--域名安全规则","description":"介绍Cloudflare域名安全规则作为WAF的免费替代方案，涵盖自定义规则和速率限制规则的配置方法，帮助免费账户实现IP访问控制、速率限制和API保护等基础Web安全防护功能。","keywords":"Cloudflare WAF 免费规则,Cloudflare 域名安全规则,Cloudflare 免费版 防CC,Cloudflare 速率限制规则,WAF 自定义规则,防CC 攻击 设置","image":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/cover.jpg","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-10-08T19:40:15.000Z","dateModified":"2026-11-13T13:36:51.954Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -359,11 +359,11 @@
             
             
             <hr />
-            <div itemprop="articleBody"><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>Cloudflare的WAF提供了强大的Web应用防火墙功能，本文中所使用的域名安全规则仅能够替代部分功能。本文撰写的主要目的是目前能够检索到的关于Cloudflare的几乎所有流量管理需求的解决方法都是采用Cloudflare的WAF（御三家的模型也忽略了域名安全规则的存在），缺少对域名安全规则功能的有效 <del>白嫖</del> 挖掘。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="前置准备与功能局限"><a href="#前置准备与功能局限" class="headerlink" title="前置准备与功能局限"></a>前置准备与功能局限</h2><p>由于本方法依赖于域名安全规则，因此需要有一个已经托管在Cloudflare的域名，使用Worker&#x2F;Page部署后提供的默认域名如 <code>your-subdomain.pages/workers.dev</code>是无法使用的。</p>
+            <div itemprop="articleBody"><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>Cloudflare的WAF提供了强大的Web应用防火墙功能，本文中所使用的域名安全规则仅能够替代部分功能。本文撰写的主要目的是目前能够检索到的关于Cloudflare的几乎所有流量管理需求的解决方法都是采用Cloudflare的WAF（御三家的模型也忽略了域名安全规则的存在），缺少对域名安全规则功能的有效 <del>白嫖</del> 挖掘。</p><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}var s=document.currentScript,el=s&&s.previousElementSibling;if(!el||el.tagName!=='INS')return;if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}})();</script></div>
+<h2 id="前置准备与功能局限"><a href="#前置准备与功能局限" class="headerlink" title="前置准备与功能局限"></a>前置准备与功能局限</h2><p>由于本方法依赖于域名安全规则，因此需要有一个已经托管在Cloudflare的域名，使用Worker&#x2F;Page部署后提供的默认域名如 <code>your-subdomain.pages/workers.dev</code>是无法使用的。</p>
 <p>此外，域名安全规则的功能相较于Cloudflare的WAF存在一定的局限性，例如恶意行为检测、敏感数据保护以及邮件地址混淆等功能无法替代。但对于IP访问规则、速率限制、API保护等基础防护需求，域名安全规则仍然能够提供有效的支持。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="功能位置"><a href="#功能位置" class="headerlink" title="功能位置"></a>功能位置</h2><p>域名-&gt;概览-&gt;点击自己的域名-&gt;安全性-&gt;安全规则<br>在这里可以看到<code>自定义规则</code>，<code>速率限制规则</code>以及<code>托管规则</code>。这里主要介绍前两个规则的使用方法。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="功能使用"><a href="#功能使用" class="headerlink" title="功能使用"></a>功能使用</h2><h3 id="自定义规则"><a href="#自定义规则" class="headerlink" title="自定义规则"></a>自定义规则</h3><p>如果对流量的管理需求仅仅是基于IP、请求头等等的常量信息进行控制，那么自定义规则就能够满足大部分需求。在自定义规则中，你几乎可以选择所有你能够在请求头中获取到的字段进行条件设置，从而实现对流量的精细化管理。以下介绍一下本站所维护的一个<a target="_blank" rel="noopener" href="https://hf.rimuru.work/">Huggingface镜像站</a>的自定义规则配置示例。</p>
+<h2 id="功能位置"><a href="#功能位置" class="headerlink" title="功能位置"></a>功能位置</h2><p>域名-&gt;概览-&gt;点击自己的域名-&gt;安全性-&gt;安全规则<br>在这里可以看到<code>自定义规则</code>，<code>速率限制规则</code>以及<code>托管规则</code>。这里主要介绍前两个规则的使用方法。</p>
+<h2 id="功能使用"><a href="#功能使用" class="headerlink" title="功能使用"></a>功能使用</h2><h3 id="自定义规则"><a href="#自定义规则" class="headerlink" title="自定义规则"></a>自定义规则</h3><p>如果对流量的管理需求仅仅是基于IP、请求头等等的常量信息进行控制，那么自定义规则就能够满足大部分需求。在自定义规则中，你几乎可以选择所有你能够在请求头中获取到的字段进行条件设置，从而实现对流量的精细化管理。以下介绍一下本站所维护的一个<a target="_blank" rel="noopener" href="https://hf.rimuru.work/">Huggingface镜像站</a>的自定义规则配置示例。</p>
 <p><img src="/cdn-cgi/image/format=auto,quality=85,fit=scale-down/2026/10/08/Cloudflare-WAF%E8%A7%84%E5%88%99%E7%9A%84%E5%85%8D%E8%B4%B9%E6%9B%BF%E4%BB%A3-%E5%9F%9F%E5%90%8D%E5%AE%89%E5%85%A8%E8%A7%84%E5%88%99/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%84%E5%88%99%E7%A4%BA%E4%BE%8B.png" alt="自定义规则示例"></p>
 <p>由于此前网站允许所有非浏览器请求的访问，因此大量的爬虫请求极大的消耗的Cloudflare Worker的免费额度，导致服务无法稳定运行。因此，在这个配置中对非脚本的请求进行了限制，仅允许访问首页、robots.txt等必要资源。其他请求将在到达Worker前被拦截，从而有效减少了对Worker免费额度的消耗。</p>
 <h3 id="速率限制规则"><a href="#速率限制规则" class="headerlink" title="速率限制规则"></a>速率限制规则</h3><p>速率限制规则用于限制单位时间内的请求次数，从而防止恶意请求对服务造成过大压力。以下是一个简单的速率限制规则配置示例：</p>
@@ -373,7 +373,7 @@
 <p>切换后即可得到和上面一样的输入框，但此时你可以直接编辑表达式，从而实现更为灵活的速率限制配置。</p>
 <p>由于Cloudflare对免费账户仅<strong>允许配置一条速率限制规则</strong>，因此需要对速率限制规则尽可能的合并。如果某些接口彼此之间是完全独立的，则可以通过在表达式中使用<code>OR</code>操作符将它们合并到同一条规则中。如上图所示，将多个域名的速率限制规则合并为一条，此外还可以根据表达式的规则将速率限制扩展到特定的接口或请求头等。</p>
 <h3 id="说明文档"><a href="#说明文档" class="headerlink" title="说明文档"></a>说明文档</h3><p>更多关于域名安全规则的使用说明可以参考Cloudflare官方文档：<a target="_blank" rel="noopener" href="https://developers.cloudflare.com/ruleset-engine/rules-language/expressions/">Rule expressions · Cloudflare Ruleset Engine docs</a>。</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+</div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -432,7 +432,7 @@
                     <a class="tag-none-link" href="/tags/cloudflare/" rel="tag">Cloudflare</a>, <a class="tag-none-link" href="/tags/waf/" rel="tag">WAF</a>, <a class="tag-none-link" href="/tags/web-security/" rel="tag">Web安全</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-08T09:40:58.256Z" itemprop="dateModified">最后编辑：2026-11-08</time>
+                    <time datetime="2026-11-13T13:36:51.954Z" itemprop="dateModified">最后编辑：2026-11-13</time>
                 </div>
             </div>
         </footer>

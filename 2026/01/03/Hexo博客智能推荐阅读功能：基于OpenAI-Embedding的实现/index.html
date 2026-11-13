@@ -360,13 +360,13 @@
             
             
             <hr />
-            <div itemprop="articleBody"><p>在浏览博客时，「推荐阅读」功能能够有效提升用户体验，帮助读者发现更多感兴趣的内容。本文将介绍如何为 Hexo 博客实现一个智能推荐阅读功能，它利用 OpenAI 的 Embedding 技术来计算文章之间的语义相似度，从而实现精准的内容推荐。</p>
+            <div itemprop="articleBody"><p>在浏览博客时，「推荐阅读」功能能够有效提升用户体验，帮助读者发现更多感兴趣的内容。本文将介绍如何为 Hexo 博客实现一个智能推荐阅读功能，它利用 OpenAI 的 Embedding 技术来计算文章之间的语义相似度，从而实现精准的内容推荐。</p><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}var s=document.currentScript,el=s&&s.previousElementSibling;if(!el||el.tagName!=='INS')return;if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}})();</script></div>
 <h2 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h2><p>2026-01-04</p>
 <ul>
 <li>fix: 修复手机模式下推荐文章标题div宽度溢出的问题</li>
 <li>chore: 长标题先尝试缩小字体，如果还是无法显示则截断并显示”…”.</li>
 </ul>
-<div class="kr-ad-anchor" hidden></div><h2 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h2><p>整个推荐系统由两个核心脚本组成：</p>
+<h2 id="功能概述"><a href="#功能概述" class="headerlink" title="功能概述"></a>功能概述</h2><p>整个推荐系统由两个核心脚本组成：</p>
 <ol>
 <li><p><strong><code>generate-posts-data.js</code></strong>：Hexo Generator 脚本，在博客构建时运行，负责生成文章数据和计算推荐</p>
 </li>
@@ -377,7 +377,7 @@
 <p>💡 <strong>提示</strong>：<a href="#%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8">配置与使用</a>折叠区域中提供了<strong>完整的脚本代码</strong>，可以直接复制使用。</p>
 </blockquote>
 <h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p><img src="/cdn-cgi/image/format=auto,quality=85,fit=scale-down/2026/01/03/Hexo%E5%8D%9A%E5%AE%A2%E6%99%BA%E8%83%BD%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB%E5%8A%9F%E8%83%BD%EF%BC%9A%E5%9F%BA%E4%BA%8EOpenAI-Embedding%E7%9A%84%E5%AE%9E%E7%8E%B0/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.png" alt="工作流程"></p>
-<div class="kr-ad-anchor" hidden></div><h2 id="构建脚本：generate-posts-data-js"><a href="#构建脚本：generate-posts-data-js" class="headerlink" title="构建脚本：generate-posts-data.js"></a>构建脚本：generate-posts-data.js</h2><p>这个脚本注册为 Hexo Generator，在每次构建时自动运行。</p>
+<h2 id="构建脚本：generate-posts-data-js"><a href="#构建脚本：generate-posts-data-js" class="headerlink" title="构建脚本：generate-posts-data.js"></a>构建脚本：generate-posts-data.js</h2><p>这个脚本注册为 Hexo Generator，在每次构建时自动运行。</p>
 <h3 id="核心功能"><a href="#核心功能" class="headerlink" title="核心功能"></a>核心功能</h3><h4 id="1-环境变量读取"><a href="#1-环境变量读取" class="headerlink" title="1. 环境变量读取"></a>1. 环境变量读取</h4><div class="collapse-box-control">
     <div class="collapse-box-header"><div class="collapse-box-icon"><i class="fa fa-plus"></i></div><span>代码</span></div>
     <div class="collapse-box-content"><div class="inner">
@@ -439,7 +439,7 @@
 
 
 
-<div class="kr-ad-anchor" hidden></div><h2 id="前端脚本：recommended-posts-js"><a href="#前端脚本：recommended-posts-js" class="headerlink" title="前端脚本：recommended-posts.js"></a>前端脚本：recommended-posts.js</h2><p>这个脚本在浏览器中运行，负责展示推荐文章。</p>
+<h2 id="前端脚本：recommended-posts-js"><a href="#前端脚本：recommended-posts-js" class="headerlink" title="前端脚本：recommended-posts.js"></a>前端脚本：recommended-posts.js</h2><p>这个脚本在浏览器中运行，负责展示推荐文章。</p>
 <h3 id="核心功能-1"><a href="#核心功能-1" class="headerlink" title="核心功能"></a>核心功能</h3><h4 id="1-页面类型检测"><a href="#1-页面类型检测" class="headerlink" title="1. 页面类型检测"></a>1. 页面类型检测</h4><div class="collapse-box-control">
     <div class="collapse-box-header"><div class="collapse-box-icon"><i class="fa fa-plus"></i></div><span>代码</span></div>
     <div class="collapse-box-content"><div class="inner">
@@ -488,7 +488,7 @@
     </div>
 
 <p>完美支持 PJAX 局部刷新，在页面切换时自动更新推荐列表。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="配置与使用"><a href="#配置与使用" class="headerlink" title="配置与使用"></a>配置与使用</h2><h3 id="1-安装脚本"><a href="#1-安装脚本" class="headerlink" title="1. 安装脚本"></a>1. 安装脚本</h3><p>将 <code>generate-posts-data.js</code> 放置在 Hexo 项目的 <code>scripts/</code> 目录下。</p>
+<h2 id="配置与使用"><a href="#配置与使用" class="headerlink" title="配置与使用"></a>配置与使用</h2><h3 id="1-安装脚本"><a href="#1-安装脚本" class="headerlink" title="1. 安装脚本"></a>1. 安装脚本</h3><p>将 <code>generate-posts-data.js</code> 放置在 Hexo 项目的 <code>scripts/</code> 目录下。</p>
 <p>将 <code>recommended-posts.js</code> 放置在 <code>source/js/</code> 目录下。</p>
 <p>在主题中引入 <code>recommended-posts.js</code>，创建或修改博客项目的 <code>_config.Kratos-Rebirth.yml</code> 文件，添加如下配置：</p>
 <blockquote>
@@ -554,7 +554,7 @@
 <p><strong>提示</strong>：<code>[skip ci]</code> 标记可以避免缓存提交触发新的构建。</p>
 </blockquote>
 <h3 id="Embedding模型选择（仅供参考）"><a href="#Embedding模型选择（仅供参考）" class="headerlink" title="Embedding模型选择（仅供参考）"></a>Embedding模型选择（仅供参考）</h3><p>推荐OpenRouter的<a target="_blank" rel="noopener" href="https://openrouter.ai/models/qwen/qwen3-embedding-8b">qwen&#x2F;qwen3-embedding-8b</a>模型，1M输入仅需$0.01，性价比极高。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p>推荐阅读区块会自动插入到文章导航区域之后，展示风格如下：</p>
+<h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p>推荐阅读区块会自动插入到文章导航区域之后，展示风格如下：</p>
 <ul>
 <li><p>⭐ 标题图标，突出展示</p>
 </li>
@@ -565,7 +565,7 @@
 <li><p>✨ 悬浮时的交互动画</p>
 </li>
 </ul>
-<div class="kr-ad-anchor" hidden></div><h2 id="技术亮点"><a href="#技术亮点" class="headerlink" title="技术亮点"></a>技术亮点</h2><ol>
+<h2 id="技术亮点"><a href="#技术亮点" class="headerlink" title="技术亮点"></a>技术亮点</h2><ol>
 <li><p><strong>语义理解</strong>：基于 Embedding 的相似度计算能够理解文章的语义内容，比基于标签&#x2F;分类的推荐更加精准</p>
 </li>
 <li><p><strong>增量计算</strong>：缓存机制确保只对修改过的文章重新计算，节省 API 调用成本</p>
@@ -577,9 +577,9 @@
 <li><p><strong>主题适配</strong>：通过 CSS 变量自动适配主题样式，仅在<a target="_blank" rel="noopener" href="https://github.com/Candinya/Kratos-Rebirth">Kratos-Rebirth</a>主题下进行测试。</p>
 </li>
 </ol>
-<div class="kr-ad-anchor" hidden></div><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这两个脚本的配合，为 Hexo 博客实现了一个基于 AI 的智能推荐系统。它在构建时预计算所有推荐关系，运行时只需加载 JSON 数据，既保证了推荐质量，又不会影响页面加载性能。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过这两个脚本的配合，为 Hexo 博客实现了一个基于 AI 的智能推荐系统。它在构建时预计算所有推荐关系，运行时只需加载 JSON 数据，既保证了推荐质量，又不会影响页面加载性能。</p>
 <p>希望这个方案能够帮助你提升博客的用户体验！如有问题欢迎在评论区讨论。</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+</div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>

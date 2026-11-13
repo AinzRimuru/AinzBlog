@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png">
 <meta property="article:published_time" content="2026-03-21T23:17:49.000Z">
-<meta property="article:modified_time" content="2026-11-08T09:40:58.390Z">
+<meta property="article:modified_time" content="2026-11-13T13:36:52.108Z">
 <meta property="article:author" content="Rimuru">
 <meta property="article:tag" content="Docker">
 <meta property="article:tag" content="NAS">
@@ -45,7 +45,7 @@
   
   
     <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（四）常用软件：NAS必装Docker应用推荐","description":"本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin/Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。","keywords":"NAS 必装软件,nas软件,NAS Docker 软件推荐,Jellyfin 媒体服务器,Nextcloud 私有云盘,Frp 内网穿透,家庭影音 NAS","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:49.000Z","dateModified":"2026-11-08T09:40:58.390Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"}}
+    {"@context":"https://schema.org","@type":"BlogPosting","headline":"个人NAS全方位攻略（四）常用软件：NAS必装Docker应用推荐","description":"本篇个人NAS全方位攻略详细介绍了NAS常用软件的选型与部署建议。涵盖文件同步（Nextcloud）、媒体管理（Jellyfin/Plex）、版本控制（Gogs）、内网穿透（Frp）、下载工具及在线办公套件等。通过Docker容器化技术，指导用户构建私有云存储、家庭影音中心及高效办公环境，实现数据的自主掌控与多端协作。","keywords":"NAS 必装软件,nas软件,NAS Docker 软件推荐,Jellyfin 媒体服务器,Nextcloud 私有云盘,Frp 内网穿透,家庭影音 NAS","image":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/cover.png","author":{"@type":"Person","name":"Rimuru"},"publisher":{"@type":"Organization","name":"Rimuru's Blog","logo":{"@type":"ImageObject","url":"https://blog.rimuru.work/images/avatar.png"}},"datePublished":"2026-03-21T23:17:49.000Z","dateModified":"2026-11-13T13:36:52.108Z","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.rimuru.work/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/"}}
     </script>
   
   <!-- 关键 CSS 预加载 -->
@@ -363,7 +363,7 @@
             
             <hr />
             <div itemprop="articleBody"><blockquote>
-<p>本系列导航：</p>
+<p>本系列导航：</p><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}var s=document.currentScript,el=s&&s.previousElementSibling;if(!el||el.tagName!=='INS')return;if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}})();</script></div>
 <ol>
 <li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">需求分析</a></li>
 <li><a href="/2026/03/21/%E4%B8%AA%E4%BA%BANAS%E5%85%A8%E6%96%B9%E4%BD%8D%E6%94%BB%E7%95%A5-%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/">安全配置</a></li>
@@ -375,9 +375,9 @@
 <h2 id="1-文件同步"><a href="#1-文件同步" class="headerlink" title="1.文件同步"></a>1.文件同步</h2><p><strong>Nextcloud</strong> 是目前最主流的开源自托管文件同步与协作平台。它提供文件同步、在线预览、日历、联系人管理、在线文档编辑等功能，支持Web端和桌面&#x2F;移动客户端。</p>
 <p>Nextcloud最大的优势是<strong>数据完全自主可控</strong>——文件存储在你自己的NAS上，不依赖任何第三方服务。客户端可以将服务器文件同步到本地，保留一份完整副本，等于自动实现了本地+远程双备份。此外Nextcloud还支持版本控制和回收站功能，误删文件或误改内容都可以恢复历史版本。</p>
 <p>需要注意，Nextcloud对服务器性能有一定要求，尤其是启用在线预览和协作功能时。如果只需要简单的文件同步而不需要协作功能，也可以考虑更轻量的方案如Syncthing。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="2-版本控制"><a href="#2-版本控制" class="headerlink" title="2.版本控制"></a>2.版本控制</h2><p><strong>Gogs</strong> 是一款使用Go语言开发的轻量级自托管Git服务，单个二进制文件即可运行，内存占用通常在几十MB以内，非常适合部署在资源有限的NAS上。它支持仓库管理、Issue、Pull Request、Wiki等核心功能，并提供简洁的Web管理界面。</p>
+<h2 id="2-版本控制"><a href="#2-版本控制" class="headerlink" title="2.版本控制"></a>2.版本控制</h2><p><strong>Gogs</strong> 是一款使用Go语言开发的轻量级自托管Git服务，单个二进制文件即可运行，内存占用通常在几十MB以内，非常适合部署在资源有限的NAS上。它支持仓库管理、Issue、Pull Request、Wiki等核心功能，并提供简洁的Web管理界面。</p>
 <p>如果你需要更活跃的社区支持和更丰富的功能（如内置CI&#x2F;CD集成、容器镜像仓库等），可以考虑Gitea——它是从Gogs分支出来的社区驱动项目，与Gogs数据库兼容，迁移非常方便。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="3-媒体管理"><a href="#3-媒体管理" class="headerlink" title="3.媒体管理"></a>3.媒体管理</h2><p><strong>Jellyfin &#x2F; Emby &#x2F; Plex</strong> 是三大主流的自托管媒体服务器，用于管理影音库并提供跨设备串流播放。</p>
+<h2 id="3-媒体管理"><a href="#3-媒体管理" class="headerlink" title="3.媒体管理"></a>3.媒体管理</h2><p><strong>Jellyfin &#x2F; Emby &#x2F; Plex</strong> 是三大主流的自托管媒体服务器，用于管理影音库并提供跨设备串流播放。</p>
 <p>三者的核心区别：</p>
 <table>
 <thead>
@@ -414,25 +414,25 @@
 </tr>
 </tbody></table>
 <p>社区有一个简洁的总结：自用选Plex，分享选Emby，免费选Jellyfin。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="4-下载管理"><a href="#4-下载管理" class="headerlink" title="4.下载管理"></a>4.下载管理</h2><p><strong>qBittorrent</strong> 和 <strong>Transmission</strong> 是两款主流的开源BT下载工具，均支持Docker部署。</p>
+<h2 id="4-下载管理"><a href="#4-下载管理" class="headerlink" title="4.下载管理"></a>4.下载管理</h2><p><strong>qBittorrent</strong> 和 <strong>Transmission</strong> 是两款主流的开源BT下载工具，均支持Docker部署。</p>
 <p>qBittorrent功能更丰富，支持RSS自动订阅、IP过滤、搜索引擎插件等，Web UI也更现代化。Transmission则更加简洁轻量，资源占用更低，适合只需要基本下载功能的用户。</p>
 <p>注意，使用BT下载工具时请遵守相关法律法规，仅下载和分享正版授权的内容。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="5-内网穿透"><a href="#5-内网穿透" class="headerlink" title="5.内网穿透"></a>5.内网穿透</h2><p>如果你没有公网IP（国内家庭宽带的普遍情况），需要通过内网穿透将NAS的服务暴露到公网。</p>
+<h2 id="5-内网穿透"><a href="#5-内网穿透" class="headerlink" title="5.内网穿透"></a>5.内网穿透</h2><p>如果你没有公网IP（国内家庭宽带的普遍情况），需要通过内网穿透将NAS的服务暴露到公网。</p>
 <p><strong>Frp</strong> 是目前最主流的开源内网穿透工具，支持TCP、UDP、HTTP、HTTPS等多种协议，配置灵活，社区活跃，教程丰富。它采用C&#x2F;S架构，需要一台有公网IP的服务器（VPS）运行服务端，NAS上运行客户端。</p>
 <p><strong>NPS</strong> 同样是Go语言开发，带有Web图形管理界面，配置更直观，适合偏好图形界面管理的用户。</p>
 <p><strong>Lanproxy</strong> 更轻量，但仅支持TCP流量转发，适合只需要简单SSH或Web映射的场景。</p>
 <p>选择建议：如果你不介意配置文件，Frp的稳定性和灵活性是最好的；如果想要图形界面，NPS更友好。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="6-动态域名"><a href="#6-动态域名" class="headerlink" title="6.动态域名"></a>6.动态域名</h2><p>如果你的宽带有公网IP但IP地址会变化（动态IP），就需要DDNS（动态域名解析）来自动更新域名指向。</p>
+<h2 id="6-动态域名"><a href="#6-动态域名" class="headerlink" title="6.动态域名"></a>6.动态域名</h2><p>如果你的宽带有公网IP但IP地址会变化（动态IP），就需要DDNS（动态域名解析）来自动更新域名指向。</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/NewFuture/DDNS">DDNS-GO</a> 是一款支持多种DNS服务商的动态域名解析工具，支持阿里云DNS、腾讯云DNSPod、Cloudflare、华为云DNS等主流平台。它通过定时检测公网IP变化，自动更新DNS记录，让你可以通过固定域名访问NAS，而不需要记住每次变化的IP地址。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="7-SSL自动续签"><a href="#7-SSL自动续签" class="headerlink" title="7.SSL自动续签"></a>7.SSL自动续签</h2><p><strong>acme.sh</strong> 是一个纯Shell脚本实现的Let’s Encrypt证书申请和自动续签工具，支持多种DNS验证方式和Web服务器验证。它可以将证书申请、部署和续签整个过程自动化，配置一次之后基本无需再管。</p>
+<h2 id="7-SSL自动续签"><a href="#7-SSL自动续签" class="headerlink" title="7.SSL自动续签"></a>7.SSL自动续签</h2><p><strong>acme.sh</strong> 是一个纯Shell脚本实现的Let’s Encrypt证书申请和自动续签工具，支持多种DNS验证方式和Web服务器验证。它可以将证书申请、部署和续签整个过程自动化，配置一次之后基本无需再管。</p>
 <p>在NAS场景下，通常配合Nginx反向代理使用：acme.sh负责证书的申请和续签，Nginx负责使用证书提供HTTPS服务。也可以配合前面提到的内网穿透工具，实现端到端的HTTPS加密。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="8-Latex在线编辑"><a href="#8-Latex在线编辑" class="headerlink" title="8.Latex在线编辑"></a>8.Latex在线编辑</h2><p><strong>ShareLaTeX</strong>（现已更名为Overleaf，但自托管版本通常仍被称为ShareLaTeX）是一个开源的在线LaTeX编辑器，支持多人实时协作编辑LaTeX文档。</p>
+<h2 id="8-Latex在线编辑"><a href="#8-Latex在线编辑" class="headerlink" title="8.Latex在线编辑"></a>8.Latex在线编辑</h2><p><strong>ShareLaTeX</strong>（现已更名为Overleaf，但自托管版本通常仍被称为ShareLaTeX）是一个开源的在线LaTeX编辑器，支持多人实时协作编辑LaTeX文档。</p>
 <p>对于需要在多台设备间切换工作、或者与他人合作撰写论文的用户来说，将ShareLaTeX部署在NAS上可以避免依赖第三方在线服务，同时保证文档数据的安全和私密性。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="9-在线绘图"><a href="#9-在线绘图" class="headerlink" title="9.在线绘图"></a>9.在线绘图</h2><p><strong>draw.io</strong>（现称diagrams.net）是一款开源的在线绘图工具，支持流程图、UML图、网络拓扑图、ER图等多种图表类型。</p>
+<h2 id="9-在线绘图"><a href="#9-在线绘图" class="headerlink" title="9.在线绘图"></a>9.在线绘图</h2><p><strong>draw.io</strong>（现称diagrams.net）是一款开源的在线绘图工具，支持流程图、UML图、网络拓扑图、ER图等多种图表类型。</p>
 <p>draw.io的核心优势是<strong>完全免费且无使用限制</strong>，不需要注册账号，数据文件存储在本地。Docker部署在NAS上后，可以通过浏览器随时随地访问，图表文件以XML格式保存，轻量且易于版本管理。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="10-文档编辑"><a href="#10-文档编辑" class="headerlink" title="10.文档编辑"></a>10.文档编辑</h2><p><strong>OnlyOffice</strong> 是一款开源的在线办公套件，提供文档、表格、演示文稿的在线编辑功能，兼容Microsoft Office格式（docx、xlsx、pptx）。</p>
+<h2 id="10-文档编辑"><a href="#10-文档编辑" class="headerlink" title="10.文档编辑"></a>10.文档编辑</h2><p><strong>OnlyOffice</strong> 是一款开源的在线办公套件，提供文档、表格、演示文稿的在线编辑功能，兼容Microsoft Office格式（docx、xlsx、pptx）。</p>
 <p>OnlyOffice可以独立部署在NAS上，也可以作为Nextcloud的应用集成使用。对于需要在多设备间编辑Office文档、且不想依赖微软365或WPS云服务的用户来说，OnlyOffice是目前最成熟的自托管方案。</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+</div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
@@ -486,7 +486,7 @@
                     <a class="tag-none-link" href="/tags/docker/" rel="tag">Docker</a>, <a class="tag-none-link" href="/tags/nas/" rel="tag">NAS</a>, <a class="tag-none-link" href="/tags/intranet-penetration/" rel="tag">内网穿透</a>, <a class="tag-none-link" href="/tags/media-server/" rel="tag">媒体服务器</a>, <a class="tag-none-link" href="/tags/containerization/" rel="tag">容器化</a>, <a class="tag-none-link" href="/tags/self-hosted-services/" rel="tag">自托管服务</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2026-11-08T09:40:58.390Z" itemprop="dateModified">最后编辑：2026-11-08</time>
+                    <time datetime="2026-11-13T13:36:52.108Z" itemprop="dateModified">最后编辑：2026-11-13</time>
                 </div>
             </div>
         </footer>

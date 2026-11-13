@@ -362,7 +362,7 @@
             
             
             <hr />
-            <div itemprop="articleBody"><p>在进行 AI 模型开发时，Hugging Face 是绕不开的资源库。然而，直接访问 <code>huggingface.co</code> 及其 CDN 资源有时会遇到速度缓慢甚至连接失败的问题。</p>
+            <div itemprop="articleBody"><p>在进行 AI 模型开发时，Hugging Face 是绕不开的资源库。然而，直接访问 <code>huggingface.co</code> 及其 CDN 资源有时会遇到速度缓慢甚至连接失败的问题。</p><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}var s=document.currentScript,el=s&&s.previousElementSibling;if(!el||el.tagName!=='INS')return;if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}})();</script></div>
 <p>为了解决这个问题，我开发了一个基于 Cloudflare Workers 的轻量级反向代理项目 —— <strong>HuggingfaceProxy</strong>。</p>
 <h2 id="🌟-项目介绍"><a href="#🌟-项目介绍" class="headerlink" title="🌟 项目介绍"></a>🌟 项目介绍</h2><p><strong>HuggingfaceProxy</strong> 是一个开源项目，利用 Cloudflare 全球边缘网络，为 Hugging Face 提供快速、稳定的访问代理。</p>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">https://github.com/AinzRimuru/HuggingfaceProxy</a></p>
@@ -372,7 +372,7 @@
 <li><strong>下载器脚本</strong>：提供 Python 下载器，支持并行下载、断点续传</li>
 <li><strong>模块化架构</strong>：代码结构清晰，易于维护和扩展</li>
 </ul>
-<div class="kr-ad-anchor" hidden></div><h2 id="🛠️-原理简析"><a href="#🛠️-原理简析" class="headerlink" title="🛠️ 原理简析"></a>🛠️ 原理简析</h2><p>核心逻辑在 <code>_worker.js</code> 中实现。当请求到达 Cloudflare Worker 时：</p>
+<h2 id="🛠️-原理简析"><a href="#🛠️-原理简析" class="headerlink" title="🛠️ 原理简析"></a>🛠️ 原理简析</h2><p>核心逻辑在 <code>_worker.js</code> 中实现。当请求到达 Cloudflare Worker 时：</p>
 <ol>
 <li>解析请求路径，判断目标资源</li>
 <li>将请求转发到 <code>huggingface.co</code></li>
@@ -382,7 +382,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原始: Location: https://cdn-lfs.hf.co/path/to/file</span><br><span class="line">改写: Location: https://your-proxy.com/redirect_to_cdn-lfs.hf.co/path/to/file</span><br></pre></td></tr></table></figure>
 
 <p>这样所有请求都只需经过单一代理域名，无需配置泛域名。</p>
-<div class="kr-ad-anchor" hidden></div><h2 id="🚀-如何部署"><a href="#🚀-如何部署" class="headerlink" title="🚀 如何部署"></a>🚀 如何部署</h2><p>推荐使用 <strong>Cloudflare Pages</strong> 进行部署，配置简单且免费额度充裕。</p>
+<h2 id="🚀-如何部署"><a href="#🚀-如何部署" class="headerlink" title="🚀 如何部署"></a>🚀 如何部署</h2><p>推荐使用 <strong>Cloudflare Pages</strong> 进行部署，配置简单且免费额度充裕。</p>
 <h3 id="方法一：Fork-Deploy（推荐）"><a href="#方法一：Fork-Deploy（推荐）" class="headerlink" title="方法一：Fork &amp; Deploy（推荐）"></a>方法一：Fork &amp; Deploy（推荐）</h3><ol>
 <li><p><strong>Fork 项目</strong><br>访问 <a target="_blank" rel="noopener" href="https://github.com/AinzRimuru/HuggingfaceProxy">GitHub 仓库</a>，点击 <code>Fork</code></p>
 </li>
@@ -395,7 +395,7 @@
 </ol>
 <h3 id="方法二：使用-Wrangler-CLI"><a href="#方法二：使用-Wrangler-CLI" class="headerlink" title="方法二：使用 Wrangler CLI"></a>方法二：使用 Wrangler CLI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/AinzRimuru/HuggingfaceProxy.git</span><br><span class="line"><span class="built_in">cd</span> HuggingfaceProxy</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 部署</span></span><br><span class="line">npm run deploy</span><br></pre></td></tr></table></figure>
 
-<div class="kr-ad-anchor" hidden></div><h2 id="📖-如何使用"><a href="#📖-如何使用" class="headerlink" title="📖 如何使用"></a>📖 如何使用</h2><p>假设你的代理域名是 <code>your-proxy.pages.dev</code>。</p>
+<h2 id="📖-如何使用"><a href="#📖-如何使用" class="headerlink" title="📖 如何使用"></a>📖 如何使用</h2><p>假设你的代理域名是 <code>your-proxy.pages.dev</code>。</p>
 <h3 id="直接访问"><a href="#直接访问" class="headerlink" title="直接访问"></a>直接访问</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问模型页面</span></span><br><span class="line">https://your-proxy.pages.dev/bert-base-uncased</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载模型文件</span></span><br><span class="line">https://your-proxy.pages.dev/bert-base-uncased/resolve/main/config.json</span><br><span class="line"></span><br><span class="line"><span class="comment"># API 调用</span></span><br><span class="line">https://your-proxy.pages.dev/api/models/bert-base-uncased</span><br></pre></td></tr></table></figure>
 
 <h3 id="使用下载器脚本"><a href="#使用下载器脚本" class="headerlink" title="使用下载器脚本"></a>使用下载器脚本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载脚本</span></span><br><span class="line">curl -O https://your-proxy.pages.dev/hf_downloader.py</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">pip install requests tqdm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载模型</span></span><br><span class="line">python hf_downloader.py bert-base-uncased</span><br><span class="line">python hf_downloader.py openai/whisper-large-v3 --<span class="built_in">type</span> model</span><br><span class="line">python hf_downloader.py bigcode/starcoder --workers 8</span><br></pre></td></tr></table></figure>
@@ -403,9 +403,9 @@
 <blockquote>
 <p>⚠️ <strong>注意</strong>: 不推荐使用 <code>huggingface-cli</code> 或 <code>snapshot_download</code> 搭配本代理。由于 Cloudflare 的缓存机制会丢失 <code>Content-Length</code> 等关键头信息，会导致这些客户端下载失败。请使用本项目自带的下载脚本。</p>
 </blockquote>
-<div class="kr-ad-anchor" hidden></div><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个 Cloudflare Worker 脚本，可以轻松搭建属于自己的 Hugging Face 加速通道。既解决了访问难题，又利用了 Serverless 架构的低成本优势。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>通过这个 Cloudflare Worker 脚本，可以轻松搭建属于自己的 Hugging Face 加速通道。既解决了访问难题，又利用了 Serverless 架构的低成本优势。</p>
 <p>如果你觉得这个项目有帮助，欢迎在 GitHub 上点个 Star！🌟</p>
-<div class="kr-ad-anchor" hidden></div><div class="kr-ad-slot kr-ad-inarticle" role="complementary" aria-label="广告"><span class="kr-ad-tag"><i class="fa fa-bullhorn" aria-hidden="true"></i>广告</span><ins class="adsbygoogle" style="display:block;text-align:center;" data-ad-format="fluid" data-ad-layout-key="-gw-3+1f-3d+2z" data-ad-client="ca-pub-9760626627924711" data-ad-slot="7668624414"></ins><script>(function(){var s=document.currentScript,ad=s&&s.closest?s.closest('.kr-ad-slot'):null;if(!ad)return;function run(){var as=document.querySelectorAll('.kr-ad-anchor');if(as.length){var pick=as[Math.floor(Math.random()*as.length)];pick.parentNode.insertBefore(ad,pick);for(var i=0;i<as.length;i++)as[i].remove();}var w=window,d=w.KR_ADSENSE_DOMAINS,h=location.hostname,ok=!d||!d.length;if(!ok){for(var j=0;j<d.length;j++){var x=d[j];if(h===x||h.slice(-(x.length+1))==='.'+x){ok=true;break;}}}if(ok){(w.adsbygoogle=w.adsbygoogle||[]).push({});}else{var el=ad.querySelector('ins.adsbygoogle');if(el){var ph=document.createElement('div');ph.className='kr-ad-ph';ph.textContent='广告占位（当前域名不在生产白名单，未加载真实广告）';el.replaceWith(ph);}}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();})();</script></div></div>
+</div>
             
             <section class="kratos-post-faq" id="faq">
                 <style>
